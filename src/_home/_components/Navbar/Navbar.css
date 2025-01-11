@@ -1,0 +1,16 @@
+.Navbar {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  background-color: peru;
+  align-items: center;
+  padding: 1rem;
+  aside.right{
+    display: flex;
+    gap: 1rem;
+  }
+  .active {
+    text-decoration: underline;
+    color: red;
+  }
+}
