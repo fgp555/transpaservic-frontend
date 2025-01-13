@@ -1,0 +1,70 @@
+.UserRegisterPage {
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+
+    input,
+    select {
+      margin-bottom: 20px;
+      width: 300px;
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      padding: 5px;
+    }
+
+    .password-container {
+      position: relative;
+      width: 300px;
+      margin-bottom: 20px;
+
+      input {
+        width: 100%;
+        padding-right: 80px; /* Espacio para el botón */
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        height: 20px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: #007bff;
+        font-size: 14px;
+        max-width: 10rem;
+      }
+
+      .toggle-password:hover {
+        text-decoration: underline;
+      }
+    }
+
+    button {
+      /* width: 300px; */
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+  }
+
+  .generate-password {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .generate-password:hover {
+    background-color: #45a049;
+  }
+}

@@ -1,23 +1,69 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import "./Navbar.css";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../../../store/userSlice";
 
 export function Navbar() {
   // const isLogin = useSelector((state) => state.user.login);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const isLogin = true
+  const logout = () => {
+    dispatch(removeUser());
+    navigate("/"); // Navegar a la página de "mis-turnos"
+  };
+
+  const isLogin = true;
 
   return (
     <nav className="Navbar">
       <aside className="left">
-        <NavLink to="/" end>Logo</NavLink>
+        <NavLink to="/login" end>
+          INICIO
+        </NavLink>
+        {isLogin && (
+          <NavLink to="/dashboard" end>
+            Dashboard
+          </NavLink>
+        )}
+        {/* <NavLink to="/" end>Home</NavLink> */}
+        <NavLink to="/about" end>
+          About
+        </NavLink>
+        <NavLink to="/404" end>
+          404
+        </NavLink>
+        <button onClick={logout}>logout</button>
       </aside>
       <aside className="right">
-        <NavLink to="/" end>Home</NavLink>
-        <NavLink to="/about" end>About</NavLink>
-        <NavLink to="/login" end>login</NavLink>
-        <NavLink to="/user/list" end>user/list</NavLink>
-        <NavLink to="/404" end>404</NavLink>
-        {isLogin && <NavLink to="/dashboard" end>Dashboard</NavLink>}
+        <b>USUARIOS</b>
+        <NavLink to="/" end>
+          login
+        </NavLink>
+        <NavLink to="/user/register" end>
+          register
+        </NavLink>
+
+        <NavLink to="/user/list" end>
+          list
+        </NavLink>
+      </aside>
+      <aside>
+        <b>TICKETS</b>
+        <NavLink to="/ticket/list" end>list</NavLink>
+        <NavLink to="/ticket/create" end>create</NavLink>
+        <NavLink to="/ticket/update/1" end>update</NavLink>
+        <NavLink to="/ticket/delete" end>delete</NavLink>
+      </aside>
+      <aside>
+        <b>TRANSPORTES</b>
+        <NavLink to="/transport/list" end>list</NavLink>
+        <NavLink to="/transport/create" end>create</NavLink>
+      </aside>
+      <aside>
+        <b>MUNICIPALIDAD</b>
+        <NavLink to="/municipality/list" end>list</NavLink>
+        <NavLink to="/municipality/create" end>create</NavLink>
       </aside>
     </nav>
   );

@@ -5,7 +5,8 @@
 }
 
 html {
-  background-color: #333;
+  /* background-color: #333; */
+  margin: 0;
 }
 
 body {

@@ -41,37 +41,6 @@ export const apiUserService = {
   },
 
   /**
-   * Crear un usuario
-   * @param {Object} userData
-   * @returns {Promise}
-   */
-  createUser: async (userData) => {
-    try {
-      const response = await api.post("/api/users", userData);
-      return response.data;
-    } catch (error) {
-      console.error("Error creating user:", error);
-      throw error;
-    }
-  },
-
-  /**
-   * Actualizar un usuario
-   * @param {string} userId
-   * @param {Object} userData
-   * @returns {Promise}
-   */
-  updateUser: async (userId, userData) => {
-    try {
-      const response = await api.patch(`/api/users/${userId}`, userData);
-      return response.data;
-    } catch (error) {
-      console.error(`Error updating user with ID ${userId}:`, error);
-      throw error;
-    }
-  },
-
-  /**
    * Eliminar un usuario
    * @param {string} userId
    * @returns {Promise}

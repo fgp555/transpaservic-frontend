@@ -1,3 +1,9 @@
 .PublicLayout {
-  background-color: #654;
+  /* background-color: #654; */
+  background-color: floralwhite;
+  main {
+    /* padding: 14rem ; */
+    margin: 4rem;
+    /* background-color: peru; */
+  }
 }

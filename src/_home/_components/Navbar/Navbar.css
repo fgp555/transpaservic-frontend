@@ -1,16 +1,26 @@
 .Navbar {
   display: flex;
-  gap: 2rem;
-  justify-content: space-between;
-  background-color: peru;
-  align-items: center;
+  gap: 0.5rem;
+  /* justify-content: space-between; */
+  background-color: #000;
+  color: white;
+  /* align-items: center; */
   padding: 1rem;
-  aside.right{
+  flex-direction: column;
+  aside {
     display: flex;
     gap: 1rem;
   }
   .active {
     text-decoration: underline;
-    color: red;
+    color: greenyellow;
+    /* background-color: peru; */
+  }
+  a {
+    color: inherit;
+  }
+  b {
+    opacity: 0.7;
+    /* color: peru; */
   }
 }

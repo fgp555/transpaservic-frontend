@@ -1,55 +1,38 @@
 import React, { useState } from "react";
-// import { authService } from "../../../services/authService";
-import Swal from "sweetalert2"; // Para mostrar alertas
-// import { useHistory } from "react-router-dom"; // Para redirigir después de un login exitoso
+import Swal from "sweetalert2";
 import { authService } from "../../services/apiAuth";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/userSlice";
+import { useNavigate } from "react-router";
+import "./LoginPage.css";
 
 const LoginPage = () => {
-  // Estado para los datos del usuario (email y contraseña)
-  const [email, setEmail] = useState("admin@cliniccare.com");
+  const [email, setEmail] = useState("admin123@gmail.com");
   const [password, setPassword] = useState("SecurePass@2023");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // // Historia para redirigir
-  // const history = useHistory();
+  const handleEmailChange = (e) => setEmail(e.target.value);
 
-  // Manejar el cambio en los campos de formulario
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const toggleShowPassword = () => setShowPassword((prevState) => !prevState);
 
-  // Manejar el submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const userData = { email, password };
       const response = await authService.signin(userData);
-
-      // Mostrar una alerta si el login es exitoso
-      Swal.fire({
-        title: "Success!",
-        text: "Login successful",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
-
-      // Redirigir al usuario después de iniciar sesión
-      // history.push("/dashboard");
+      dispatch(setUser(response));
+      Swal.fire("Success!", "Login successful", "success");
+      navigate("/ticket/list");
     } catch (error) {
       setError("Invalid email or password");
-      Swal.fire({
-        title: "Error!",
-        text: "Invalid email or password",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      Swal.fire("Error!", "Invalid email or password", "error");
     } finally {
       setLoading(false);
     }
@@ -58,7 +41,6 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <h2>Login</h2>
-
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Email:</label>
@@ -67,7 +49,16 @@ const LoginPage = () => {
 
         <div className="form-group">
           <label>Password:</label>
-          <input type="password" value={password} onChange={handlePasswordChange} required placeholder="Enter your password" />
+          <div className="password-wrapper">
+            <input type={showPassword ? "text" : "password"} value={password} onChange={handlePasswordChange} required placeholder="Enter your password" />
+            <button type="button" className="toggle-password" onClick={toggleShowPassword}>
+              {showPassword ? (
+                <i className="icon-eye"></i> // Ícono para mostrar la contraseña
+              ) : (
+                <i className="icon-eye-off"></i> // Ícono para ocultar la contraseña
+              )}
+            </button>
+          </div>
         </div>
 
         {error && <div className="error-message">{error}</div>}
