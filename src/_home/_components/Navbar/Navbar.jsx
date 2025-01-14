@@ -59,6 +59,8 @@ export function Navbar() {
         <b>TRANSPORTES</b>
         <NavLink to="/transport/list" end>list</NavLink>
         <NavLink to="/transport/create" end>create</NavLink>
+        <NavLink to="/transport/update/1" end>update</NavLink>
+        <NavLink to="/transport/delete" end>delete</NavLink>
       </aside>
       <aside>
         <b>MUNICIPALIDAD</b>

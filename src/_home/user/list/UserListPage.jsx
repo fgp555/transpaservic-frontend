@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./UserListPage.css";
 import { apiUserService } from "../../../services/apiUser";
 
-const UserListPage2 = () => {
+const UserListPage = () => {
   // Estado para almacenar los usuarios
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -52,4 +52,4 @@ const UserListPage2 = () => {
   );
 };
 
-export default UserListPage2;
+export default UserListPage;

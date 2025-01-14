@@ -32,4 +32,34 @@ export const transportService = {
       throw error;
     }
   },
+
+  create: async (transportData) => {
+    try {
+      const response = await api.post("/api/transport", transportData);
+      return response.data;
+    } catch (error) {
+      console.error("Error creating transport:", error);
+      throw error;
+    }
+  },
+
+  update: async (id, transportData) => {
+    try {
+      const response = await api.patch(`/api/transport/${id}`, transportData);
+      return response.data;
+    } catch (error) {
+      console.error("Error updating transport:", error);
+      throw error;
+    }
+  },
+
+  delete: async (id) => {
+    try {
+      const response = await api.delete(`/api/transport/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting transport:", error);
+      throw error;
+    }
+  },
 };
