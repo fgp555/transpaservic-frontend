@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Sidebar.css";
 import { useDispatch } from "react-redux";
 // import { cleanUser } from "../../../redux/userSlice";
@@ -87,20 +87,27 @@ const Sidebar = () => {
         <ul>
           <li>
             <span className="logo">
-              <Link to="/">DASHBOARD</Link>
+              <Link to="/">{sidebar ? "DASHBOARD" : "A"}</Link>
             </span>
-            <button onClick={toggleSidebar} id="toggle-btn" className={sidebar ? "" : "rotate"}>
+            <button
+              onClick={toggleSidebar}
+              id="toggle-btn"
+              className={sidebar ? "" : "rotate"}
+            >
               <i className="icon-angle-double-left"></i>
             </button>
           </li>
-          <li className={activeMenu === "dashboard" ? "active" : ""}>
+          <li className={activeMenu === "dashboard" ? "active" : "A"}>
             <Link to="/dashboard" onClick={() => handleMenuClick("dashboard")}>
               <i className="icon-dashboard"></i>
               <span>Inicio</span>
             </Link>
           </li>
           <li>
-            <button onClick={() => toggleSubMenu("createMenu")} className={`dropdown-btn ${subMenus.createMenu ? "rotate" : ""}`}>
+            <button
+              onClick={() => toggleSubMenu("createMenu")}
+              className={`dropdown-btn ${subMenus.createMenu ? "rotate" : ""}`}
+            >
               <i className="icon-calendar"></i>
               <span>Tickets</span>
               <i className="icon-angle-down"></i>
@@ -108,12 +115,18 @@ const Sidebar = () => {
             <ul className={`sub-menu ${subMenus.createMenu ? "show" : ""}`}>
               <div>
                 <li className={activeMenu === "calendar" ? "active" : ""}>
-                  <Link to="/appointments" onClick={() => handleMenuClick("calendar")}>
+                  <Link
+                    to="/appointments"
+                    onClick={() => handleMenuClick("calendar")}
+                  >
                     Crear
                   </Link>
                 </li>
                 <li className={activeMenu === "create" ? "active" : ""}>
-                  <Link to="/appt-create" onClick={() => handleMenuClick("create")}>
+                  <Link
+                    to="/appt-create"
+                    onClick={() => handleMenuClick("create")}
+                  >
                     Lista
                   </Link>
                 </li>
@@ -122,7 +135,10 @@ const Sidebar = () => {
           </li>
 
           <li>
-            <button onClick={() => toggleSubMenu("UsersMenu")} className={`dropdown-btn ${subMenus.UsersMenu ? "rotate" : ""}`}>
+            <button
+              onClick={() => toggleSubMenu("UsersMenu")}
+              className={`dropdown-btn ${subMenus.UsersMenu ? "rotate" : ""}`}
+            >
               <i className="icon-users"></i>
               <span>Cuentas</span>
               <i className="icon-angle-down"></i>
@@ -130,12 +146,18 @@ const Sidebar = () => {
             <ul className={`sub-menu ${subMenus.UsersMenu ? "show" : ""}`}>
               <div>
                 <li className={activeMenu === "profesionals" ? "active" : ""}>
-                  <Link to="/professionals" onClick={() => handleMenuClick("profesionals")}>
+                  <Link
+                    to="/professionals"
+                    onClick={() => handleMenuClick("profesionals")}
+                  >
                     Usuarios
                   </Link>
                 </li>
                 <li className={activeMenu === "patiens" ? "active" : ""}>
-                  <Link to="/patients" onClick={() => handleMenuClick("patiens")}>
+                  <Link
+                    to="/patients"
+                    onClick={() => handleMenuClick("patiens")}
+                  >
                     Transportes
                   </Link>
                 </li>
@@ -146,7 +168,12 @@ const Sidebar = () => {
           {/* ========== ========== */}
 
           <li>
-            <button onClick={() => toggleSubMenu("TodoListMenu")} className={`dropdown-btn ${subMenus.TodoListMenu ? "rotate" : ""}`}>
+            <button
+              onClick={() => toggleSubMenu("TodoListMenu")}
+              className={`dropdown-btn ${
+                subMenus.TodoListMenu ? "rotate" : ""
+              }`}
+            >
               <i className="icon-tools"></i>
               <span>Herramientas</span>
               <i className="icon-angle-down"></i>
@@ -154,12 +181,18 @@ const Sidebar = () => {
             <ul className={`sub-menu ${subMenus.TodoListMenu ? "show" : ""}`}>
               <div>
                 <li className={activeMenu === "mail" ? "active" : ""}>
-                  <Link to="/messages-manager" onClick={() => handleMenuClick("mail")}>
+                  <Link
+                    to="/messages-manager"
+                    onClick={() => handleMenuClick("mail")}
+                  >
                     Plantillas Email
                   </Link>
                 </li>
                 <li className={activeMenu === "database" ? "active" : ""}>
-                  <Link to="/db-backup-manager" onClick={() => handleMenuClick("database")}>
+                  <Link
+                    to="/db-backup-manager"
+                    onClick={() => handleMenuClick("database")}
+                  >
                     Base de Datos
                   </Link>
                 </li>
