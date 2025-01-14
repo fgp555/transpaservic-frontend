@@ -100,7 +100,7 @@ const Sidebar = () => {
           <li className={activeMenu === "dashboard" ? "active" : "A"}>
             <Link to="/dashboard" onClick={() => handleMenuClick("dashboard")}>
               <i className="icon-dashboard"></i>
-              <span>Inicio</span>
+              {sidebar ? <span>Inicio</span> : ""}
             </Link>
           </li>
           <li>
@@ -109,7 +109,7 @@ const Sidebar = () => {
               className={`dropdown-btn ${subMenus.createMenu ? "rotate" : ""}`}
             >
               <i className="icon-calendar"></i>
-              <span>Tickets</span>
+              {sidebar ? <span>Tickets</span> : ""}
               <i className="icon-angle-down"></i>
             </button>
             <ul className={`sub-menu ${subMenus.createMenu ? "show" : ""}`}>
@@ -140,7 +140,7 @@ const Sidebar = () => {
               className={`dropdown-btn ${subMenus.UsersMenu ? "rotate" : ""}`}
             >
               <i className="icon-users"></i>
-              <span>Cuentas</span>
+              {sidebar ? <span>Cuentas</span> : ""}
               <i className="icon-angle-down"></i>
             </button>
             <ul className={`sub-menu ${subMenus.UsersMenu ? "show" : ""}`}>
@@ -175,7 +175,7 @@ const Sidebar = () => {
               }`}
             >
               <i className="icon-tools"></i>
-              <span>Herramientas</span>
+              {sidebar ? <span>Herramientas</span> : ""}
               <i className="icon-angle-down"></i>
             </button>
             <ul className={`sub-menu ${subMenus.TodoListMenu ? "show" : ""}`}>
@@ -199,10 +199,10 @@ const Sidebar = () => {
               </div>
             </ul>
           </li>
-          <li className="logout-container">
+          <li className="logout-container" onClick={handleLogout}>
             <Link to="/admin" className="logout">
               <i className="icon-logout"></i>
-              <span onClick={handleLogout}>Cerrar sesión</span>
+              {sidebar ? <span>Cerrar sesión</span> : ""}
             </Link>
           </li>
         </ul>

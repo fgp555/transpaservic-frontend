@@ -24,7 +24,7 @@
     }
   }
   #sidebar.close {
-    padding: 5px;
+    /*  padding: 5px; */
     width: 60px;
   }
   #sidebar ul {
@@ -84,6 +84,12 @@
     flex-shrink: 0;
     fill: var(--text-clr);
   }
+
+  #sidebar ul {
+    padding: 0;
+    margin: 0;
+  }
+
   #sidebar a span,
   #sidebar .dropdown-btn span {
     flex-grow: 1;
@@ -141,10 +147,15 @@
   /* ==========  ========== */
 
   .sidebar_container {
-    border: 2px solid red;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .logout-container {
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
   }
 
   .logout {
