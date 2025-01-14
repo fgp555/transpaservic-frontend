@@ -62,4 +62,14 @@ export const transportService = {
       throw error;
     }
   },
+
+  findByName: async (name) => {
+    try {
+      const response = await api.get("/api/transport/findByName/" + name);
+      return response.data;
+    } catch (error) {
+      console.error("Error creating user:", error);
+      throw error;
+    }
+  },
 };

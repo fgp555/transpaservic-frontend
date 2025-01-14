@@ -42,8 +42,6 @@ function App() {
         <Route path="/transport/update/:id" element={<PublicLayout><TransportUpdatePage /></PublicLayout>} />
         <Route path="/transport/delete" element={<PublicLayout><TransportDeletePage /></PublicLayout>} />
 
-        <Route path="/municipality/list" element={<PublicLayout><MunicipalityListPage /></PublicLayout>} />
-
         <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
         <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
         <Route path="*" element={<PublicLayout><Page404 /></PublicLayout>} />
