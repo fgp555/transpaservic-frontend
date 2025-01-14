@@ -1,3 +1,5 @@
+// src\services\apiAuth.js
+
 import { baseURL } from "./baseURL";
 import axios from "axios";
 
@@ -24,7 +26,7 @@ export const authService = {
 
   // signup
   signup: async (userData) => {
-    userData.transport.id = Number(userData.transport.id)
+    userData.transport.id = Number(userData.transport.id);
     console.log("userData", userData);
     try {
       const response = await api.post("/api/auth/signup", userData);
@@ -41,6 +43,16 @@ export const authService = {
 
       // Lanza un error con contexto
       throw { message: errorMessage, status: errorStatus };
+    }
+  },
+
+  update: async (id, userData) => {
+    try {
+      const response = await api.patch(`/api/auth/update/${id}`, userData);
+      return response.data;
+    } catch (error) {
+      console.error("Error updating user:", error);
+      throw error;
     }
   },
 };

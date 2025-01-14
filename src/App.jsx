@@ -16,15 +16,21 @@ import TransportCreatePage from "./_home/transport/create/TransportCreatePage";
 import TransportListPage from "./_home/transport/list/TransportListPage";
 import TransportUpdatePage from "./_home/transport/update/TransportUpdatePage";
 import TransportDeletePage from "./_home/transport/delete/TransportDeletePage";
+import MunicipalityListPage from "./_home/municipality/list/MunicipalityListPage";
+import MunicipalityCreatePage from "./_home/municipality/create/MunicipalityCreatePage";
+import UserDeletePage from "./_home/user/delete/UserDeletePage";
+import UserUpdatePage from "./_home/user/update/UserUpdatePage";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<PublicLayout><LoginPage /></PublicLayout>} />
-        <Route path="/login" element={<PublicLayout><LoginPage /></PublicLayout>} />
-        <Route path="/user/register" element={<PublicLayout><UserRegisterPage /></PublicLayout>} />
         <Route path="/user/list" element={<PublicLayout><UserListPage /></PublicLayout>} />
+        <Route path="/user/register" element={<PublicLayout><UserRegisterPage /></PublicLayout>} />
+        <Route path="/login" element={<PublicLayout><LoginPage /></PublicLayout>} />
+        <Route path="/user/update/:id" element={<PublicLayout><UserUpdatePage /></PublicLayout>} />
+        <Route path="/user/delete" element={<PublicLayout><UserDeletePage /></PublicLayout>} />
         
         <Route path="/ticket/list" element={<PublicLayout><TicketListPage /></PublicLayout>} />
         <Route path="/ticket/create" element={<PublicLayout><TicketCreatePage /></PublicLayout>} />
@@ -36,8 +42,7 @@ function App() {
         <Route path="/transport/update/:id" element={<PublicLayout><TransportUpdatePage /></PublicLayout>} />
         <Route path="/transport/delete" element={<PublicLayout><TransportDeletePage /></PublicLayout>} />
 
-        <Route path="/municipality/list" element={<PublicLayout><TransportListPage /></PublicLayout>} />
-        <Route path="/municipality/create" element={<PublicLayout><TransportCreatePage /></PublicLayout>} />
+        <Route path="/municipality/list" element={<PublicLayout><MunicipalityListPage /></PublicLayout>} />
 
         <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
         <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />

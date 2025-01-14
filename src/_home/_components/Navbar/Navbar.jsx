@@ -26,7 +26,6 @@ export function Navbar() {
             Dashboard
           </NavLink>
         )}
-        {/* <NavLink to="/" end>Home</NavLink> */}
         <NavLink to="/about" end>
           About
         </NavLink>
@@ -37,16 +36,11 @@ export function Navbar() {
       </aside>
       <aside className="right">
         <b>USUARIOS</b>
-        <NavLink to="/" end>
-          login
-        </NavLink>
-        <NavLink to="/user/register" end>
-          register
-        </NavLink>
-
-        <NavLink to="/user/list" end>
-          list
-        </NavLink>
+        <NavLink to="/user/list" end>list</NavLink>
+        <NavLink to="/user/register" end>register</NavLink>
+        <NavLink to="/" end>login</NavLink>
+        <NavLink to="/user/update/1" end>update</NavLink>
+        <NavLink to="/user/delete" end>delete</NavLink>
       </aside>
       <aside>
         <b>TICKETS</b>
@@ -65,7 +59,6 @@ export function Navbar() {
       <aside>
         <b>MUNICIPALIDAD</b>
         <NavLink to="/municipality/list" end>list</NavLink>
-        <NavLink to="/municipality/create" end>create</NavLink>
       </aside>
     </nav>
   );

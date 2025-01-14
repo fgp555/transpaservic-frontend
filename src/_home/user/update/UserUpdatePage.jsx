@@ -1,29 +1,54 @@
-// src\_home\user\register\UserRegisterPage.jsx
-
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { authService } from "../../../services/apiAuth";
-import "./UserRegisterPage.css";
 import { transportService } from "../../../services/apiTransport";
 import Swal from "sweetalert2"; // Para mostrar alertas
+import { apiUserService } from "../../../services/apiUser";
 
-const UserRegisterPage = () => {
+const UserUpdatePage = () => {
+  const { id } = useParams(); // Obtener el id del usuario de la URL
   const [formData, setFormData] = useState({
-    firstName: "firstName 1",
-    lastName: "lastName 1",
-    whatsapp: "999999999",
-    username: "username1",
-    email: "user2@mail.com",
-    password: "user2@mail.com",
+    firstName: "",
+    lastName: "",
+    whatsapp: "",
+    username: "",
+    email: "",
+    password: "",
     role: "user",
-    sendMail: false,
-    sendWhatsApp: false,
-    image: "https://via.placeholder.com/150",
+    image: "",
     transport: { id: 1 },
   });
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
-  const [transportData, setTransportData] = useState([]);
+  const [transportData, setTransportData] = useState([]); // Datos de transporte
 
+  // Cargar los datos de transporte disponibles
+  const getAllTransport = async () => {
+    try {
+      const response = await transportService.getAll();
+      setTransportData(response);
+    } catch (error) {
+      console.error("Error al obtener los transportes:", error);
+    }
+  };
+
+  // Cargar el usuario a actualizar
+  const getUser = async () => {
+    try {
+      // Aquí deberías hacer la petición para obtener el usuario por ID
+      const userData = await apiUserService.getUserById(id);
+      setFormData(userData);
+    } catch (error) {
+      console.error("Error al obtener el usuario:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllTransport(); // Cargar los transportes
+    getUser(); // Obtener el usuario
+  }, [id]);
+
+  // Manejar cambios en los inputs
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -32,41 +57,31 @@ const UserRegisterPage = () => {
     }));
   };
 
-  const getAllTranport = async () => {
-    const response = await transportService.getAll();
-    setTransportData(response);
-  };
-
-  useEffect(() => {
-    getAllTranport();
-  }, []);
-
+  // Enviar el formulario de actualización
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await authService.signup(formData);
-      console.log("User registered successfully:", response);
+      const response = await authService.update(id, formData);
+      console.log("Usuario actualizado exitosamente:", response);
 
       Swal.fire({
-        title: "¡Usuario registrado!",
-        text: "El usuario ha sido registrado con éxito.",
+        title: "¡Usuario actualizado!",
+        text: "El usuario ha sido actualizado con éxito.",
         icon: "success",
         confirmButtonText: "Aceptar",
       });
     } catch (error) {
-      console.error("Error registering user:", error);
-      const errorMessage = error.message || "Hubo un error al registrar el usuario."; // Error del servicio
-
+      console.error("Error actualizando el usuario:", error);
       Swal.fire({
         title: "Error",
-        text: errorMessage,
+        text: "Hubo un error al actualizar el usuario. Inténtalo nuevamente.",
         icon: "error",
         confirmButtonText: "Aceptar",
       });
     }
   };
 
+  // Generar una contraseña aleatoria
   const generateRandomPassword = () => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
     const passwordLength = 12; // Longitud de la contraseña
@@ -96,9 +111,9 @@ const UserRegisterPage = () => {
   };
 
   return (
-    <div className="UserRegisterPage">
+    <div className="UserUpdatePage">
       <form onSubmit={handleSubmit}>
-        <h2>Registro de Usuario</h2>
+        <h2>Actualizar Usuario</h2>
 
         <input type="text" name="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
         <input type="text" name="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
@@ -107,26 +122,18 @@ const UserRegisterPage = () => {
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
 
         <div className="password-fields">
-          {/* <label htmlFor="password">Contraseña</label> */}
           <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
           <button type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
-            {/* {showPassword ? "Ocultar" : "Mostrar"} */}
-            {showPassword ? (
-              <i className="icon-eye"></i> // Ícono para mostrar la contraseña
-            ) : (
-              <i className="icon-eye-off"></i> // Ícono para ocultar la contraseña
-            )}
+            {showPassword ? <i className="icon-eye"></i> : <i className="icon-eye-off"></i>}
           </button>
           <br />
-          {/* Botón para generar contraseña */}
           <button type="button" onClick={handleGeneratePassword} className="generate-password">
             Generar Contraseña
           </button>
           <br />
-          <br />
         </div>
 
-        {/* Select para role */}
+        {/* Select para rol */}
         <label>
           Tipo de usuario
           <br />
@@ -149,11 +156,10 @@ const UserRegisterPage = () => {
           </select>
         </label>
 
-        <button type="submit">Registrar</button>
-        {/* <pre>{JSON.stringify(formData, null, 3)}</pre> */}
+        <button type="submit">Actualizar</button>
       </form>
     </div>
   );
 };
 
-export default UserRegisterPage;
+export default UserUpdatePage;
