@@ -20,7 +20,7 @@ const TicketCreatePage = () => {
     itinerary: "Bucaramanga-Yopal",
     quantity: 2,
     remarks: "Testing remarks",
-    travelDate: new Date().toISOString().split("T")[0],
+    travelDate: "",
     email: "demo@example.com",
     creationDate: new Date().toISOString().split("T")[0],
     check: "abc",
@@ -36,7 +36,7 @@ const TicketCreatePage = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value || "",
     }));
   };
 
