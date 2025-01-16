@@ -1,0 +1,27 @@
+.DatabaseBackupPage {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  padding: 2em 2vw;
+  section {
+    border: 1px solid #fff8;
+    padding: 1em;
+    max-width: 30rem;
+  }
+  li {
+    list-style: none;
+    margin-bottom: 1em;
+    /* color: rgb(223, 244, 102); */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* === Mobile... === */
+  @media (max-width: 70rem) {
+    .hide_on_mobile {
+      display: none;
+    }
+  }
+  /* === Mobile... === */
+}

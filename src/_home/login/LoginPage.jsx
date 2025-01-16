@@ -29,7 +29,7 @@ const LoginPage = () => {
       const response = await authService.signin(userData);
       dispatch(setUser(response));
       Swal.fire("Success!", "Login successful", "success");
-      navigate("/ticket/list");
+      navigate("/dashboard/ticket/list");
     } catch (error) {
       setError("Invalid email or password");
       Swal.fire("Error!", "Invalid email or password", "error");

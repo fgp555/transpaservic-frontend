@@ -1,10 +1,11 @@
 import { NavLink, useNavigate } from "react-router";
 import "./Navbar.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../../store/userSlice";
 
 export function Navbar() {
-  // const isLogin = useSelector((state) => state.user.login);
+  const userSlice = useSelector((state) => state.user);
+  const isLogin = useSelector((state) => state.user.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -13,47 +14,58 @@ export function Navbar() {
     navigate("/"); // Navegar a la página de "mis-turnos"
   };
 
-  const isLogin = true;
+  // const isLogin = true;
 
   return (
     <nav className="Navbar">
-      <aside className="left"><NavLink to="/login" end>INICIO</NavLink>
+      <aside>
+        <span>Role: {userSlice?.user?.role}</span>
+      </aside>
+      <aside>
+        <h3>
+          <span style={{ color: "peru" }}>Bienvenido </span>
+          <span> {userSlice?.user?.firstName}</span>
+          <span> {userSlice?.user?.lastName}</span>
+          <span style={{ color: "Highlight" }}> {userSlice?.user?.transport.name}</span>
+        </h3>
+      </aside>
+      <aside className="left"><NavLink to="/" end>INICIO</NavLink>
+        <NavLink to="/login" end>login</NavLink>
         {isLogin && (<NavLink to="/dashboard" end>Dashboard</NavLink>)}
         <NavLink to="/about" end>About</NavLink>
         <NavLink to="/404" end>404</NavLink>
         <button onClick={logout}>logout</button>
       </aside>
       <aside>
-        <b>TICKETS</b>
-        <NavLink to="/ticket/filter" end>filter</NavLink>
-        <NavLink to="/ticket/list" end>list</NavLink>
-        <NavLink to="/ticket/create" end>create</NavLink>
-        <NavLink to="/ticket/import" end>import</NavLink>
-        <NavLink to="/ticket/update/1" end>update</NavLink>
-        <NavLink to="/ticket/delete" end>delete</NavLink>
+        <b>ORDENES</b>
+        <NavLink to="/dashboard/ticket/list" end>list</NavLink>
+        <NavLink to="/dashboard/ticket/create" end>create</NavLink>
+        <NavLink to="/dashboard/ticket/update/1" end>update</NavLink>
+        <NavLink to="/dashboard/ticket/delete" end>delete</NavLink>
+        <NavLink to="/dashboard/ticket/import" end>import</NavLink>
+        {/* <NavLink to="/dashboard/ticket/filter" end>filter</NavLink> */}
       </aside>
       <aside className="right">
         <b>USUARIOS</b>
-        <NavLink to="/user/list" end>list</NavLink>
-        <NavLink to="/user/register" end>register</NavLink>
-        <NavLink to="/" end>login</NavLink>
-        <NavLink to="/user/update/1" end>update</NavLink>
-        <NavLink to="/user/delete" end>delete</NavLink>
+        <NavLink to="/dashboard/user/list" end>list</NavLink>
+        <NavLink to="/dashboard/user/register" end>register</NavLink>
+        <NavLink to="/dashboard/user/update/1" end>update</NavLink>
+        <NavLink to="/dashboard/user/delete" end>delete</NavLink>
       </aside>
       <aside>
-        <b>TRANSPORTES</b>
-        <NavLink to="/transport/list" end>list</NavLink>
-        <NavLink to="/transport/create" end>create</NavLink>
-        <NavLink to="/transport/update/1" end>update</NavLink>
-        <NavLink to="/transport/delete" end>delete</NavLink>
+        <b>OPERADORES</b>
+        <NavLink to="/dashboard/transport/list" end>list</NavLink>
+        <NavLink to="/dashboard/transport/create" end>create</NavLink>
+        <NavLink to="/dashboard/transport/update/1" end>update</NavLink>
+        <NavLink to="/dashboard/transport/delete" end>delete</NavLink>
       </aside>
       <aside>
         <b>MUNICIPALITY</b>
-        <NavLink to="/municipality/list" end>list</NavLink>
+        <NavLink to="/dashboard/municipality/list" end>list</NavLink>
       </aside>
       <aside>
         <b>CONFIG</b>
-        <NavLink to="/config/database" end>Base de datos</NavLink>
+        <NavLink to="/dashboard/config/database" end>Base de datos</NavLink>
       </aside>
     </nav>
   );

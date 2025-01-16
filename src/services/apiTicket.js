@@ -11,22 +11,6 @@ const api = axios.create({
 
 // Implementación del servicio
 export const ticketService = {
-  // getTickets: async (filters) => {
-  //   const { status, transport, page, limit, search, dateFrom, dateTo } = filters;
-  //   const params = {
-  //     status,
-  //     transport,
-  //     page,
-  //     limit,
-  //     search,
-  //     dateFrom,
-  //     dateTo,
-  //   };
-  //   console.log("params", params);
-
-  //   const response = await api.get("/api/ticket", { params });
-  //   return response.data;
-  // },
 
   async getTickets(filters) {
     try {

@@ -13,12 +13,18 @@ const api = axios.create({
 
 // Implementación del servicio
 export const transportService = {
-  getAll: async () => {
+  getAll: async (search = "", page = 1, limit = 0) => {
     try {
-      const response = await api.get("/api/transport");
+      const response = await api.get("/api/transport", {
+        params: {
+          search,
+          page,
+          limit,
+        },
+      });
       return response.data;
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error fetching transport data:", error);
       throw error;
     }
   },

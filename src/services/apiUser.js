@@ -11,9 +11,21 @@ const api = axios.create({
 });
 
 export const apiUserService = {
-  getAllUsers: async () => {
+  async getAllUsers(filters) {
     try {
-      const response = await api.get("/api/users/findAll");
+      const { transport, role, page = 1, limit = 10, search } = filters;
+
+      // Construir la URL con parámetros dinámicos
+      const params = new URLSearchParams();
+
+      if (transport) params.append("transport", transport);
+      if (role) params.append("role", role);
+      if (search) params.append("search", search);
+      if (page) params.append("page", page);
+      if (limit) params.append("limit", limit);
+
+      // Realizar la solicitud GET con los filtros
+      const response = await api.get(`/api/users/findAll?${params.toString()}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching users:", error);
