@@ -1,28 +1,37 @@
-import { NavLink, useNavigate } from "react-router";
-import "./Navbar.css";
+import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser, toggleAdmin } from "../../../store/userSlice";
+import { removeUser, toggleAdmin } from "../store/userSlice";
+import { NavLink, useNavigate } from "react-router";
 
-export function Navbar() {
-  const userSlice = useSelector((state) => state.user);
-  const isLogin = useSelector((state) => state.user.login);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isAdmin = userSlice?.user?.role === "admin";
-
-  const logout = () => {
-    dispatch(removeUser());
-    navigate("/"); // Navegar a la página de "mis-turnos"
-  };
-
-  // const isLogin = true;
-
-  const handleToggleRole = () => {
-    dispatch(toggleAdmin());
-  };
-
+const DevelopmentPage = () => {
+    const userSlice = useSelector((state) => state.user);
+    const isLogin = useSelector((state) => state.user.login);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const isAdmin = userSlice?.user?.role === "admin";
+  
+    const logout = () => {
+      dispatch(removeUser());
+      navigate("/"); // Navegar a la página de "mis-turnos"
+    };
+  
+    // const isLogin = true;
+  
+    const handleToggleRole = () => {
+      dispatch(toggleAdmin());
+    };
   return (
-    <nav className="Navbar">
+    <div>
+        
+      <nav className="Navbar">
+      <aside className="left"><NavLink to="/" end>INICIO</NavLink>
+        <NavLink to="/login" end>login</NavLink>
+        {isLogin && (<NavLink to="/dashboard" end>Dashboard</NavLink>)}
+        <NavLink to="/about" end>About</NavLink>
+        <NavLink to="/systems-design" end>systems-design</NavLink>
+        <NavLink to="/404" end>404</NavLink>
+        <button onClick={logout}>logout</button>
+      </aside>
       <aside>
         <h3>
           <span style={{ color: "peru" }}>Bienvenido </span>
@@ -31,12 +40,10 @@ export function Navbar() {
           <span style={{ color: "Highlight" }}> {userSlice?.user?.transport?.name}</span>
         </h3>
       </aside>
-      <aside className="left"><NavLink to="/" end>INICIO</NavLink>
-        <NavLink to="/login" end>login</NavLink>
-        {isLogin && (<NavLink to="/dashboard" end>Dashboard</NavLink>)}
-        <NavLink to="/about" end>About</NavLink>
-        <NavLink to="/404" end>404</NavLink>
-        <button onClick={logout}>logout</button>
+      <aside>
+        <span>Operador: {userSlice?.user?.transport?.name}</span>
+        <button onClick={handleToggleRole}>Toggle Role</button>
+        <span>Role: {userSlice?.user?.role}</span>
       </aside>
       <aside>
         <b>ORDENES</b>
@@ -50,7 +57,7 @@ export function Navbar() {
         <NavLink to="/404" end>Aprobar-Ver</NavLink>
         </>}
       </aside>
-      {isAdmin &&<>
+      {isAdmin && <>
       <aside className="right">
         <b>USUARIOS</b>
         <NavLink to="/dashboard/user/list" end>list</NavLink>
@@ -80,12 +87,10 @@ export function Navbar() {
         <NavLink to="/404" end>Loading</NavLink>
       </aside>
       </>}
-      <br />
-      <aside>
-        <span>Operador: {userSlice?.user?.transport?.name}</span>
-        <span>Role: {userSlice?.user?.role}</span>
-        <button onClick={handleToggleRole}>Toggle Role</button>
-      </aside>
+
     </nav>
-  );
+    </div>
+  )
 }
+
+export default DevelopmentPage

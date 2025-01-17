@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ticketService } from "../../../services/apiTicket";
 import { transportService } from "../../../services/apiTransport";
-import TicketTableComponent from "./TicketTableComponent";
+import TicketTableComponent from "./_components/TicketTableComponent";
+import { useSelector } from "react-redux";
 
+TicketTableComponent;
 const TicketListPage = () => {
   const initialFilters = {
     status: "",
@@ -19,6 +21,8 @@ const TicketListPage = () => {
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [transportData, setTransportData] = useState([]);
+  const userSlice = useSelector((state) => state.user);
+  const isAdmin = userSlice?.user?.role === "admin";
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -28,13 +32,13 @@ const TicketListPage = () => {
     }));
   };
 
-  const getAllTranport = async () => {
+  const getAllTransport = async () => {
     const response = await transportService.getAll();
     setTransportData(response);
   };
 
   useEffect(() => {
-    getAllTranport();
+    getAllTransport();
   }, []);
 
   const handleClearFilters = () => {
@@ -65,7 +69,7 @@ const TicketListPage = () => {
     // Encabezados
     const headers = [
       "ID",
-      "Contrato de Transporte",
+      "Contrato de Operador",
       "Número de Orden",
       "Diagnóstico Principal",
       "Cliente",
@@ -129,7 +133,23 @@ const TicketListPage = () => {
 
   useEffect(() => {
     fetchTickets();
-  }, [filters]);
+  }, [filters, userSlice.user.role]);
+
+  useEffect(() => {
+    if (isAdmin) {
+      // Para admin, no filtrar por transporte
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        transport: "", // Sin filtro específico
+      }));
+    } else {
+      // Para usuarios no admin, filtrar por el transporte del usuario
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        transport: userSlice.user.transport?.id || "", // ID del transporte asociado al usuario
+      }));
+    }
+  }, [userSlice.user.role, userSlice.user.transport]);
 
   const renderPagination = () => {
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -156,7 +176,10 @@ const TicketListPage = () => {
 
   return (
     <div>
-      <h1>Gestión de Ordenes</h1>
+      <h1>
+        Gestión de Ordenes
+        <span>{!isAdmin && <span> de {userSlice?.user?.transport?.name}</span>}</span>
+      </h1>
 
       <h1>Elementos encontrados: {total}</h1>
 
@@ -172,16 +195,19 @@ const TicketListPage = () => {
           <option value="cancelado">cancelado</option>
         </select>
 
-        {/* Transporte */}
-        <select name="transport" value={filters.transport} onChange={handleFilterChange}>
-          <option value="">Todos los transportes</option>
-          {transportData?.results?.map((transport) => (
-            <option key={transport.id} value={transport.id}>
-              {transport.name}
-            </option>
-          ))}
-        </select>
-
+        {isAdmin && (
+          <>
+            {/* Transporte */}
+            <select name="transport" value={filters.transport} onChange={handleFilterChange}>
+              <option value="">Todos los Operadores</option>
+              {transportData?.results?.map((transport) => (
+                <option key={transport.id} value={transport.id}>
+                  {transport.name}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
         {/* Fecha Desde */}
         <input type="date" name="dateFrom" value={filters.dateFrom} onChange={handleFilterChange} />
 

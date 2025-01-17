@@ -102,7 +102,7 @@ const UserListPage = () => {
 
         {/* Transporte */}
         <select name="transport" value={filters.transport} onChange={handleFilterChange}>
-          <option value="">Todos los transportes</option>
+          <option value="">Todos los operadores</option>
           {transportData?.results?.map((transport) => (
             <option key={transport.id} value={transport.id}>
               {transport.name}

@@ -26,8 +26,10 @@ export const authService = {
 
   // signup
   signup: async (userData) => {
-    userData.transport.id = Number(userData.transport.id);
-    console.log("userData", userData);
+    console.log("userData",userData)
+    if (userData.transport) {
+      userData.transport.id = Number(userData.transport.id);
+    }
     try {
       const response = await api.post("/api/auth/signup", userData);
       return response.data; // Devuelve los datos en caso de éxito

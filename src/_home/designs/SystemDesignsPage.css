@@ -1,0 +1,10 @@
+.SystemDesignsPage {
+    section {
+        margin: 2em 0;
+        h2 {
+            font-size: 1.5em;
+            font-weight: 500;
+            margin-bottom: 1em;
+        }
+    }
+}

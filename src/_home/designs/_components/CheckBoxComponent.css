@@ -1,0 +1,60 @@
+/* Contenedor del checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+  }
+  
+  .checkbox-input {
+    display: none; /* Ocultamos el input real */
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+  
+  /* Estilo del checkbox personalizado */
+  .checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--line-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background-color: var(--base-color);
+    position: relative;
+  }
+  
+  .checkbox-input:checked + .checkbox-label .checkbox-custom {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  
+  .checkbox-input:checked + .checkbox-label .checkbox-custom::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: var(--white-color);
+    border-radius: 2px;
+    position: absolute;
+  }
+  
+  .checkbox-small .checkbox-custom {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .checkbox-large .checkbox-custom {
+    width: 24px;
+    height: 24px;
+  }
+  

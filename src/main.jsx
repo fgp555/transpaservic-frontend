@@ -27,33 +27,41 @@ import TicketImportPage from "./dashboard/ticket/import/TicketImportPage";
 import TicketFilterPage from "./dashboard/ticket/filter/TicketFilterPage";
 import MunicipalityListPage from "./dashboard/municipality/list/MunicipalityListPage";
 import DatabaseBackupPage from "./dashboard/config/database/DatabaseBackupPage.jsx";
+import SystemDesignsPage from "./_home/designs/SystemDesignsPage.jsx";
+import TicketApprovePage from "./dashboard/ticket/approve/TicketApprovePage.jsx";
+import DevelopmentPage from "./_dev/DevelopmentPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
-          <Route path="/dashboard/ticket/list" element={<PublicLayout><TicketListPage /></PublicLayout>} />
-          <Route path="/dashboard/ticket/create" element={<PublicLayout><TicketCreatePage /></PublicLayout>} />
-          <Route path="/dashboard/ticket/update/:id" element={<PublicLayout><TicketUpdatePage /></PublicLayout>} />
-          <Route path="/dashboard/ticket/delete" element={<PublicLayout><TicketDeletePage /></PublicLayout>} />
-          <Route path="/dashboard/ticket/filter" element={<PublicLayout><TicketFilterPage /></PublicLayout>} />
-          <Route path="/dashboard/ticket/import" element={<PublicLayout><TicketImportPage /></PublicLayout>} />
+          <Route path="/dashboard/ticket/list" element={<DashboardLayout><TicketListPage /></DashboardLayout>} />
+          <Route path="/dashboard/ticket/create" element={<DashboardLayout><TicketCreatePage /></DashboardLayout>} />
+          <Route path="/dashboard/ticket/update/:id" element={<DashboardLayout><TicketUpdatePage /></DashboardLayout>} />
+          <Route path="/dashboard/ticket/delete" element={<DashboardLayout><TicketDeletePage /></DashboardLayout>} />
+          <Route path="/dashboard/ticket/filter" element={<DashboardLayout><TicketFilterPage /></DashboardLayout>} />
+          <Route path="/dashboard/ticket/import" element={<DashboardLayout><TicketImportPage /></DashboardLayout>} />
+          <Route path="/dashboard/ticket/approve" element={<DashboardLayout><TicketApprovePage /></DashboardLayout>} />
 
-          <Route path="/dashboard/user/list" element={<PublicLayout><UserListPage /></PublicLayout>} />
-          <Route path="/dashboard/user/register" element={<PublicLayout><UserRegisterPage /></PublicLayout>} />
-          <Route path="/dashboard/user/update/:id" element={<PublicLayout><UserUpdatePage /></PublicLayout>} />
-          <Route path="/dashboard/user/delete" element={<PublicLayout><UserDeletePage /></PublicLayout>} />
+          <Route path="/dashboard/user/list" element={<DashboardLayout><UserListPage /></DashboardLayout>} />
+          <Route path="/dashboard/user/register" element={<DashboardLayout><UserRegisterPage /></DashboardLayout>} />
+          <Route path="/dashboard/user/update/:id" element={<DashboardLayout><UserUpdatePage /></DashboardLayout>} />
+          <Route path="/dashboard/user/delete" element={<DashboardLayout><UserDeletePage /></DashboardLayout>} />
 
-          <Route path="/dashboard/transport/list" element={<PublicLayout><TransportListPage /></PublicLayout>} />
-          <Route path="/dashboard/transport/create" element={<PublicLayout><TransportCreatePage /></PublicLayout>} />
-          <Route path="/dashboard/transport/update/:id" element={<PublicLayout><TransportUpdatePage /></PublicLayout>} />
-          <Route path="/dashboard/transport/delete" element={<PublicLayout><TransportDeletePage /></PublicLayout>} />
+          <Route path="/dashboard/transport/list" element={<DashboardLayout><TransportListPage /></DashboardLayout>} />
+          <Route path="/dashboard/transport/create" element={<DashboardLayout><TransportCreatePage /></DashboardLayout>} />
+          <Route path="/dashboard/transport/update/:id" element={<DashboardLayout><TransportUpdatePage /></DashboardLayout>} />
+          <Route path="/dashboard/transport/delete" element={<DashboardLayout><TransportDeletePage /></DashboardLayout>} />
 
-          <Route path="/dashboard/municipality/list" element={<PublicLayout><MunicipalityListPage /></PublicLayout>} />
-          <Route path="/dashboard/config/database" element={<PublicLayout><DatabaseBackupPage /></PublicLayout>} />
+          <Route path="/dashboard/municipality/list" element={<DashboardLayout><MunicipalityListPage /></DashboardLayout>} />
+
+          <Route path="/dashboard/config/database" element={<DashboardLayout><DatabaseBackupPage /></DashboardLayout>} />
+          <Route path="/dev" element={<DashboardLayout><DevelopmentPage /></DashboardLayout>} />
+          <Route path="/designs" element={<DashboardLayout><SystemDesignsPage /></DashboardLayout>} />
           
-          <Route path="/" element={<PublicLayout><App /></PublicLayout>} />
+          {/* <Route path="/" element={<PublicLayout><App /></PublicLayout>} /> */}
+          <Route path="/" element={<App />} />
           <Route path="/login" element={<PublicLayout><App /></PublicLayout>} />
           <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
           <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />

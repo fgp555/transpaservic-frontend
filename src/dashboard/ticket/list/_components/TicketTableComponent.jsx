@@ -1,7 +1,11 @@
 import React from "react";
 import "./TicketTableComponent.css";
+import { useSelector } from "react-redux";
 
 const TicketTableComponent = ({ tickets, downloadCSV }) => {
+  const userSlice = useSelector((state) => state.user);
+  const isAdmin = userSlice?.user?.role === "admin";
+
   const handleStatusClick = (status) => {
     console.log(`Cambiando estado a: ${status}`);
   };
@@ -42,21 +46,27 @@ const TicketTableComponent = ({ tickets, downloadCSV }) => {
                 <td>{ticket.client || "N/A"}</td>
                 <td>{ticket.travelDate || "N/A"}</td>
                 <td>
-                  {(() => {
-                    switch (ticket.status) {
-                      case "aprobado":
-                        return <i className="icon-toggle-on icon-status-aprobado"></i>;
-                      case "pendiente":
-                        return <i className="icon-toggle-off icon-status-pendiente" onClick={() => handleStatusClick(ticket.status)}></i>;
-                      case "cancelado":
-                        return <i className="icon-ban icon-status-cancelado"></i>;
-                      default:
-                        return null; // Opcional, por si llega un estado no esperado
-                    }
-                  })()}
-                  <i className="icon-info"></i>
-                  <i className="icon-pencil"></i>
-                  <i className="icon-trash"></i>
+                  {isAdmin ? (
+                    <>
+                      {/* {(() => {
+                        switch (ticket.status) {
+                          case "aprobado":
+                            return <i className="icon-toggle-on icon-status-aprobado"></i>;
+                          case "pendiente":
+                            return <i className="icon-toggle-off icon-status-pendiente" onClick={() => handleStatusClick(ticket.status)}></i>;
+                          case "cancelado":
+                            return <i className="icon-ban icon-status-cancelado"></i>;
+                          default:
+                            return null; // Opcional, por si llega un estado no esperado
+                        }
+                      })()} */}
+                      <i className="icon-info"></i>
+                      <i className="icon-pencil"></i>
+                      <i className="icon-trash"></i>
+                    </>
+                  ) : (
+                    <>{ticket.status === "pendiente" ? <button>Aprobar</button>:<button>Ver</button>}  </>
+                  )}
                 </td>
               </tr>
             ))

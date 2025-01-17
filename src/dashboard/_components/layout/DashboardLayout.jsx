@@ -1,21 +1,25 @@
-import React from "react";
 import "./DashboardLayout.css";
-import Sidebar from "../Sidebar/Sidebar";
-import { Navigate } from "react-router-dom";
+import { useState } from "react";
+import SidebarComponent from "../SidebarComponent/SidebarComponent";
+import { useSelector } from "react-redux";
 
 const DashboardLayout = ({ children }) => {
-  // const isLogin = useSelector((state) => state.user.login);
-  const isLogin = true;
+  // const [darkMode, setDarkMode] = useState(() => {
+  //   const savedMode = localStorage.getItem("darkMode");
+  //   return savedMode ? JSON.parse(savedMode) : true;
+  // });
 
-  if (!isLogin) {
-    return <Navigate to="/login" />;
-  }
+  const theme = useSelector((state) => state.theme.theme); // Obtener el tema desde Redux
 
   return (
-    <div className="dashboard-layout">
-      <Sidebar />
-      <main>{children}</main>
-    </div>
+    <>
+      {/* <div className={`DashboardLayout ${darkMode ? "" : "dark-mode"}`}> */}
+      <div className={`DashboardLayout ${theme === "dark" ? "dark-mode" : ""}`}>
+        {/* <SidebarComponent darkMode={darkMode} setDarkMode={setDarkMode} /> */}
+        <SidebarComponent />
+        <main className="DashboardLayout__main">{children}</main>
+      </div>
+    </>
   );
 };
 

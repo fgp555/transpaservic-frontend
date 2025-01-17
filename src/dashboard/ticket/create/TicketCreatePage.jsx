@@ -10,7 +10,7 @@ const TicketCreatePage = () => {
   const [errors, setErrors] = useState({ origin: false, destination: false });
   const [formData, setFormData] = useState({
     transportContract: "100002",
-    orderNumber: "2000002",
+    orderNumber: "2000002", 
     mainDiagnosis: "abc",
     client: "NEPS",
     patientName: "David Lopez Mendoza",

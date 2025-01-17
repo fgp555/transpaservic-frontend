@@ -18,7 +18,8 @@ const UserRegisterPage = () => {
     sendMail: false,
     sendWhatsApp: false,
     image: "https://via.placeholder.com/150",
-    transport: { id: 1 },
+    // transport: { id: 1 },
+    // transport: null,
   });
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
@@ -26,15 +27,23 @@ const UserRegisterPage = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : name === "transport" ? { id: parseInt(value) } : value,
     }));
   };
 
   const getAllTranport = async () => {
-    const response = await transportService.getAll();
-    setTransportData(response);
+    try {
+      const response = await transportService.getAll();
+      console.log("Transport data:", response); // Verifica el formato de la respuesta
+      setTransportData(response.results || []); // Asegúrate de manejar un caso donde response sea undefined o null
+      // setTransportData(Array.isArray(response) ? response : []);
+    } catch (error) {
+      console.error("Error fetching transport data:", error);
+      setTransportData([]); // Establece un arreglo vacío si ocurre un error
+    }
   };
 
   useEffect(() => {
@@ -44,8 +53,13 @@ const UserRegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const payload = {
+      ...formData,
+      transport: formData.transport || null, // Si está vacío, envía null
+    };
+
     try {
-      const response = await authService.signup(formData);
+      const response = await authService.signup(payload);
       console.log("User registered successfully:", response);
 
       Swal.fire({
@@ -140,8 +154,9 @@ const UserRegisterPage = () => {
         <label>
           Operador
           <br />
-          <select name="transport" value={formData.transport.id} onChange={(e) => setFormData({ ...formData, transport: { id: e.target.value } })} className="select-transport">
-            {transportData?.results?.map((transport) => (
+          <select name="transport" onChange={handleChange} value={formData.transport?.id || ""}>
+            <option value="">Sin Operador</option>
+            {transportData.map((transport) => (
               <option key={transport.id} value={transport.id}>
                 {transport.name}
               </option>

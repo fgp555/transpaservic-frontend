@@ -1,181 +1,39 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-.dashboard-layout {
-  --base-clr: #11121a;
-  --line-clr: #42434a;
-  --hover-clr: #222533;
-  --text-clr: #e6e6ef;
-  --accent-clr: #5e63ff;
-  --secondary-text-clr: #b0b3c1;
+.DashboardLayout {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   font-family: Poppins, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5rem;
-
+  margin: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  background-color: var(--base-clr);
-  color: var(--text-clr);
+  background-color: var(--base-color);
+  color: var(--text-color);
   display: grid;
   grid-template-columns: auto 1fr;
-
-  font-family: Poppins, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.5rem;
-
-  /* === Desktop... === */
-  @media (min-width: 40rem) {
-    main {
-      padding: min(0.5em, 7%);
-    }
+  i[class*="icon-"] {
+    color: var(--text-color);
+    font-size: 1.3em;
+    padding: 0.2em;
   }
-  /* === Desktop... === */
 
-  /* === Mobile... === */
-  @media (max-width: 80rem) {
-    main {
-      padding: min(0.5em, 7%);
-    }
-    aside {
-      margin: 1em auto;
-    }
+  .DashboardLayout__main {
+    padding: min(30px, 7%);
   }
-  /* === Mobile... === */
-  padding-bottom: 5em;
 
-  .container {
-    border: 1px solid var(--line-clr);
-    border-radius: 1em;
+  .DashboardLayout__main p {
+    color: var(--secondary-text-color);
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+
+  .DashboardLayout__main .container {
+    border: 1px solid var(--line-color);
+    border-radius: 5px;
     margin-bottom: 20px;
-    padding: min(3em, 15%);
-
-    h2,
-    p {
-      margin-top: 1em;
-    }
-  }
-  @media (max-width: 800px) {
-    .container {
-      border: none;
-      padding: 0;
-    }
-  }
-
-  button,
-  .btn {
-    padding: 8px 16px;
-    margin: 5px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  button:hover {
-    background-color: #0056b3;
-  }
-
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-
-  /* button secondary */
-  button.secondary {
-    background-color: #6c757d;
-  }
-
-  button.secondary:hover {
-    background-color: #545b62;
-  }
-
-  /* button success */
-  button.success {
-    background-color: #28a745;
-  }
-
-  button.success:hover {
-    background-color: #218838;
-  }
-
-  /* button danger */
-  button.danger {
-    background-color: #dc3545;
-  }
-
-  button.danger:hover {
-    background-color: #c82333;
-  }
-
-  /* button info */
-  button.info {
-    background-color: #17a2b8;
-  }
-
-  /* button warning */
-  button.warning {
-    background-color: #ffcc00;
-    color: black;
-  }
-
-  button.warning:hover {
-    background-color: #e6b800;
-  }
-
-  /* button active */
-  button.active {
-    background-color: #28a745;
-    border-bottom: 5px solid #fff;
-  }
-
-  button.active:hover {
-    background-color: #218838;
-    /* color: #750dc0; */
-  }
-
-  h2,
-  h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  /* === Mobile... === */
-  @media (max-width: 40rem) {
-    .mobile_none {
-      background-color: crimson;
-      display: none;
-    }
-  }
-  /* === Mobile... === */
-  main {
-    padding: 12em auto;
-  }
-
-  /* === Choose File... === */
-  .file-label {
-    display: inline-block;
-    padding: 6px 16px;
-    margin: 5px;
-    background-color: #e6b800;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  .file-label:hover {
-    background-color: #b69205;
-  }
-  /* === Choose File. === */
-  textarea {
-    resize: none;
-    font-size: inherit;
-    font-family: inherit;
-    line-height: inherit;
-    /* color: inherit; */
-    /* background-color: inherit; */
-    border: none;
-    border-radius: inherit;
-    outline: none;
+    padding: min(3rem, 15%);
   }
 }

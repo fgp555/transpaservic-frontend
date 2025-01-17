@@ -7,16 +7,23 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      return action.payload;
+      const newState = action.payload;
+      localStorage.setItem("user", JSON.stringify(newState));
+      return newState;
     },
 
     removeUser: (state) => {
       localStorage.removeItem("user");
       return {};
     },
+
+    toggleAdmin: (state) => {
+      const newRole = state.user.role === "admin" ? "user" : "admin";
+      state.user.role = newRole; // Actualiza el rol en el estado global
+      localStorage.setItem("user", JSON.stringify(state)); // Guarda el estado actualizado
+    },
   },
 });
 
-export const { setUser, removeUser } = userSlice.actions;
+export const { setUser, removeUser, toggleAdmin } = userSlice.actions;
 export default userSlice;
