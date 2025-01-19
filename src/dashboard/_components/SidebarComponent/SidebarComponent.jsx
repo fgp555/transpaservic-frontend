@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./SidebarComponent.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../../store/themeSlice";
+import { removeUser, toggleAdmin } from "../../../store/userSlice";
 
 const SidebarComponent = () => {
   const theme = useSelector((state) => state.theme.theme); // Obtener el tema desde Redux
@@ -11,6 +12,18 @@ const SidebarComponent = () => {
   const handleToggleTheme = (event) => {
     event.preventDefault();
     dispatch(toggleTheme()); // Alternar entre dark y light mode
+  };
+
+  // ========== temporary ==========
+  const handleToggleRole = () => {
+    dispatch(toggleAdmin());
+  };
+
+  // ========== temporary ==========
+
+  const logout = () => {
+    dispatch(removeUser());
+    navigate("/"); // Navegar a la página de "mis-turnos"
   };
 
   const userSlice = useSelector((state) => state.user);
@@ -68,7 +81,7 @@ const SidebarComponent = () => {
       <nav id="SidebarComponent" className={sidebar ? "" : "close"}>
         <ul className="top">
           <li className="logo-container">
-            {sidebar && (theme === "dark" ? <img className="logo" src="/logo.svg" alt="" /> : <img className="logo" src="/logo-dark.svg" alt="" />)}
+            {sidebar && (theme === "dark" ? <img className="logo" src="/logo-dark.svg" alt="" /> : <img className="logo" src="/logo.svg" alt="" />)}
             {/* <span className="logo">TranspaServic</span> */}
             <button onClick={toggleSidebar} id="toggle-btn" className={`${sidebar ? "rotate" : ""}`}>
               <i className="icon-angle-double-right"></i>
@@ -149,6 +162,7 @@ const SidebarComponent = () => {
           <li>
             {sidebar && (
               <p className="user-info">
+                <button onClick={handleToggleRole}>Toggle Role</button>
                 {/* img */}
                 <div>
                   <img src={userSlice?.user?.image} alt={userSlice?.user?.firstName} />
@@ -189,9 +203,9 @@ const SidebarComponent = () => {
             </>
           )}
           <li>
-            <NavLink to="/dashboard?1" end>
+            <NavLink to="/" end>
               <i className="icon-logout"></i>
-              <span>Cerrar sesión</span>
+              <span onClick={logout}>Cerrar sesión</span>
             </NavLink>
           </li>
           <li>

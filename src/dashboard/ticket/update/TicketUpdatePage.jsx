@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ticketService } from "../../../services/apiTicket";
+import "./TicketUpdatePage.css";
 
 const TicketUpdatePage = () => {
   const { id } = useParams(); // Obtener el ID del ticket desde la URL
@@ -65,7 +66,7 @@ const TicketUpdatePage = () => {
   };
 
   return (
-    <div>
+    <div className="TicketUpdatePage">
       <h2>Actualizar Ticket</h2>
       <form onSubmit={handleSubmit}>
         <div>

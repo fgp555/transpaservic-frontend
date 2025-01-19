@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { transportService } from "../../../services/apiTransport";
+import "./TransportUpdatePage.css";
 
 const TransportUpdatePage = () => {
   const { id } = useParams(); // Obtener el ID desde la URL
@@ -17,7 +18,7 @@ const TransportUpdatePage = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  // Cargar los datos del transporte al montar el componente
+  // Cargar los datos del Operador al montar el componente
   useEffect(() => {
     const fetchTransport = async () => {
       try {
@@ -32,7 +33,7 @@ const TransportUpdatePage = () => {
           registrationDate: transport.registrationDate,
         });
       } catch (error) {
-        Swal.fire("Error", "No se pudo cargar el transporte", "error");
+        Swal.fire("Error", "No se pudo cargar el Operador", "error");
         console.error("Error fetching transport:", error);
       }
     };
@@ -56,10 +57,10 @@ const TransportUpdatePage = () => {
 
     try {
       await transportService.update(id, formData);
-      Swal.fire("Éxito", "Transporte actualizado correctamente", "success");
-      // navigate("/transport/list"); // Redirigir a la lista de transportes
+      Swal.fire("Éxito", "Operador actualizado correctamente", "success");
+      // navigate("/transport/list"); // Redirigir a la lista de Operador
     } catch (error) {
-      Swal.fire("Error", "No se pudo actualizar el transporte", "error");
+      Swal.fire("Error", "No se pudo actualizar el Operador", "error");
       console.error("Error updating transport:", error);
     } finally {
       setLoading(false);
@@ -67,7 +68,7 @@ const TransportUpdatePage = () => {
   };
 
   return (
-    <div>
+    <div className="TransportUpdatePage">
       <h2>Actualizar Operador</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -109,9 +110,10 @@ const TransportUpdatePage = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Actualizando..." : "Actualizar"}
           </button>
-          <button type="button" onClick={() => navigate("/transport/list")}>
+          <br />
+          {/* <button type="button" onClick={() => navigate("/dashboard/transport/list")}>
             Cancelar
-          </button>
+          </button> */}
         </div>
       </form>
     </div>

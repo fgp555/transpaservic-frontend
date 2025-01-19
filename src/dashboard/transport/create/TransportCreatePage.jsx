@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { transportService } from "../../../services/apiTransport";
+import "./TransportCreatePage.css";
 
 const TransportCreatePage = () => {
   const navigate = useNavigate();
@@ -29,11 +30,11 @@ const TransportCreatePage = () => {
     setLoading(true);
     try {
       const response = await transportService.create(formData);
-      Swal.fire("Éxito", "Transporte creado exitosamente", "success");
-      console.log("Transporte creado:", response);
-      // navigate("/transport/list"); // Redirigir a la lista de transportes
+      Swal.fire("Éxito", "Operador creado exitosamente", "success");
+      console.log("Operador creado:", response);
+      // navigate("/transport/list"); // Redirigir a la lista de Operador
     } catch (error) {
-      const errorMessage = error.response?.data?.message || "Hubo un error al crear el transporte";
+      const errorMessage = error.response?.data?.message || "Hubo un error al crear el Operador";
       Swal.fire("Error", errorMessage, "error");
       console.error("Error creating transport:", error);
     } finally {
@@ -42,16 +43,16 @@ const TransportCreatePage = () => {
   };
 
   return (
-    <div>
+    <div className="TransportCreatePage">
       <h2>Crear Operador</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Ingrese el nombre del transporte" />
+          <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Ingrese el nombre del Operador" />
         </div>
         <div>
           <label>username</label>
-          <input type="text" name="username" value={formData.username} onChange={handleChange} required placeholder="Ingrese el usuario del transporte" />
+          <input type="text" name="username" value={formData.username} onChange={handleChange} required placeholder="Ingrese el usuario del Operador" />
         </div>
         <div>
           <label>WhatsApp</label>
@@ -67,11 +68,12 @@ const TransportCreatePage = () => {
         </div>
         <div>
           <button type="submit" disabled={loading}>
-            {loading ? "Creando..." : "Crear Transporte"}
+            {loading ? "Creando..." : "Crear Operador"}
           </button>
-          <button type="button" onClick={() => navigate("/transport/list")}>
+          <br />
+          {/* <button type="button" onClick={() => navigate("/dashboard/transport/list")}>
             Cancelar
-          </button>
+          </button> */}
         </div>
       </form>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { transportService } from "../../../services/apiTransport";
-import TransportTableComponent from "./TransportTableComponent";
+import { TransportTableRespoComp } from "./components/TransportTableRespoComp";
+import "./TransportListPage.css";
 
 const TransportListPage = () => {
   const initialFilters = {
@@ -8,6 +9,8 @@ const TransportListPage = () => {
     page: 1,
     limit: 10, // Cantidad de elementos por página
   };
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
 
   const [transportData, setTransportData] = useState({
     results: [],
@@ -20,6 +23,8 @@ const TransportListPage = () => {
     try {
       const response = await transportService.getAll(filters.search, filters.page, filters.limit);
       setTransportData(response);
+      setTotal(response.total);
+      setTotalPages(response.totalPages);
     } catch (error) {
       console.error("Error fetching transport data:", error);
     }
@@ -34,6 +39,7 @@ const TransportListPage = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [name]: value,
+      page: name === 'search' ? 1 : prevFilters.page, // Restablece la página a 1 si el campo de búsqueda cambia
     }));
   };
 
@@ -62,22 +68,21 @@ const TransportListPage = () => {
   };
 
   const renderPagination = () => {
-    const pages = Array.from({ length: transportData.totalPages }, (_, i) => i + 1);
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    if (totalPages <= 1) return null; // Si hay solo una página, no se muestra la paginación
 
     return (
-      <div>
-        <p>
-          Página {filters.page} de {transportData.totalPages}
-        </p>
-        <button disabled={filters.page <= 1} onClick={() => handlePageChange(filters.page - 1)}>
+      <div className="renderPagination">
+        <button disabled={filters.page <= 1} onClick={() => setFilters((prev) => ({ ...prev, page: prev.page - 1 }))}>
           Anterior
         </button>
         {pages.map((page) => (
-          <button key={page} onClick={() => handlePageChange(page)} disabled={filters.page === page}>
+          <button key={page} className={filters.page === page ? "active" : ""} onClick={() => setFilters((prev) => ({ ...prev, page }))}>
             {page}
           </button>
         ))}
-        <button disabled={filters.page >= transportData.totalPages} onClick={() => handlePageChange(filters.page + 1)}>
+        <button disabled={filters.page >= totalPages} onClick={() => setFilters((prev) => ({ ...prev, page: prev.page + 1 }))}>
           Siguiente
         </button>
       </div>
@@ -85,32 +90,26 @@ const TransportListPage = () => {
   };
 
   return (
-    <div>
-      <h2>Lista de Operadores</h2>
+    <div className="TransportListPage">
+      <h1>Lista de Operadores</h1>
+      <br />
+      <form>
+        {/* Mostrar el total de elementos encontrados */}
+        <section className="filters">
+          {/* Buscador */}
+          <input type="text" name="search" placeholder="Buscar..." value={filters.search} onChange={handleFilterChange} className="border p-2" />
 
-      {/* Mostrar el total de elementos encontrados */}
-      <h1>Elementos encontrados: {transportData.total}</h1>
-
-      {/* Buscador */}
-      <input type="text" name="search" placeholder="Buscar transporte" value={filters.search} onChange={handleFilterChange} className="border p-2" />
-
-      {/* Botón Limpiar Búsqueda */}
-      <button onClick={handleClearSearch} className="ml-2 p-2 border bg-gray-200">
-        Limpiar Búsqueda
-      </button>
-
-      {/* Input para cambiar el límite */}
-      <div className="mt-2">
-        <label htmlFor="limit" className="mr-2">
-          Límite por página:
-        </label>
-        <input type="number" id="limit" name="limit" value={filters.limit} onChange={handleLimitChange} className="border p-2 w-20" min="1" />
-      </div>
-
-      {/* Tabla */}
-      <TransportTableComponent transportData={transportData} />
-
-      {/* Paginación */}
+          {/* Input para cambiar el límite */}
+          <input type="number" id="limit" name="limit" value={filters.limit} onChange={handleLimitChange} className="border p-2 w-20" min="1" />
+          {/* Botón Limpiar Búsqueda */}
+          <button onClick={handleClearSearch} className="ml-2 p-2 border bg-gray-200">
+            Limpiar Búsqueda
+          </button>
+        </section>
+        <p>{transportData.total} Operadores encontrados</p>
+      </form>
+      {/* <pre>{JSON.stringify(transportData, null, 2)}</pre> */}
+      <TransportTableRespoComp data={transportData} fetchTransports={getAllTransport} />
       {renderPagination()}
     </div>
   );

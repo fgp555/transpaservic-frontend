@@ -6,15 +6,16 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  border: 1px solid #0000;
 }
 
 .btn-primary {
   background-color: var(--accent-color);
-  color: var(--base-color);
+  color: var(--white-color);
 }
 
 .btn-primary:hover {
-  background-color: var(--hover-color);
+  opacity: 0.8;
 }
 
 .btn-secondary {

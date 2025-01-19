@@ -6,9 +6,6 @@ const TicketTableComponent = ({ tickets, downloadCSV }) => {
   const userSlice = useSelector((state) => state.user);
   const isAdmin = userSlice?.user?.role === "admin";
 
-  const handleStatusClick = (status) => {
-    console.log(`Cambiando estado a: ${status}`);
-  };
   return (
     <div className="TicketTableComponent">
       <br />

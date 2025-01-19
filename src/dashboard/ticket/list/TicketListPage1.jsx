@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ticketService } from "../../../services/apiTicket";
 import { transportService } from "../../../services/apiTransport";
-// import TicketTableComponent from "./_components/TicketTableComponent";
+import TicketTableComponent from "./_components/TicketTableComponent";
 import { useSelector } from "react-redux";
-import { TicketTableRespoComp } from "./_components/TicketTableRespoComp";
-import "./TicketListPage.css";
 
-// TicketTableComponent;
-
+TicketTableComponent;
 const TicketListPage = () => {
   const initialFilters = {
     status: "",
@@ -158,15 +155,16 @@ const TicketListPage = () => {
   const renderPagination = () => {
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-    if (totalPages <= 1) return null; // Si hay solo una página, no se muestra la paginación
-
     return (
-      <div className="renderPagination">
+      <div>
+        <p>
+          Página {filters.page} de {totalPages}
+        </p>
         <button disabled={filters.page <= 1} onClick={() => setFilters((prev) => ({ ...prev, page: prev.page - 1 }))}>
           Anterior
         </button>
         {pages.map((page) => (
-          <button key={page} className={filters.page === page ? "active" : ""} onClick={() => setFilters((prev) => ({ ...prev, page }))}>
+          <button key={page} onClick={() => setFilters((prev) => ({ ...prev, page }))} disabled={filters.page === page}>
             {page}
           </button>
         ))}
@@ -178,77 +176,78 @@ const TicketListPage = () => {
   };
 
   return (
-    <div className="TicketListPage">
+    <div>
       <h1>
         Gestión de Ordenes
         <span>{!isAdmin && <span> de {userSlice?.user?.transport?.name}</span>}</span>
       </h1>
-      <br />
+
+      <h1>Elementos encontrados: {total}</h1>
+
       <form>
         {/* Búsqueda */}
         <input type="text" name="search" placeholder="Buscar por cliente o paciente" value={filters.search} onChange={handleFilterChange} />
 
-        <section className="filters">
-          {/* Estado */}
-          <select name="status" value={filters.status} onChange={handleFilterChange}>
-            <option value="">Todos los estados</option>
-            <option value="pendiente">vigente-pendiente</option>
-            <option value="aprobado">aprobado</option>
-            <option value="cancelado">cancelado</option>
-          </select>
+        {/* Estado */}
+        <select name="status" value={filters.status} onChange={handleFilterChange}>
+          <option value="">Todos los estados</option>
+          <option value="pendiente">vigente-pendiente</option>
+          <option value="aprobado">aprobado</option>
+          <option value="cancelado">cancelado</option>
+        </select>
 
-          {isAdmin && (
-            <>
-              {/* Transporte */}
-              <select name="transport" value={filters.transport} onChange={handleFilterChange}>
-                <option value="">Todos los Operadores</option>
-                {transportData?.results?.map((transport) => (
-                  <option key={transport.id} value={transport.id}>
-                    {transport.name}
-                  </option>
-                ))}
-              </select>
-            </>
-          )}
-          {/* Fecha Desde */}
-          <input type="date" name="dateFrom" value={filters.dateFrom} onChange={handleFilterChange} />
+        {isAdmin && (
+          <>
+            {/* Transporte */}
+            <select name="transport" value={filters.transport} onChange={handleFilterChange}>
+              <option value="">Todos los Operadores</option>
+              {transportData?.results?.map((transport) => (
+                <option key={transport.id} value={transport.id}>
+                  {transport.name}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
+        {/* Fecha Desde */}
+        <input type="date" name="dateFrom" value={filters.dateFrom} onChange={handleFilterChange} />
 
-          {/* Fecha Hasta */}
-          <input type="date" name="dateTo" value={filters.dateTo} onChange={handleFilterChange} />
+        {/* Fecha Hasta */}
+        <input type="date" name="dateTo" value={filters.dateTo} onChange={handleFilterChange} />
 
-          {/* Cantidad de elementos por página */}
-          <input
-            type="number"
-            name="limit"
-            placeholder="Cantidad por página"
-            value={filters.limit}
-            min="1"
-            onChange={(e) =>
-              setFilters((prev) => ({
-                ...prev,
-                limit: Math.max(1, parseInt(e.target.value, 10) || 1), // Asegura que sea un número válido
-              }))
-            }
-          />
+        {/* Cantidad de elementos por página */}
+        <input
+          type="number"
+          name="limit"
+          placeholder="Cantidad por página"
+          value={filters.limit}
+          min="1"
+          onChange={(e) =>
+            setFilters((prev) => ({
+              ...prev,
+              limit: Math.max(1, parseInt(e.target.value, 10) || 1), // Asegura que sea un número válido
+            }))
+          }
+        />
 
-          <button type="button" onClick={handleClearFilters}>
-            Limpiar Filtros
-          </button>
-        </section>
-        <p>{total} Ordenes encontradas</p>
+        <button type="button" onClick={handleClearFilters}>
+          Limpiar Filtros
+        </button>
       </form>
 
-      {/* <pre>{JSON.stringify(tickets, null, 2)}</pre> */}
+      <pre>{JSON.stringify(tickets, null, 2)}</pre>
 
-      {/* <TicketTableComponent tickets={tickets} downloadCSV={downloadCSV} /> */}
-      <TicketTableRespoComp data={tickets} fetchTickets={fetchTickets} downloadCSV={downloadCSV} />
+      <TicketTableComponent tickets={tickets} downloadCSV={downloadCSV} />
 
       {renderPagination()}
+
+      {/* <pre>{JSON.stringify(tickets, null, 2)}</pre> */}
     </div>
   );
 };
 
 export default TicketListPage;
+
 
 /* 
 [
@@ -274,8 +273,14 @@ export default TicketListPage;
     "status": "aprobado",
     "image": null,
     "transport": {
+      "id": 7,
       "name": "Transricaurte",
+      "username": "transricaurte",
+      "whatsapp": "987987993",
+      "email": "contact@transricaurte.com",
+      "website": "https://transricaurte.com",
+      "image": "https://bit.ly/fgpImg2",
+      "registrationDate": "2025-01-12T00:00:00.000Z"
     }
   },
-]
  */

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 // import { ticketService } from "../../../services/apiTransport";
 import Swal from "sweetalert2";
 import { ticketService } from "../../../services/apiTicket";
-import FindMunicipalityComponent from "./findMunicipalityComponent";
-import FindTransportComponent from "./FindTransportComponent";
+import FindMunicipalityComponent from "./components/findMunicipalityComponent";
+import FindTransportComponent from "./components/FindTransportComponent";
+import './TicketCreatePage.css';
 
 const TicketCreatePage = () => {
   const [selectedTransport, setSelectedTransport] = useState(null);
@@ -127,8 +128,8 @@ const TicketCreatePage = () => {
   };
 
   return (
-    <div>
-      <h2>Crear Ticket</h2>
+    <div className="TicketCreatePage">
+      <h2>Crear Orden</h2>
       <form /* onSubmit={handleSubmit} */>
         <div>
           {/* ========== Información Básica ========== */}
@@ -243,10 +244,10 @@ const TicketCreatePage = () => {
 
         <br />
         <button type="button" onClick={handleSubmit}>
-          Crear Ticket
+          Crear Orden
         </button>
       </form>
-      <pre>{JSON.stringify(formData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(formData, null, 2)}</pre> */}
     </div>
   );
 };

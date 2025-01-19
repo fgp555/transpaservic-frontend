@@ -32,30 +32,24 @@
     margin-bottom: 16px;
     height: 3.5em;
     .icon-angle-double-right {
-      /* position: absolute; */
-      margin-left:0em ;
+      margin-left: 0em;
     }
     .logo {
-      /* font-weight: 600; */
-      /* color: var(--accent-color); */
-      /* text-transform: uppercase; */
       width: 12em;
-      /* background-color: #fff; */
     }
   }
   ul li a.active {
-    color: var(--base-color);
+    color: var(--white-color);
     background-color: var(--accent-color);
     i {
-      fill: var(--base-color);
-      color: var(--base-color);
+      color: var(--white-color);
     }
   }
 
   a,
   .dropdown-btn,
   .logo {
-    border-radius: 0.5em;
+    border-radius: var(--border-radius);
     padding: 0.55em;
     text-decoration: none;
     color: var(--text-color);
@@ -131,9 +125,6 @@
   /* ========== botton ========== */
   .user-info {
     text-align: center;
-    /* margin-left: 1em; */
-    /* padding-left: 3.7em; 1*/
-    /* gap: 1em; */
     margin: 0.5em 0;
     img {
       width: 4.5rem;
@@ -145,7 +136,6 @@
     .welcome {
       font-size: 0.8em;
       font-weight: 500;
-      /* color: var(--text-color); */
     }
     .user-name {
       font-weight: 600;
@@ -158,7 +148,6 @@
     }
   }
   hr {
-    /* margin: 0.5em 0; */
     opacity: 0.5;
     color: var(--line-color);
   }

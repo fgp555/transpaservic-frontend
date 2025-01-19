@@ -1,27 +1,159 @@
 .DatabaseBackupPage {
-  display: flex;
-  flex-direction: column;
-  gap: 3em;
-  padding: 2em 2vw;
-  section {
-    border: 1px solid #fff8;
-    padding: 1em;
-    max-width: 30rem;
-  }
-  li {
-    list-style: none;
-    margin-bottom: 1em;
-    /* color: rgb(223, 244, 102); */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--base-color);
+  border-radius: var(--border-radius);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  color: var(--text-color);
+
+  h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    color: var(--accent-color);
   }
 
-  /* === Mobile... === */
-  @media (max-width: 70rem) {
-    .hide_on_mobile {
-      display: none;
-    }
+  section {
+    margin-bottom: 30px;
   }
-  /* === Mobile... === */
+
+  h2,
+  h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: var(--secondary-text-color);
+  }
+
+  .error {
+    color: var(--accent-color);
+    font-weight: bold;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  button:hover {
+    background-color: var(--hover-color);
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  /* Estilo para los botones de acción */
+  .danger {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+  }
+
+  .danger:hover {
+    background-color: darken(var(--accent-color), 10%);
+  }
+
+  button i {
+    margin-right: 5px;
+  }
+
+  /* Botones de acciones con íconos */
+  button:first-child {
+    background-color: #28a745;
+    color: white;
+  }
+
+  button:first-child:hover {
+    background-color: #218838;
+  }
+
+  button:nth-child(2) {
+    background-color: #ffc107;
+    color: white;
+  }
+
+  button:nth-child(2):hover {
+    background-color: #e0a800;
+  }
+
+  button:last-child {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  button:last-child:hover {
+    background-color: #c82333;
+  }
+
+  /* Estilo para la lista de copias */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: var(--base-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--line-color);
+  }
+
+  .hide_on_mobile {
+    display: inline-flex;
+  }
+
+  /* Estilos para el formulario de carga de archivos */
+  .file-label {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    font-size: 1rem;
+    margin-right: 10px;
+  }
+
+  .file-label:hover {
+    background-color: darken(var(--accent-color), 10%);
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Estilos para la visualización del archivo seleccionado */
+  p {
+    font-size: 1.1rem;
+    margin-top: 10px;
+  }
+
+  /* Estilos para estado de carga */
+  .loading {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+  }
 }

@@ -1,0 +1,156 @@
+.TicketTableRespoComp {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+    a {
+      color: inherit;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 10rem;
+    }
+  
+    thead {
+      background-color: var(--base-color);
+    }
+  
+    th,
+    td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--line-color);
+      color: var(--text-color);
+    }
+  
+    th {
+      font-weight: 600;
+      background-color: var(--accent-color);
+      color: var(--white-color);
+    }
+  
+    tr:nth-child(even) {
+      background-color: var(--hover-color);
+    }
+  
+    tr:hover {
+      background-color: var(--hover-color);
+    }
+  
+    td {
+      font-size: 14px;
+      color: var(--secondary-text-color);
+    }
+  
+    .actions {
+      display: flex;
+      /* justify-content: end; */
+      justify-content: start;
+      align-items: center;
+      gap: 0.5rem;
+      i {
+        cursor: pointer;
+        color: var(--text-color);
+        font-size: 1.5rem;
+        &.icon-pencil:hover {
+          color: var(--secondary-text-color);
+        }
+        &.icon-trash:hover {
+          color: var(--accent-color);
+        }
+      }
+      a {
+        text-decoration: none;
+      }
+    }
+  
+    /* ========== Media Queries ========== */
+  
+    @media screen and (max-width: 60rem) {
+      table {
+        border: 0;
+      }
+  
+      thead {
+        display: none; /* Oculta encabezados de tabla en pantallas pequeñas */
+      }
+  
+      tr {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid var(--line-color);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+  
+      td {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        font-size: 12px;
+      }
+  
+      td::before {
+        content: attr(data-label);
+        display: inline-flex;
+        align-items: center;
+        font-weight: bold;
+        color: var(--text-color);
+      }
+  
+      /* ========== Iconos ========= */
+  
+      td[data-label="Ticket ID"]::before {
+        content: "\f0c9"; /* Icono de ticket */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+      }
+  
+      td[data-label="Cliente"]::before {
+        content: "\f007"; /* Icono de usuario */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+      }
+  
+      td[data-label="Destino"]::before {
+        content: "\f0c8"; /* Icono de lugar */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+      }
+  
+      td[data-label="Fecha de Viaje"]::before {
+        content: "\f133"; /* Icono de calendario */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+      }
+  
+      td[data-label="Valor"]::before {
+        content: "\f155"; /* Icono de dinero */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+      }
+  
+      td[data-label="Estado"]::before {
+        content: "\f0c9"; /* Icono de estado */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+      }
+  
+      td[data-label="Operador"]::before {
+        content: "\f207"; /* Icono de transporte */
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        margin-right: 10px;
+      }
+    }
+  }
+  

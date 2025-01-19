@@ -4,6 +4,7 @@ import { authService } from "../../../services/apiAuth";
 import { transportService } from "../../../services/apiTransport";
 import Swal from "sweetalert2"; // Para mostrar alertas
 import { apiUserService } from "../../../services/apiUser";
+import "./UserUpdatePage.css";
 
 const UserUpdatePage = () => {
   const { id } = useParams(); // Obtener el id del usuario de la URL
@@ -105,8 +106,15 @@ const UserUpdatePage = () => {
     Swal.fire({
       title: "Contraseña generada",
       text: "Se ha generado una nueva contraseña.",
-      icon: "info",
+      icon: "success",
       confirmButtonText: "Aceptar",
+      position: "bottom-end",
+      showConfirmButton: false,
+      timer: 3000,
+      toast: true,
+      customClass: {
+        popup: "swal-popup-bottom-right",
+      },
     });
   };
 
@@ -123,9 +131,9 @@ const UserUpdatePage = () => {
 
         <div className="password-fields">
           <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
-          <button type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
+          <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
             {showPassword ? <i className="icon-eye"></i> : <i className="icon-eye-off"></i>}
-          </button>
+          </span>
           <br />
           <button type="button" onClick={handleGeneratePassword} className="generate-password">
             Generar Contraseña

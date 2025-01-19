@@ -2,6 +2,7 @@ import "./DashboardLayout.css";
 import { useState } from "react";
 import SidebarComponent from "../SidebarComponent/SidebarComponent";
 import { useSelector } from "react-redux";
+import "../style-global/renderPagination.css";
 
 const DashboardLayout = ({ children }) => {
   // const [darkMode, setDarkMode] = useState(() => {

@@ -1,8 +1,7 @@
-.table-container {
-    overflow-x: auto;
-    margin-top: 20px;
-  }
-  
+.TableComponent {
+  overflow-x: auto;
+  margin-top: 20px;
+
   .table {
     width: 100%;
     border-collapse: collapse;
@@ -10,24 +9,24 @@
     font-size: 14px;
     color: var(--text-color);
   }
-  
-  .table th, 
+
+  .table th,
   .table td {
     text-align: left;
     padding: 10px;
     border: 1px solid var(--line-color);
   }
-  
+
   .table th {
     background-color: var(--accent-color);
     color: var(--base-color);
   }
-  
+
   .table tr:nth-child(even) {
     background-color: var(--hover-color);
   }
-  
+
   .table tr:hover {
     background-color: var(--line-color);
   }
-  
+}

@@ -3,7 +3,7 @@ import "./TableComponent.css";
 
 export const TableComponent = ({ columns, data }) => {
   return (
-    <div className="table-container">
+    <div className="TableComponent">
       <table className="table">
         <thead>
           <tr>

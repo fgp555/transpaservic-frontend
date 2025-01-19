@@ -1,0 +1,94 @@
+.TransportListPage {
+    padding: 2em;
+    background-color: var(--base-color);
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+  
+    h1 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+      color: var(--text-color);
+      /* color: peru !important; */
+    }
+  
+    h2 {
+      font-size: 1.2em;
+      color: var(--secondary-text-color);
+      margin-bottom: 1.5em;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      margin-bottom: 2em;
+    }
+  
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+  
+    form input,
+    form select,
+    form button {
+      padding: 0.8em;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--line-color);
+      font-size: 1em;
+    }
+  
+    form input[type="text"],
+    form input[type="number"] {
+      background-color: var(--white-color);
+    }
+  
+    form select {
+      background-color: var(--white-color);
+    }
+  
+    form button {
+      background-color: var(--accent-color);
+      color: var(--white-color);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      /* outline: none; */
+    }
+  
+    form button:hover {
+      background-color: darken(var(--accent-color), 10%);
+    }
+  
+    form button:focus {
+      outline: 2px solid var(--accent-color);
+    }
+    */ form input:focus,
+    form select:focus {
+      outline: 2px solid var(--accent-color);
+    }
+  
+    form input[type="number"] {
+      max-width: 100px;
+    }
+  
+    form select {
+      max-width: 250px;
+    }
+  
+    form button[type="button"] {
+      background-color: var(--accent-color);
+      color: var(--white-color);
+      border: 1px solid var(--line-color);
+    }
+  
+    form button[type="button"]:hover {
+      background-color: #e0e0e0;
+    }
+  
+    .UserTableRespoComp {
+      margin-top: 2em;
+    }
+  }
+  

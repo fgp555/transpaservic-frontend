@@ -22,6 +22,8 @@
 
   .DashboardLayout__main {
     padding: min(30px, 7%);
+    overflow: hidden;
+    overflow-x: scroll;
   }
 
   .DashboardLayout__main p {

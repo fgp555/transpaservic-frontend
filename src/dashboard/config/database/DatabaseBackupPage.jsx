@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import apiDatabaseService from "../../../services/apiDatabase";
-// import "./DatabaseBackupPage.css";
+import "./DatabaseBackupPage.css";
 
 const DatabaseBackupPage = () => {
   const [backups, setBackups] = useState([]);
@@ -337,11 +337,13 @@ const DatabaseBackupPage = () => {
 
   return (
     <div className="DatabaseBackupPage">
-      <h1>Copias de Seguridad de Base de Datos</h1>
+      <h1>Base de Datos</h1>
+      <br />
       <section>
         {isLoading && <p>Cargando...</p>}
 
         <h2>Crear Copia de Seguridad</h2>
+        <br />
         {error && <p className="error">{error}</p>}
         <button onClick={handleCreateBackup}>Crear Copia de Seguridad</button>
       </section>
@@ -356,13 +358,13 @@ const DatabaseBackupPage = () => {
               <li key={backup}>
                 <span>{backup}</span>
                 <article className="hide_on_mobile">
-                  <button onClick={() => handleDownloadBackup(backup)}>
+                  <button onClick={() => handleDownloadBackup(backup)} title="Descargar">
                     <i className="icon-download"></i>
                   </button>
-                  <button onClick={() => handleRestoreBackup(backup)}>
+                  <button onClick={() => handleRestoreBackup(backup)} title="Restaurar">
                     <i className="icon-reload"></i>
                   </button>
-                  <button className="danger" onClick={() => handleDeleteBackup(backup)}>
+                  <button className="danger" onClick={() => handleDeleteBackup(backup)} title="Eliminar">
                     <i className="icon-trash"></i>
                   </button>
                 </article>

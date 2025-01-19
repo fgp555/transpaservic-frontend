@@ -6,6 +6,7 @@
   --line-color: #d3d3d3;
   --secondary-text-color: #666666;
   --text-color: #111111;
+  --white-color: #ffffff;
 }
 
 .dark-mode {
@@ -15,6 +16,11 @@
   --line-color: #42434a;
   --secondary-text-color: #b0b3c1;
   --text-color: #e6e6ef;
+  --white-color: #ffffff;
+}
+
+:root {
+  --border-radius: 0.5em;
 }
 
 body {

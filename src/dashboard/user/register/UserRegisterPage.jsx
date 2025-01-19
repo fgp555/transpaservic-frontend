@@ -104,8 +104,15 @@ const UserRegisterPage = () => {
     Swal.fire({
       title: "Contraseña generada",
       text: "Se ha generado una nueva contraseña.",
-      icon: "info",
+      icon: "success",
       confirmButtonText: "Aceptar",
+      position: "bottom-end",
+      showConfirmButton: false,
+      timer: 3000,
+      toast: true,
+      customClass: {
+        popup: "swal-popup-bottom-right",
+      },
     });
   };
 
@@ -114,23 +121,31 @@ const UserRegisterPage = () => {
       <form onSubmit={handleSubmit}>
         <h2>Registro de Usuario</h2>
 
-        <input type="text" name="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
-        <input type="text" name="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
-        <input type="text" name="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
-        <input type="text" name="username" placeholder="Usuario" value={formData.username} onChange={handleChange} />
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+        <label htmlFor="firstName">Nombre</label>
+        <input type="text" name="firstName" id="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
 
+        <label htmlFor="lastName">Apellido</label>
+        <input type="text" name="lastName" id="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
+
+        <label htmlFor="whatsapp">WhatsApp</label>
+        <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
+
+        <label htmlFor="username">Usuario</label>
+        <input type="text" name="username" id="username" placeholder="Usuario" value={formData.username} onChange={handleChange} />
+
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} />
         <div className="password-fields">
-          {/* <label htmlFor="password">Contraseña</label> */}
+          <label htmlFor="password">Contraseña</label>
           <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
-          <button type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
+          <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
             {/* {showPassword ? "Ocultar" : "Mostrar"} */}
             {showPassword ? (
               <i className="icon-eye"></i> // Ícono para mostrar la contraseña
             ) : (
               <i className="icon-eye-off"></i> // Ícono para ocultar la contraseña
             )}
-          </button>
+          </span>
           <br />
           {/* Botón para generar contraseña */}
           <button type="button" onClick={handleGeneratePassword} className="generate-password">

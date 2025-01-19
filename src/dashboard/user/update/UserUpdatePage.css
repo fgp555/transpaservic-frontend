@@ -1,4 +1,4 @@
-.UserRegisterPage {
+.UserUpdatePage {
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
@@ -42,7 +42,7 @@
 
       .toggle-password {
         position: absolute;
-        top: 35%;
+        top: 29%;
         right: 10px;
         transform: translateY(-50%);
         background: none;
@@ -96,7 +96,7 @@
 }
 
 .dark-mode {
-  .UserRegisterPage {
+  .UserUpdatePage {
     background-color: var(--base-color);
     color: var(--text-color);
 

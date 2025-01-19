@@ -22,6 +22,7 @@ import { MenuComponent } from "./_components/MenuComponent";
 import { SpeedDialComponent } from "./_components/SpeedDialComponent";
 import { StepperComponent } from "./_components/StepperComponent";
 import { TabsComponent } from "./_components/TabsComponent";
+import { TableResponsiveComponent } from "./_components/TableResponsiveComponent";
 
 const SystemDesigns = () => {
   const theme = useSelector((state) => state.theme.theme); // Obtén el tema actual desde el store
@@ -219,12 +220,44 @@ const SystemDesigns = () => {
     },
   ];
 
+  // ========== TableResponsiveComponent  ==========
+  const data = [
+    {
+      firstName: "Diego",
+      lastName: "Torres",
+      email: "copetran1@copetran.com",
+      whatsapp: "+51288990011",
+      role: "admin",
+      transport: {
+        name: "Copetran",
+      },
+    },
+    {
+      firstName: "Ana",
+      lastName: "Gómez",
+      email: "ana@mail.com",
+      whatsapp: "+5123456789",
+      role: "user",
+      transport: {
+        name: "Transmasivo",
+      },
+    },
+    {
+      firstName: "Carlos",
+      lastName: "Pérez",
+      email: "carlos@mail.com",
+      whatsapp: "+573008765432",
+      role: "driver",
+      transport: null, // Sin transporte asignado
+    },
+  ];
+
   // ==========  ==========
   return (
     <div className="SystemDesignsPage">
       <NavLink to="/" onClick={handleToggleTheme}>
+        <i className={theme === "dark" ? "icon-moon" : "icon-sun"}></i>
         <button className="btn btn-primary">
-          <i className={theme === "dark" ? "icon-moon" : "icon-sun"}></i>
           <span>{theme === "dark" ? "Modo Oscuro" : "Modo Claro"}</span>
         </button>
       </NavLink>
@@ -238,13 +271,9 @@ const SystemDesigns = () => {
       <section>
         {/* Buttons */}
         <h2>Buttons</h2>
-        <ButtonComponent label="Ver Detalles" variant="primary" />
-        <ButtonComponent label="Editar" variant="secondary" />
-        <ButtonComponent label="Eliminar" variant="secondary" />
-        <ButtonComponent label="Imprimir" variant="secondary" />
-        <ButtonComponent label="Descargar" variant="secondary" />
-        <ButtonComponent label="Enviar" variant="secondary" />
-        <ButtonComponent label="Cargando..." variant="primary" disabled />
+        <ButtonComponent label="primary" variant="primary" />
+        <ButtonComponent label="secondary" variant="secondary" />
+        <ButtonComponent label="disabled" variant="primary" disabled />
         <ButtonComponent label="Pequeño" size="small" />
         <ButtonComponent label="Mediano" size="medium" />
         <ButtonComponent label="Grande" size="large" />
@@ -377,6 +406,10 @@ const SystemDesigns = () => {
         <h2>TabsComponent</h2>
         <TabsComponent tabs={tabs} />
       </section>
+      <section>
+        <h1>Tabla Responsiva</h1>
+        <TableResponsiveComponent data={data} />
+        </section>
     </div>
   );
 };
