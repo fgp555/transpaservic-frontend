@@ -43,7 +43,7 @@
     content: "";
     width: 10px;
     height: 10px;
-    background-color: var(--white-color);
+    background-color: var(--base-color);
     border-radius: 2px;
     position: absolute;
   }

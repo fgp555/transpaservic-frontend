@@ -10,7 +10,7 @@
 
 .btn-primary {
   background-color: var(--accent-color);
-  color: var(--white-color);
+  color: var(--base-color);
 }
 
 .btn-primary:hover {

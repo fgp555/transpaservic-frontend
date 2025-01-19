@@ -40,7 +40,7 @@
   .switch-thumb {
     width: 20px;
     height: 20px;
-    background-color: var(--white-color);
+    background-color: var(--base-color);
     border-radius: 50%;
     position: absolute;
     top: 3px;

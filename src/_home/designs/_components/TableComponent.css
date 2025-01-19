@@ -20,7 +20,7 @@
   
   .table th {
     background-color: var(--accent-color);
-    color: var(--white-color);
+    color: var(--base-color);
   }
   
   .table tr:nth-child(even) {

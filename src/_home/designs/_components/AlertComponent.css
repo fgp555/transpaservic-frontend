@@ -8,7 +8,7 @@
     margin: 10px 0;
     font-family: "Poppins", sans-serif;
     font-size: 14px;
-    color: var(--white-color);
+    color: var(--base-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: opacity 0.3s ease;
   }
@@ -43,13 +43,13 @@
   .alert-close {
     background: none;
     border: none;
-    color: var(--white-color);
+    color: var(--base-color);
     font-size: 20px;
     cursor: pointer;
     transition: color 0.3s ease;
   }
   
   .alert-close:hover {
-    color: var(--white-color);
+    color: var(--base-color);
   }
   

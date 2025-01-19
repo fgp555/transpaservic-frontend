@@ -47,7 +47,7 @@
   /* Página activa */
   .pagination-active {
     background-color: var(--accent-color);
-    color: var(--white-color);
+    color: var(--base-color);
     border-color: var(--accent-color);
   }
   

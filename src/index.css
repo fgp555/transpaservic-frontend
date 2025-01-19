@@ -1,26 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 :root {
-  --base-color: #ffffff;
-  --line-color: #d3d3d3;
-  --hover-color: #f0f0f0;
-  --text-color: #111111;
   --accent-color: #bb0000;
+  --base-color: #ffffff;
+  --hover-color: #f0f0f0;
+  --line-color: #d3d3d3;
   --secondary-text-color: #666666;
-  --white-color: #fff;
+  --text-color: #111111;
 }
 
 .dark-mode {
-  --base-color: #11121a;
-  --line-color: #42434a;
-  --hover-color: #222533;
-  --text-color: #e6e6ef;
   --accent-color: #bb0000;
+  --base-color: #11121a;
+  --hover-color: #222533;
+  --line-color: #42434a;
   --secondary-text-color: #b0b3c1;
-  --white-color: #fff;
+  --text-color: #e6e6ef;
 }
 
-html,
 body {
   margin: 0;
 }
-

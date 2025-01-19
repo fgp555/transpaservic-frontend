@@ -1,0 +1,64 @@
+.stepper {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--base-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stepper-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .stepper-step {
+    padding: 10px;
+    font-weight: bold;
+    color: var(--text-color);
+    background-color: var(--line-color);
+    border-radius: 50%;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .stepper-step.completed {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .stepper-step.current {
+    background-color: #bb0000;
+    color: white;
+  }
+  
+  .stepper-content {
+    text-align: center;
+  }
+  
+  .stepper-buttons {
+    margin-top: 20px;
+  }
+  
+  .stepper-buttons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .stepper-buttons button:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+  }
+  
+  .stepper-buttons button:hover {
+    background-color: #bb0000;
+  }
+  

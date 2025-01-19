@@ -1,0 +1,38 @@
+/* Estilo base del Snackbar */
+.snackbar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+  }
+  
+  /* Mostrar el Snackbar */
+  .snackbar.show {
+    display: block;
+    opacity: 1;
+  }
+  
+  /* Estilo para el Snackbar de éxito */
+  .snackbar.success {
+    background-color: #4caf50;
+  }
+  
+  /* Estilo para el Snackbar de error */
+  .snackbar.error {
+    background-color: #f44336;
+  }
+  
+  /* Estilo para el Snackbar de advertencia */
+  .snackbar.warning {
+    background-color: #ff9800;
+  }
+  

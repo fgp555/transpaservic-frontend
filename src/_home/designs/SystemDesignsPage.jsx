@@ -14,6 +14,14 @@ import { PaginationComponent } from "./_components/PaginationComponent";
 import { ChipComponent } from "./_components/ChipComponent";
 import { SearchComponent } from "./_components/SearchComponent";
 import { AlertComponent } from "./_components/AlertComponent";
+import { ModalComponent } from "./_components/ModalComponent";
+import { SnackbarComponent } from "./_components/SnackbarComponent";
+import { AccordionComponent } from "./_components/AccordionComponent";
+import { BreadcrumbsComponent } from "./_components/BreadcrumbsComponent";
+import { MenuComponent } from "./_components/MenuComponent";
+import { SpeedDialComponent } from "./_components/SpeedDialComponent";
+import { StepperComponent } from "./_components/StepperComponent";
+import { TabsComponent } from "./_components/TabsComponent";
 
 const SystemDesigns = () => {
   const theme = useSelector((state) => state.theme.theme); // Obtén el tema actual desde el store
@@ -75,19 +83,141 @@ const SystemDesigns = () => {
   };
 
   // ========== AlertComponent ==========
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState({ show: false, type: "", message: "" });
 
-  const handleShowAlert = () => {
-    setShowAlert(true);
-    // Ocultar la alerta después de 5 segundos
+  const handleShowAlert = (type, message) => {
+    setShowAlert({ show: true, type, message });
     setTimeout(() => {
-      setShowAlert(false);
-    }, 3000);
+      setShowAlert({ show: false, type: "", message: "" });
+    }, 3000); // Desaparece después de 3 segundos
   };
 
   const closeAlert = () => {
-    setShowAlert(false);
+    setShowAlert({ show: false, type: "", message: "" });
   };
+
+  // ========== ModalComponent ==========
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // ========== SnackbarComponent ==========
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarType, setSnackbarType] = useState(""); // success, error, warning
+
+  const openSnackbar = (message, type) => {
+    setSnackbarMessage(message);
+    setSnackbarType(type);
+    setSnackbarOpen(true);
+  };
+
+  const closeSnackbar = () => {
+    setSnackbarOpen(false);
+  };
+
+  // ========== AccordionComponent ==========
+  const accordionItems = [
+    {
+      title: "Sección 1",
+      content: "Este es el contenido de la primera sección del acordeón. Puedes poner más detalles aquí.",
+    },
+    {
+      title: "Sección 2",
+      content: "Contenido de la segunda sección. Aquí puedes agregar cualquier información adicional.",
+    },
+    {
+      title: "Sección 3",
+      content: "Aquí está el contenido de la tercera sección del acordeón. Puedes incluir más datos aquí.",
+    },
+  ];
+
+  // ========== BreadcrumbsComponent ==========
+  const breadcrumbItems = [
+    { label: "Home", link: "/" },
+    { label: "Products", link: "/products" },
+    { label: "Product Detail", link: "/products/1" },
+  ];
+
+  // ========== MenuComponent ==========
+  const menuItems = [
+    { label: "Inicio", link: "/" },
+    { label: "Productos", link: "/products" },
+    { label: "Servicios", link: "/services" },
+    { label: "Contacto", link: "/contact" },
+  ];
+
+  // ==========  ==========
+  const actions = [
+    {
+      label: "Editar",
+      icon: 1,
+      onClick: () => alert("Editar acción"),
+    },
+    {
+      label: "Eliminar",
+      icon: 2,
+      onClick: () => alert("Eliminar acción"),
+    },
+    {
+      label: "Descargar",
+      icon: 3,
+      onClick: () => alert("Descargar acción"),
+    },
+  ];
+
+  // ========== StepperComponent ==========
+  const steps = [
+    {
+      label: "Paso 1",
+      content: "Aquí va el contenido para el paso 1. Recoge la información básica.",
+    },
+    {
+      label: "Paso 2",
+      content: "Aquí va el contenido para el paso 2. Pide detalles adicionales.",
+    },
+    {
+      label: "Paso 3",
+      content: "Aquí va el contenido para el paso 3. Confirma la información y finaliza.",
+    },
+  ];
+
+  // ========== TabsComponent ==========
+  const tabs = [
+    {
+      label: "Tab 1",
+      content: (
+        <div>
+          <h3>Contenido de la Pestaña 1</h3>
+          <p>Este es el contenido de la primera pestaña.</p>
+        </div>
+      ),
+    },
+    {
+      label: "Tab 2",
+      content: (
+        <div>
+          <h3>Contenido de la Pestaña 2</h3>
+          <p>Este es el contenido de la segunda pestaña.</p>
+        </div>
+      ),
+    },
+    {
+      label: "Tab 3",
+      content: (
+        <div>
+          <h3>Contenido de la Pestaña 3</h3>
+          <p>Este es el contenido de la tercera pestaña.</p>
+        </div>
+      ),
+    },
+  ];
 
   // ==========  ==========
   return (
@@ -172,13 +302,80 @@ const SystemDesigns = () => {
         <SearchComponent onSearch={handleSearch} />
       </section>
       <section>
-        <h2>Componente de Alerta con Temporizador</h2>
-        {/* Botón que activa la alerta */}
-        <button onClick={handleShowAlert} className="btn btn-primary">
-          Mostrar Alerta
+        {/* Buttons para mostrar diferentes tipos de alertas */}
+        <h2>Mostrar Alertas</h2>
+        <ButtonComponent label="Alerta de Éxito" onClick={() => handleShowAlert("success", "Operación realizada con éxito!")} />
+        <ButtonComponent label="Alerta de Error" onClick={() => handleShowAlert("error", "Algo salió mal. Intenta nuevamente.")} />
+        <ButtonComponent label="Alerta de Advertencia" onClick={() => handleShowAlert("warning", "Cuidado! Algo podría ir mal.")} />
+        <ButtonComponent label="Alerta de Información" onClick={() => handleShowAlert("info", "Esto es solo para tu información.")} />
+        {/* Mostrar alerta si está activa */}
+        {showAlert.show && <AlertComponent type={showAlert.type} message={showAlert.message} onClose={closeAlert} />}
+      </section>
+
+      <section>
+        <h2>Mostrar Modal</h2>
+        <button onClick={openModal} className="btn btn-primary">
+          Mostrar Modal
         </button>
-        {/* Mostrar la alerta si el estado showAlert es true */}
-        {showAlert && <AlertComponent type="success" message="¡Operación realizada con éxito!" onClose={closeAlert} />}{" "}
+
+        <ModalComponent isOpen={isModalOpen} onClose={closeModal}>
+          <h2>¡Hola! Soy un Modal</h2>
+          <p>Este es un contenido dentro del modal. Puedes agregar lo que quieras.</p>
+          <button onClick={closeModal} className="btn btn-secondary">
+            Cerrar Modal
+          </button>
+        </ModalComponent>
+      </section>
+      <section>
+        {/* Botones de ejemplo para activar diferentes tipos de Snackbar */}
+        <button className="btn" onClick={() => openSnackbar("¡Operación exitosa!", "success")}>
+          Mostrar éxito
+        </button>
+        <button className="btn" onClick={() => openSnackbar("Ocurrió un error", "error")}>
+          Mostrar error
+        </button>
+        <button className="btn" onClick={() => openSnackbar("Advertencia importante", "warning")}>
+          Mostrar advertencia
+        </button>
+
+        {/* Componente Snackbar */}
+        <SnackbarComponent open={snackbarOpen} message={snackbarMessage} onClose={closeSnackbar} type={snackbarType} />
+      </section>
+      <section>
+        <h1>Sistema de Diseño - Accordion</h1>
+        {/* Componente Accordion */}
+        <AccordionComponent items={accordionItems} />
+        <br />
+        <AccordionComponent
+          items={[
+            { title: "Sección 1", content: "Este es el contenido de la primera sección." },
+            { title: "Sección 2", content: "Contenido de la segunda sección." },
+            { title: "Sección 3", content: "Contenido de la tercera sección." },
+          ]}
+        />
+      </section>
+      <section>
+        <h2>BreadcrumbsComponent</h2>
+        <BreadcrumbsComponent items={breadcrumbItems} />
+        {/* Resto del contenido de la página */}
+      </section>
+      <section>
+        <h2>MenuComponent</h2>
+        <MenuComponent items={menuItems} />
+      </section>
+      <section>
+        {/* SpeedDialComponent */}
+        <h2>SpeedDialComponent</h2>
+        <SpeedDialComponent actions={actions} />
+      </section>
+      <section>
+        <h2>Formulario de Varios Pasos</h2>
+        <StepperComponent steps={steps} />
+      </section>
+      <section>
+        {/* TabsComponent */}
+        <h2>TabsComponent</h2>
+        <TabsComponent tabs={tabs} />
       </section>
     </div>
   );

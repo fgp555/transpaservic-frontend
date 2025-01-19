@@ -16,7 +16,7 @@
   
   .chip-container:hover {
     background-color: var(--accent-color);
-    color: var(--white-color);
+    color: var(--base-color);
   }
   
   /* Etiqueta del chip */

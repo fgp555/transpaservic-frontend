@@ -1,0 +1,47 @@
+.accordion {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--line-color);
+  transition: background-color 0.3s ease;
+}
+
+.accordion-header {
+  background-color: var(--base-color);
+  padding: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: var(--text-color);
+  transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+  background-color: var(--hover-color);
+}
+
+.accordion-content {
+  background-color: var(--base-color);
+  padding: 10px;
+  display: none; /* Asegúrate de que esté oculto por defecto */
+  overflow: hidden;
+  height: 0;
+  transition: height 0.3s ease-out;
+  color: var(--secondary-text-color);
+}
+
+/* Estilo para el contenido cuando la sección está abierta */
+.accordion-item.open .accordion-content {
+  display: block; /* Cambiar a display: block */
+  height: auto; /* Establecer la altura automática cuando esté abierto */
+}
+
+.accordion-item.open .accordion-header {
+  background-color: var(--accent-color);
+  color: var(--base-color);
+}
