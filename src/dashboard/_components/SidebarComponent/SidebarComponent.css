@@ -1,4 +1,6 @@
 #SidebarComponent {
+  position: relative;
+  z-index: 1;
   box-sizing: border-box;
   height: 100vh;
   width: 250px;

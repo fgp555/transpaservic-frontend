@@ -43,16 +43,6 @@ const SidebarComponent = () => {
 
   const [subMenus, setSubMenus] = useState({});
 
-  // const toggleDarkMode = (event) => {
-  //   event.preventDefault(); // Prevenir la redirección
-  //   handleToggleTheme((prevMode) => {
-  //     const newMode = !prevMode;
-  //     localStorage.setItem("darkMode", JSON.stringify(newMode)); // Guardar la preferencia en localStorage
-  //     return newMode;
-  //   });
-  //   console.log(darkMode ? "Cambiado a Modo Claro" : "Cambiado a Modo Oscuro");
-  // };
-
   const toggleSidebar = () => {
     const newSidebarState = !sidebar; // Alternar el estado de la sidebar
 
@@ -88,7 +78,7 @@ const SidebarComponent = () => {
             </button>
           </li>
           <li className="activea">
-            <NavLink to="/" end>
+            <NavLink to="/dashboard" end>
               <i className="icon-home"></i>
               <span>Home</span>
             </NavLink>
@@ -161,19 +151,16 @@ const SidebarComponent = () => {
         <ul className="botton">
           <li>
             {sidebar && (
-              <p className="user-info">
+              <div className="user-info">
                 <button onClick={handleToggleRole}>Toggle Role</button>
-                {/* img */}
                 <div>
                   <img src={userSlice?.user?.image} alt={userSlice?.user?.firstName} />
                 </div>
-                {/* <span className="welcome">Bienvenido </span> */}
                 <div className="user-name">
                   <span> {userSlice?.user?.firstName}</span>
-                  {/* <span> {userSlice?.user?.lastName}</span> */}
                 </div>
                 <span className="transport"> {userSlice?.user?.transport?.name}</span>
-              </p>
+              </div>
             )}
             <hr className="hr" />
             <br />
@@ -209,7 +196,7 @@ const SidebarComponent = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard?2" end>
+            <NavLink to="/dashboard/help" end>
               <i className="icon-help"></i>
               <span>Centro de ayuda</span>
             </NavLink>

@@ -62,10 +62,10 @@ export const TicketTableRespoComp = ({ data, fetchTickets }) => {
       <table>
         <thead>
           <tr>
-            <th>Ticket ID</th>
+            <th>Orden#</th>
             <th>Cliente</th>
             <th>Destino</th>
-            <th>Fecha de Viaje</th>
+            <th>F. Viaje</th>
             <th>Valor</th>
             <th>Estado</th>
             <th>Operador</th>

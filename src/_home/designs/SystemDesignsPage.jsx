@@ -17,7 +17,6 @@ import { AlertComponent } from "./_components/AlertComponent";
 import { ModalComponent } from "./_components/ModalComponent";
 import { SnackbarComponent } from "./_components/SnackbarComponent";
 import { AccordionComponent } from "./_components/AccordionComponent";
-import { BreadcrumbsComponent } from "./_components/BreadcrumbsComponent";
 import { MenuComponent } from "./_components/MenuComponent";
 import { SpeedDialComponent } from "./_components/SpeedDialComponent";
 import { StepperComponent } from "./_components/StepperComponent";
@@ -137,13 +136,6 @@ const SystemDesigns = () => {
       title: "Sección 3",
       content: "Aquí está el contenido de la tercera sección del acordeón. Puedes incluir más datos aquí.",
     },
-  ];
-
-  // ========== BreadcrumbsComponent ==========
-  const breadcrumbItems = [
-    { label: "Home", link: "/" },
-    { label: "Products", link: "/products" },
-    { label: "Product Detail", link: "/products/1" },
   ];
 
   // ========== MenuComponent ==========
@@ -383,11 +375,7 @@ const SystemDesigns = () => {
           ]}
         />
       </section>
-      <section>
-        <h2>BreadcrumbsComponent</h2>
-        <BreadcrumbsComponent items={breadcrumbItems} />
-        {/* Resto del contenido de la página */}
-      </section>
+
       <section>
         <h2>MenuComponent</h2>
         <MenuComponent items={menuItems} />
@@ -409,7 +397,7 @@ const SystemDesigns = () => {
       <section>
         <h1>Tabla Responsiva</h1>
         <TableResponsiveComponent data={data} />
-        </section>
+      </section>
     </div>
   );
 };

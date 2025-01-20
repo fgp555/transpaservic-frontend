@@ -1,7 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Si usas React Router
 import "./BreadcrumbsComponent.css"; // Asegúrate de tener el archivo CSS
-
+/* 
+  const breadcrumbItems = [
+    { label: "Home", link: "/" },
+    { label: "Products", link: "/products" },
+    { label: "Product Detail", link: "/products/1" },
+  ];
+  
+  <section>
+  <h2>BreadcrumbsComponent</h2>
+  <BreadcrumbsComponent items={breadcrumbItems} />
+  </section>
+*/
 export const BreadcrumbsComponent = ({ items }) => {
   return (
     <nav className="breadcrumbs">

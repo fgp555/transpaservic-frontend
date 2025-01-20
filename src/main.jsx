@@ -28,6 +28,7 @@ import SystemDesignsPage from "./_home/designs/SystemDesignsPage.jsx";
 import TicketApprovePage from "./dashboard/ticket/approve/TicketApprovePage.jsx";
 import DevelopmentPage from "./_dev/DevelopmentPage.jsx";
 import TicketByIdPage from "./dashboard/ticket/id/TicketByIdPage.jsx";
+import HelpPage from "./dashboard/help/HelpPage.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -53,6 +54,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/dashboard/municipality/list" element={<DashboardLayout><MunicipalityListPage /></DashboardLayout>} />
 
           <Route path="/dashboard/config/database" element={<DashboardLayout><DatabaseBackupPage /></DashboardLayout>} />
+          <Route path="/dashboard/help" element={<DashboardLayout><HelpPage /></DashboardLayout>} />
           <Route path="/dev" element={<DashboardLayout><DevelopmentPage /></DashboardLayout>} />
           <Route path="/designs" element={<DashboardLayout><SystemDesignsPage /></DashboardLayout>} />
           

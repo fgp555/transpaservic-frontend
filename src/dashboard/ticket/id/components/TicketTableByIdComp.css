@@ -1,0 +1,32 @@
+.TicketTableByIdComp {
+  table {
+    /* min-width: 40rem; */
+    /* display: block; */
+    /* min-width: max(40rem, 100%); */
+    min-width: min(40rem, 70vw);
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid var(--line-color);
+    }
+
+    th {
+      background-color: var(--accent-color);
+      color: var(--white-color);
+      font-weight: bold;
+    }
+
+    td {
+      background-color: var(--line-color);
+    }
+
+    tr:nth-child(even) td {
+      background-color: var(--light-color);
+    }
+  }
+}

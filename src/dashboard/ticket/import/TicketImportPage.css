@@ -1,0 +1,43 @@
+.TicketImportPage {
+  table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: var(--base-color);
+    color: var(--text-color);
+    border: 1px solid var(--line-color);
+    border-radius: var(--border-radius);
+    overflow: scroll;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--line-color);
+    padding: 8px 12px;
+    text-align: left;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  }
+
+  th {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    font-weight: bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: var(--hover-color);
+  }
+
+  tr:hover {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+  }
+
+  caption {
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: var(--text-color);
+  }
+}
