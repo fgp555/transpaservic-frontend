@@ -28,28 +28,37 @@ const TicketImportPage = () => {
 
         // Filtrar y mapear las columnas deseadas con sus nombres
         const filteredData = jsonData
-          .map((row) => ({
-            transportContract: row[Object.keys(row)[0]],
-            orderNumber: row[Object.keys(row)[1]],
-            mainDiagnosis: row[Object.keys(row)[2]],
-            client: row[Object.keys(row)[4]],
-            patientName: row[Object.keys(row)[6]],
-            idCard: row[Object.keys(row)[7]],
-            userPhone: row[Object.keys(row)[53]],
-            email: row[Object.keys(row)[56]],
-            origin: row[Object.keys(row)[8]],
-            destination: row[Object.keys(row)[9]],
-            itinerary: row[Object.keys(row)[10]],
-            quantity: row[Object.keys(row)[11]],
-            travelDate: row[Object.keys(row)[16]],
-            postalNumber: row[Object.keys(row)[17]],
-            createDate: row[Object.keys(row)[18]],
-            value: row[Object.keys(row)[20]],
-            netValue: row[Object.keys(row)[21]],
-            check: row[Object.keys(row)[19]],
-            remarks: row[Object.keys(row)[15]],
-          }))
-          .filter((row) => Object.values(row).some((value) => value !== undefined && value !== 0 && value !== "")); // Omitir filas vacías
+          .map((row) => {
+            // Función para convertir números de fecha a formato legible
+            const formatDate = (excelDate) => {
+              if (!excelDate || typeof excelDate !== "number") return null;
+              const parsedDate = XLSX.SSF.parse_date_code(excelDate);
+              return `${parsedDate.y}-${String(parsedDate.m).padStart(2, "0")}-${String(parsedDate.d).padStart(2, "0")}`;
+            };
+
+            return {
+              transportContract: row[Object.keys(row)[0]],
+              orderNumber: row[Object.keys(row)[1]],
+              mainDiagnosis: row[Object.keys(row)[2]],
+              client: row[Object.keys(row)[4]],
+              patientName: row[Object.keys(row)[6]],
+              idCard: row[Object.keys(row)[7]],
+              userPhone: row[Object.keys(row)[53]],
+              email: row[Object.keys(row)[56]],
+              origin: row[Object.keys(row)[8]],
+              destination: row[Object.keys(row)[9]],
+              itinerary: row[Object.keys(row)[10]],
+              quantity: row[Object.keys(row)[11]],
+              travelDate: formatDate(row[Object.keys(row)[16]]), // Convertir travelDate
+              postalNumber: row[Object.keys(row)[17]],
+              createDate: formatDate(row[Object.keys(row)[18]]), // Convertir createDate
+              value: row[Object.keys(row)[20]],
+              netValue: row[Object.keys(row)[21]],
+              check: row[Object.keys(row)[19]],
+              remarks: row[Object.keys(row)[15]],
+            };
+          })
+          .filter((row) => Object.values(row).some((value) => value !== undefined && value !== null && value !== 0 && value !== "")); // Omitir filas vacías
 
         setExcelData(filteredData);
       }
@@ -57,6 +66,13 @@ const TicketImportPage = () => {
 
     // Leer el archivo como un ArrayBuffer
     reader.readAsArrayBuffer(file);
+  };
+
+  const downloadCSV = () => {
+    const ws = XLSX.utils.json_to_sheet(excelData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Datos");
+    XLSX.writeFile(wb, "datos.csv");
   };
 
   return (
@@ -120,9 +136,14 @@ const TicketImportPage = () => {
           <br />
           <br />
           <p>Una vez verificado la informacion ya puede enviar a la base de datos</p>
-          <button className="btn btn-primary" onClick={() => alert("boton en desarrollo")}>Enviar a la base de datos</button>
+          <button className="btn btn-primary" onClick={() => alert("boton en desarrollo")}>
+            Enviar a la base de datos
+          </button>
+          {/* <button className="btn btn-primary" onClick={downloadCSV}>
+            Descargar CSV
+          </button> */}
           <br />
-          <pre>{JSON.stringify(excelData, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(excelData, null, 2)}</pre> */}
         </>
       )}
     </div>
