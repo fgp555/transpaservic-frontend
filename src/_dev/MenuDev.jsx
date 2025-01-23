@@ -82,7 +82,7 @@ const MenuDev = () => {
       </aside>
       <aside>
         <b>COMPONENTS</b>
-        <NavLink to="/404" end>Forgot Password</NavLink>
+        <NavLink to="/forgot-password" end>Forgot Password</NavLink>
         <NavLink to="/404" end>Reset Password</NavLink>
         <NavLink to="/404" end>Loading</NavLink>
       </aside>

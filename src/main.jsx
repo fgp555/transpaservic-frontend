@@ -29,6 +29,7 @@ import TicketApprovePage from "./dashboard/ticket/approve/TicketApprovePage.jsx"
 import DevelopmentPage from "./_dev/DevelopmentPage.jsx";
 import TicketByIdPage from "./dashboard/ticket/id/TicketByIdPage.jsx";
 import HelpPage from "./dashboard/help/HelpPage.jsx";
+import ForgotPassword from "./_home/password/ForgotPassword.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -60,7 +61,7 @@ createRoot(document.getElementById("root")).render(
           
           {/* <Route path="/" element={<PublicLayout><App /></PublicLayout>} /> */}
           <Route path="/" element={<App />} />
-          <Route path="/login" element={<PublicLayout><App /></PublicLayout>} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
           <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
           <Route path="*" element={<PublicLayout><Page404 /></PublicLayout>} />

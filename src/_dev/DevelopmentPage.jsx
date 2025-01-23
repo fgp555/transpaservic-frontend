@@ -24,8 +24,8 @@ const DevelopmentPage = () => {
   };
   return (
     <div>
-      {/* <MenuDev /> */}
-      <ExcelReader />
+      <MenuDev />
+      {/* <ExcelReader /> */}
     </div>
   );
 };

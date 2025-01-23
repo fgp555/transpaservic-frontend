@@ -4,12 +4,11 @@ import { authService } from "../../services/apiAuth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { NavLink, useNavigate } from "react-router";
-import "./LoginPage.css";
+import "./ForgotPassword.css";
 
-const LoginPage = () => {
-  const [email, setEmail] = useState("admin123@gmail.com");
+const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("SecurePass@2023");
-  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -17,12 +16,10 @@ const LoginPage = () => {
 
   const handleEmailChange = (e) => setEmail(e.target.value);
 
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-
-  const toggleShowPassword = () => setShowPassword((prevState) => !prevState);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    alert("Enviar email");
+    return;
     setLoading(true);
     try {
       const userData = { email, password };
@@ -39,11 +36,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="LoginPage">
+    <div className="ForgotPassword">
       <aside className="left">
         <img className="logo" src="/logo.svg" alt="" />
         <br />
-        <h2>INICIO DE SESIÓN</h2>
+        <h2>RECUPERAR CONTRASEÑA</h2>
         <br />
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -53,31 +50,17 @@ const LoginPage = () => {
             </div>
           </div>
 
-          <div className="form-group">
-            <label>Password:</label>
-            <div className="password-wrapper">
-              <input type={showPassword ? "text" : "password"} value={password} onChange={handlePasswordChange} required placeholder="************" />
-              <button type="button" className="toggle-password " onClick={toggleShowPassword}>
-                {showPassword ? (
-                  <i className="icon-eye"></i> // Ícono para mostrar la contraseña
-                ) : (
-                  <i className="icon-eye-off"></i> // Ícono para ocultar la contraseña
-                )}
-              </button>
-            </div>
-          </div>
-
           {error && <div className="error-message">{error}</div>}
 
           <br />
           <button type="submit" disabled={loading} className="btn btn-primary">
-            {loading ? "Iniciando..." : "INICIAR SESION"}
+            {loading ? "Enviando..." : "Enviar email"}
           </button>
         </form>
         <br />
         <br />
-        <NavLink to="/forgot-password" className={"forgot-password"}>
-          RECUPERAR CONTRASEÑA
+        <NavLink to="/" className={"forgot-password"}>
+          INICIAR SESION
         </NavLink>
         <br />
         {/* <p>RECUPERAR CONTRASEÑA</p> */}
@@ -102,4 +85,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgotPassword;
