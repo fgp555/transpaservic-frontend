@@ -1,37 +1,34 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.jsx";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import { Provider } from "react-redux";
-import store from "./store/store.js";
+import store from "./store/reduxStore.js";
+import "./index.css";
 
-import About from "./_home/about/About";
-import { PublicLayout } from "./_home/_components/layouts/PublicLayout";
-import DashboardLayout from "./dashboard/_components/layout/DashboardLayout";
-import DashboardPage from "./dashboard/_/DashboardPage";
-import Page404 from "./_home/404/Page404";
-import UserRegisterPage from "./dashboard/user/register/UserRegisterPage";
-import TicketListPage from "./dashboard/ticket/list/TicketListPage";
-import UserListPage from "./dashboard/user/list/UserListPage";
-import TicketCreatePage from "./dashboard/ticket/create/TicketCreatePage";
-import TicketUpdatePage from "./dashboard/ticket/update/TicketUpdatePage";
-import TransportCreatePage from "./dashboard/transport/create/TransportCreatePage";
-import TransportListPage from "./dashboard/transport/list/TransportListPage";
-import TransportUpdatePage from "./dashboard/transport/update/TransportUpdatePage";
-import UserUpdatePage from "./dashboard/user/update/UserUpdatePage";
-import TicketImportPage from "./dashboard/ticket/import/TicketImportPage";
-import TicketFilterPage from "./dashboard/ticket/filter/TicketFilterPage";
-import MunicipalityListPage from "./dashboard/municipality/list/MunicipalityListPage";
-import DatabaseBackupPage from "./dashboard/config/database/DatabaseBackupPage.jsx";
-import SystemDesignsPage from "./_home/designs/SystemDesignsPage.jsx";
-import TicketApprovePage from "./dashboard/ticket/approve/TicketApprovePage.jsx";
-import DevelopmentPage from "./_dev/DevelopmentPage.jsx";
-import TicketByIdPage from "./dashboard/ticket/id/TicketByIdPage.jsx";
-import HelpPage from "./dashboard/help/HelpPage.jsx";
-import ForgotPassword from "./_home/password/ForgotPassword.jsx";
+import App from "./App.jsx";
+import DashboardLayout from "./app/dashboard/_layout/DashboardLayout";
+import TicketListPage from "./app/dashboard/ticket/list/TicketListPage";
+import TicketCreatePage from "./app/dashboard/ticket/create/TicketCreatePage";
+import TicketUpdatePage from "./app/dashboard/ticket/update/TicketUpdatePage";
+import TicketImportPage from "./app/dashboard/ticket/import/TicketImportPage";
+import TicketApprovePage from "./app/dashboard/ticket/approve/TicketApprovePage";
+import TicketByIdPage from "./app/dashboard/ticket/id/TicketByIdPage";
+import UserListPage from "./app/dashboard/user/list/UserListPage";
+import UserRegisterPage from "./app/dashboard/user/register/UserRegisterPage";
+import UserUpdatePage from "./app/dashboard/user/update/UserUpdatePage";
+import TransportListPage from "./app/dashboard/transport/list/TransportListPage";
+import TransportCreatePage from "./app/dashboard/transport/create/TransportCreatePage";
+import TransportUpdatePage from "./app/dashboard/transport/update/TransportUpdatePage";
+import DatabaseBackupPage from "./app/dashboard/config/database/DatabaseBackupPage";
+import HelpPage from "./app/dashboard/help/HelpPage";
+import Page404 from "./app/404/Page404";
+import ForgotPassword from "./app/password/forgot/ForgotPassword";
+import DashboardPage from "./app/dashboard/DashboardPage";
+import ResetPassword from "./app/password/reset/ResetPassword.jsx";
+// import DevelopmentPage from "./_dev/MenuDev";
+// import SystemDesignsPage from "./_dev/designs/SystemDesignsPage";
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root")).render(  
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
@@ -39,7 +36,6 @@ createRoot(document.getElementById("root")).render(
           <Route path="/dashboard/ticket/list" element={<DashboardLayout><TicketListPage /></DashboardLayout>} />
           <Route path="/dashboard/ticket/create" element={<DashboardLayout><TicketCreatePage /></DashboardLayout>} />
           <Route path="/dashboard/ticket/update/:id" element={<DashboardLayout><TicketUpdatePage /></DashboardLayout>} />
-          <Route path="/dashboard/ticket/filter" element={<DashboardLayout><TicketFilterPage /></DashboardLayout>} />
           <Route path="/dashboard/ticket/import" element={<DashboardLayout><TicketImportPage /></DashboardLayout>} />
           <Route path="/dashboard/ticket/approve/:id" element={<DashboardLayout><TicketApprovePage /></DashboardLayout>} />
           <Route path="/dashboard/ticket/:id" element={<DashboardLayout><TicketByIdPage /></DashboardLayout>} />
@@ -52,19 +48,18 @@ createRoot(document.getElementById("root")).render(
           <Route path="/dashboard/transport/create" element={<DashboardLayout><TransportCreatePage /></DashboardLayout>} />
           <Route path="/dashboard/transport/update/:id" element={<DashboardLayout><TransportUpdatePage /></DashboardLayout>} />
 
-          <Route path="/dashboard/municipality/list" element={<DashboardLayout><MunicipalityListPage /></DashboardLayout>} />
-
           <Route path="/dashboard/config/database" element={<DashboardLayout><DatabaseBackupPage /></DashboardLayout>} />
           <Route path="/dashboard/help" element={<DashboardLayout><HelpPage /></DashboardLayout>} />
-          <Route path="/dev" element={<DashboardLayout><DevelopmentPage /></DashboardLayout>} />
-          <Route path="/designs" element={<DashboardLayout><SystemDesignsPage /></DashboardLayout>} />
-          
-          {/* <Route path="/" element={<PublicLayout><App /></PublicLayout>} /> */}
+
+          {/* <Route path="/dev" element={<DashboardLayout><DevelopmentPage /></DashboardLayout>} /> */}
+          {/* <Route path="/designs" element={<DashboardLayout><SystemDesignsPage /></DashboardLayout>} /> */}
+
           <Route path="/" element={<App />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
+          <Route path="/tikets/dist/" element={<Navigate to="/" replace />} />
+          <Route path="/password/forgot" element={<ForgotPassword />} />
+          <Route path="/password/reset/:id" element={<ResetPassword />} />
           <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
-          <Route path="*" element={<PublicLayout><Page404 /></PublicLayout>} />
+          <Route path="*" element={<Page404 />} />
         </Routes>
       </Provider>
     </BrowserRouter>
