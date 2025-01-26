@@ -1,35 +1,35 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { authService } from "../../../services/apiAuth";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../../store/userSlice";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink } from "react-router";
 import "./ForgotPassword.css";
+import { selectEmail } from "../../../services/baseURL";
+import { authPasswordService } from "../../../services/apiAuthPassword";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("SecurePass@2023");
+  const [email, setEmail] = useState(selectEmail);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [domain, setDomain] = useState(window.location.origin); // Dominio de la aplicación
 
   const handleEmailChange = (e) => setEmail(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Enviar email");
-    return;
     setLoading(true);
     try {
-      const userData = { email, password };
-      const response = await authService.signin(userData);
-      dispatch(setUser(response));
-      Swal.fire("Success!", "Login successful", "success");
-      navigate("/dashboard/ticket/list");
+      const response = await authPasswordService.forgotPassword(email, domain);
+      console.log(response); // Verifica la respuesta
+      Swal.fire("¡Éxito!", "Te hemos enviado un correo electrónico para restablecer tu contraseña. Revisa tu bandeja de entrada.", "success");
     } catch (error) {
-      setError("Invalid email or password");
-      Swal.fire("Error!", "Invalid email or password", "error");
+      // Si el error es una instancia de Error que viene del backend, maneja el mensaje de error
+      if (error.response && error.response.data) {
+        const { message } = error.response.data;
+        setError(message || "Hubo un problema al enviar el email");
+        Swal.fire("Error!", message || "Hubo un problema al enviar el email", "error");
+      } else {
+        setError(error.message || "Error desconocido");
+        Swal.fire("Error!", error.message || "Hubo un problema al enviar el email", "error");
+      }
     } finally {
       setLoading(false);
     }
@@ -79,6 +79,7 @@ const ForgotPassword = () => {
         <article className="right-text">
           <h3>TRANSPORTE ESPECIAL </h3>
           <h3>DE PASAJEROS Y TURISMO</h3>
+          {/* <pre>{JSON.stringify({ email, domain }, null, 2)}</pre> */}
         </article>
       </aside>
     </div>

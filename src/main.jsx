@@ -24,7 +24,7 @@ import HelpPage from "./app/dashboard/help/HelpPage";
 import Page404 from "./app/404/Page404";
 import ForgotPassword from "./app/password/forgot/ForgotPassword";
 import DashboardPage from "./app/dashboard/DashboardPage";
-import ResetPassword from "./app/password/reset/ResetPassword.jsx";
+import RestorePassword from "./app/password/restore/RestorePassword.jsx";
 // import DevelopmentPage from "./_dev/MenuDev";
 // import SystemDesignsPage from "./_dev/designs/SystemDesignsPage";
 
@@ -33,6 +33,8 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Provider store={store}>
         <Routes>
+          <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
+
           <Route path="/dashboard/ticket/list" element={<DashboardLayout><TicketListPage /></DashboardLayout>} />
           <Route path="/dashboard/ticket/create" element={<DashboardLayout><TicketCreatePage /></DashboardLayout>} />
           <Route path="/dashboard/ticket/update/:id" element={<DashboardLayout><TicketUpdatePage /></DashboardLayout>} />
@@ -55,10 +57,9 @@ createRoot(document.getElementById("root")).render(
           {/* <Route path="/designs" element={<DashboardLayout><SystemDesignsPage /></DashboardLayout>} /> */}
 
           <Route path="/" element={<App />} />
-          <Route path="/tikets/dist/" element={<Navigate to="/" replace />} />
+          <Route path="/tikets/dist/*" element={<Navigate to="/" replace />} />
           <Route path="/password/forgot" element={<ForgotPassword />} />
-          <Route path="/password/reset/:id" element={<ResetPassword />} />
-          <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
+          <Route path="/password/restore/:emailEncrypt" element={<RestorePassword />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Provider>

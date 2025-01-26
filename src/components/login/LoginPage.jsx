@@ -28,11 +28,11 @@ const LoginPage = () => {
       const userData = { email, password };
       const response = await authService.signin(userData);
       dispatch(setUser(response));
-      Swal.fire("Success!", "Login successful", "success");
+      Swal.fire("¡Éxito!", "Inicio de sesión exitoso", "success");
       navigate("/dashboard/ticket/list");
     } catch (error) {
-      setError("Invalid email or password");
-      Swal.fire("Error!", "Invalid email or password", "error");
+      setError("Correo electrónico o contraseña inválidos");
+      Swal.fire("¡Error!", "Correo electrónico o contraseña inválidos", "error");
     } finally {
       setLoading(false);
     }

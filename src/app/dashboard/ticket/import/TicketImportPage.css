@@ -55,8 +55,9 @@
   }
 
   input[type="file"].btn-primary:hover {
-    background-color: var(--hover-color);
-    color: var(--white-color);
+    /* background-color: var(--hover-color); */
+    /* color: var(--white-color); */
+    opacity: 0.8;
   }
 
   input[type="file"].btn-primary:focus {
@@ -88,8 +89,10 @@
   }
 
   .file-upload .btn-primary:hover {
-    background-color: var(--hover-color);
-    color: var(--white-color);
+    /* background-color: var(--hover-color); */
+    /* color: var(--white-color); */
+    opacity: 0.7;
+
   }
 
   .file-upload .btn-primary:focus {

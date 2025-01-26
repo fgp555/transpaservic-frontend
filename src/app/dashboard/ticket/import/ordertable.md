@@ -84,3 +84,52 @@ K
 <th>21 - V | Valor Neto</th>
 <th>19 - T | Cheque</th>
 <th>15 - P | Observaciones</th>
+
+
+```jsx
+  const [filteredDataWithoutDuplicates, setFilteredDataWithoutDuplicates] = useState([
+  {
+    "id": 1,
+    "transportContract": 1060960,
+    "orderNumber": 4832591,
+    "mainDiagnosis": 0,
+    "client": "NEPS",
+    "patientName": "RUBY STELLA GUIZA MATEUS",
+    "idCard": 28428866,
+    "userPhone": 999555111,
+    "email": 0,
+    "origin": "SUAITA",
+    "destination": "SOCORRO",
+    "itinerary": "SUAITA-SOCORRO",
+    "quantity": 1,
+    "travelDate": "2024-03-05",
+    "postalNumber": 19536,
+    "createDate": "2024-01-12",
+    "value": 0,
+    "netValue": 0,
+    "check": 0,
+    "remarks": "Transsander TTRC-144037-38-39-40-45-46-47-48-49-50-51-52 / 03-03-2024"
+  },
+  {
+    "id": 3,
+    "transportContract": 1060962,
+    "orderNumber": 4832593,
+    "mainDiagnosis": 0,
+    "client": "NEPS",
+    "patientName": "RUBY STELLA GUIZA MATEUS",
+    "idCard": 28428868,
+    "userPhone": 999555111,
+    "email": 0,
+    "origin": "SUAITA",
+    "destination": "SOCORRO",
+    "itinerary": "SUAITA-SOCORRO",
+    "quantity": 3,
+    "travelDate": "2024-03-07",
+    "postalNumber": 19538,
+    "createDate": "2024-01-14",
+    "value": 0,
+    "netValue": 0,
+    "check": 2,
+    "remarks": "Transsander TTRC-144037-38-39-40-45-46-47-48-49-50-51-52 / 03-03-2026"
+  }
+]);

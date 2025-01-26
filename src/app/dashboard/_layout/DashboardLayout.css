@@ -27,7 +27,7 @@
   }
 
   .DashboardLayout__main p {
-    color: var(--secondary-text-color);
+    /* color: var(--secondary-text-color); */
     margin-top: 5px;
     margin-bottom: 15px;
   }

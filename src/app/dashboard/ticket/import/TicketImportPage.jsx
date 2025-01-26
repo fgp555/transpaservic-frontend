@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import "./TicketImportPage.css";
+import TicketSubmitComponent from "./components/TicketSubmitComponent";
 
 const TicketImportPage = () => {
   const [excelData, setExcelData] = useState([]);
@@ -144,18 +145,11 @@ const TicketImportPage = () => {
 
   return (
     <div className="TicketImportPage">
-      <h1>Subir y leer un archivo Excel</h1>
+      <h1>Leer y Subir archivo Excel</h1>
       <br />
-      {/* <input className="btn btn-primary" type="file" accept=".xlsx, .xls" onChange={handleFileUpload} /> */}
-      {/* <div class="file-upload">
-        <label for="file-input" class="btn btn-primary">
-          Subir archivo
-        </label>
-        <input id="file-input" type="file" accept=".xlsx, .xls" onChange={handleFileUpload} hidden />
-      </div> */}
       <div className="file-upload">
         <label htmlFor="file-input" className="btn btn-primary">
-          {isLoading ? "Cargando..." : "Subir archivo Excel"}
+          {isLoading ? "Cargando..." : "Leer archivo Excel"}
         </label>
         <input id="file-input" type="file" accept=".xlsx, .xls" onChange={handleFileUpload} hidden />
         {isLoading && <div className="loading-spinner"></div>}
@@ -253,9 +247,11 @@ const TicketImportPage = () => {
 
           <section className="actions-section">
             <p>Una vez verificado la informacion ya puede enviar a la base de datos</p>
-            <button className="btn btn-primary" onClick={() => alert("boton en desarrollo")}>
+            {/* <button className="btn btn-primary" onClick={() => alert("boton en desarrollo")}>
               Enviar a la base de datos
-            </button>
+            </button> */}
+            <TicketSubmitComponent filteredDataWithoutDuplicates={filteredDataWithoutDuplicates} />
+
             <br />
           </section>
 
@@ -316,6 +312,7 @@ const TicketImportPage = () => {
           </section>
         </>
       )}
+      {/* <pre>{JSON.stringify(filteredDataWithoutDuplicates, null, 2)}</pre> */}
     </div>
   );
 };

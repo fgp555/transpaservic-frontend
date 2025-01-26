@@ -93,7 +93,7 @@ const SidebarComponent = () => {
             <ul className={`sub-menu ${subMenus.orders ? "show" : ""}`}>
               <div>
                 <li>
-                  <NavLink to="/dashboard/ticket/list">Lista</NavLink>
+                  <NavLink to="/dashboard/ticket/list">Listar</NavLink>
                 </li>
                 {isAdmin && (
                   <>
@@ -119,7 +119,7 @@ const SidebarComponent = () => {
                 <ul className={`sub-menu ${subMenus.users ? "show" : ""}`}>
                   <div>
                     <li>
-                      <NavLink to="/dashboard/user/list">Lista</NavLink>
+                      <NavLink to="/dashboard/user/list">Listar</NavLink>
                     </li>
                     <li>
                       <NavLink to="/dashboard/user/register">Registrar</NavLink>
@@ -136,7 +136,7 @@ const SidebarComponent = () => {
                 <ul className={`sub-menu ${subMenus.operator ? "show" : ""}`}>
                   <div>
                     <li>
-                      <NavLink to="/dashboard/transport/list">Lista</NavLink>
+                      <NavLink to="/dashboard/transport/list">Listar</NavLink>
                     </li>
                     <li>
                       <NavLink to="/dashboard/transport/create">Registrar</NavLink>
@@ -179,10 +179,7 @@ const SidebarComponent = () => {
                       <NavLink to="/dashboard/config/database">Base de datos</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/designs">Sistema de Diseño</NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/dev">Development</NavLink>
+                      <NavLink to="/dashboard/config/whatsapp">WhatsApp</NavLink>
                     </li>
                   </div>
                 </ul>
