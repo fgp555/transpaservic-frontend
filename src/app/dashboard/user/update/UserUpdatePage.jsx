@@ -5,6 +5,7 @@ import { transportService } from "../../../../services/apiTransport";
 import Swal from "sweetalert2"; // Para mostrar alertas
 import { apiUserService } from "../../../../services/apiUser";
 import "./UserUpdatePage.css";
+import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 
 const UserUpdatePage = () => {
   const { id } = useParams(); // Obtener el id del usuario de la URL
@@ -123,11 +124,20 @@ const UserUpdatePage = () => {
       <form onSubmit={handleSubmit}>
         <h2>Actualizar Usuario</h2>
 
-        <input type="text" name="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
-        <input type="text" name="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
-        <input type="text" name="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
-        <input type="text" name="username" placeholder="Usuario" value={formData.username} onChange={handleChange} />
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+        <label htmlFor="firstName">Nombre</label>
+        <input type="text" name="firstName" id="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
+
+        <label htmlFor="lastName">Apellido</label>
+        <input type="text" name="lastName" id="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
+
+        <label htmlFor="whatsapp">WhatsApp</label>
+        <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
+
+        <label htmlFor="username">Usuario</label>
+        <input type="text" name="username" id="username" placeholder="Usuario" value={formData.username} onChange={handleChange} />
+
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} />
 
         <div className="password-fields">
           <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
@@ -164,6 +174,12 @@ const UserUpdatePage = () => {
             ))}
           </select>
         </label>
+
+        <div>
+          <p>imagen de perfil</p>
+          <FileUploadComp />
+        </div>
+        <br />
 
         <button type="submit">Actualizar</button>
       </form>

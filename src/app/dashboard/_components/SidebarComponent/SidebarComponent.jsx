@@ -4,6 +4,7 @@ import "./SidebarComponent.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../../../store/themeSlice";
 import { removeUser, toggleAdmin } from "../../../../store/userSlice";
+import { isDevelopment } from "../../../../services/baseURL";
 
 const SidebarComponent = () => {
   const theme = useSelector((state) => state.theme.theme); // Obtener el tema desde Redux
@@ -152,14 +153,22 @@ const SidebarComponent = () => {
           <li>
             {sidebar && (
               <div className="user-info">
-                <button onClick={handleToggleRole}>Toggle Role</button>
                 <div>
                   <img src={userSlice?.user?.image} alt={userSlice?.user?.firstName} />
                 </div>
                 <div className="user-name">
                   <span> {userSlice?.user?.firstName}</span>
                 </div>
-                <span className="transport"> {userSlice?.user?.transport?.name}</span>
+                {isAdmin ? (
+                  <div className="user-role">
+                    {/* <span> {userSlice?.user?.role}</span> */}
+                    <span>Administrador</span>
+                  </div>
+                ) : (
+                  <>
+                    <span className="transport"> {userSlice?.user?.transport?.name}</span>
+                  </>
+                )}
               </div>
             )}
             <hr className="hr" />
@@ -204,6 +213,23 @@ const SidebarComponent = () => {
               <span>{theme === "dark" ? "Modo Oscuro" : "Modo Claro"}</span>
             </NavLink>
           </li>
+          {isDevelopment && (
+            <li style={{ textAlign: "center" }}>
+              <br />
+              <hr />
+              <span>solo desarrollo</span>
+              <br />
+              <br />
+              <span style={{ cursor: "pointer", border: "1px solid lightgreen", padding: "5px", margin: "5px" }} onClick={handleToggleRole}>
+                Role
+              </span>
+              <NavLink style={{ display: "inline", border: "1px solid lightgreen", padding: "5px", margin: "5px" }} to="/dev">
+                dev
+              </NavLink>
+              <br />
+              <br />
+            </li>
+          )}
         </ul>
       </nav>
     </>

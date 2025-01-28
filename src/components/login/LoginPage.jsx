@@ -5,10 +5,11 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { NavLink, useNavigate } from "react-router";
 import "./LoginPage.css";
+import { adminEmail, adminPassword } from "../../services/baseURL";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("admin123@gmail.com");
-  const [password, setPassword] = useState("SecurePass@2023");
+  const [email, setEmail] = useState(adminEmail);
+  const [password, setPassword] = useState(adminPassword);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

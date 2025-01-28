@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { transportService } from "../../../../services/apiTransport";
 import "./TransportCreatePage.css";
+import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 
 const TransportCreatePage = () => {
   const navigate = useNavigate();
@@ -67,13 +68,16 @@ const TransportCreatePage = () => {
           <input type="url" name="website" value={formData.website} onChange={handleChange} required placeholder="Ingrese el sitio web" />
         </div>
         <div>
+          <p>Logo del Operador</p>
+          <FileUploadComp />
+        </div>
+        <br />
+
+        <div>
           <button type="submit" disabled={loading}>
             {loading ? "Creando..." : "Crear Operador"}
           </button>
           <br />
-          {/* <button type="button" onClick={() => navigate("/dashboard/transport/list")}>
-            Cancelar
-          </button> */}
         </div>
       </form>
     </div>

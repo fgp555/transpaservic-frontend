@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { ticketService } from "../../../../services/apiTicket";
 import "./TicketUpdatePage.css";
+import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 
 const TicketUpdatePage = () => {
   const { id } = useParams(); // Obtener el ID del ticket desde la URL
@@ -141,6 +142,11 @@ const TicketUpdatePage = () => {
           <label htmlFor="userPhone">Teléfono del usuario</label>
           <input type="text" id="userPhone" name="userPhone" value={ticketData.userPhone} onChange={handleChange} />
         </div>
+        <div>
+          <p>Subir Ticket (solo imagenes)</p>
+          <FileUploadComp />
+        </div>
+        <br />
         <div>
           <button type="submit">Actualizar</button>
         </div>

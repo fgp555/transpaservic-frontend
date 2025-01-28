@@ -25,7 +25,7 @@ import Page404 from "./app/404/Page404";
 import ForgotPassword from "./app/password/forgot/ForgotPassword";
 import DashboardPage from "./app/dashboard/DashboardPage";
 import RestorePassword from "./app/password/restore/RestorePassword.jsx";
-// import DevelopmentPage from "./_dev/MenuDev";
+import DevelopmentPage from "./_development/DevelopmentPage";
 // import SystemDesignsPage from "./_dev/designs/SystemDesignsPage";
 
 createRoot(document.getElementById("root")).render(  
@@ -53,7 +53,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/dashboard/config/database" element={<DashboardLayout><DatabaseBackupPage /></DashboardLayout>} />
           <Route path="/dashboard/help" element={<DashboardLayout><HelpPage /></DashboardLayout>} />
 
-          {/* <Route path="/dev" element={<DashboardLayout><DevelopmentPage /></DashboardLayout>} /> */}
+          <Route path="/dev" element={<DashboardLayout><DevelopmentPage /></DashboardLayout>} />
           {/* <Route path="/designs" element={<DashboardLayout><SystemDesignsPage /></DashboardLayout>} /> */}
 
           <Route path="/" element={<App />} />

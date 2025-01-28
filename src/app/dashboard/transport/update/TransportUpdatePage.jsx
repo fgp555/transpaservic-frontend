@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { transportService } from "../../../../services/apiTransport";
 import "./TransportUpdatePage.css";
+import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 
 const TransportUpdatePage = () => {
   const { id } = useParams(); // Obtener el ID desde la URL
@@ -106,6 +107,11 @@ const TransportUpdatePage = () => {
             disabled // No permitir editar la fecha de registro
           />
         </div>
+        <div>
+          <p>Logo del Operador</p>
+          <FileUploadComp />
+        </div>
+        <br />
         <div>
           <button type="submit" disabled={loading}>
             {loading ? "Actualizando..." : "Actualizar"}

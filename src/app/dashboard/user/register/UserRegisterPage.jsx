@@ -5,6 +5,7 @@ import { authService } from "../../../../services/apiAuth";
 import "./UserRegisterPage.css";
 import { transportService } from "../../../../services/apiTransport";
 import Swal from "sweetalert2"; // Para mostrar alertas
+import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 
 const UserRegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -135,6 +136,7 @@ const UserRegisterPage = () => {
 
         <label htmlFor="email">Email</label>
         <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+       
         <div className="password-fields">
           <label htmlFor="password">Contraseña</label>
           <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
@@ -178,6 +180,12 @@ const UserRegisterPage = () => {
             ))}
           </select>
         </label>
+
+        <div>
+          <p>imagen de perfil</p>
+          <FileUploadComp />
+        </div>
+        <br />
 
         <button type="submit">Registrar</button>
         {/* <pre>{JSON.stringify(formData, null, 3)}</pre> */}
