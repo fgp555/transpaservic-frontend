@@ -220,7 +220,7 @@ const SystemDesigns = () => {
       email: "copetran1@copetran.com",
       whatsapp: "+51288990011",
       role: "admin",
-      transport: {
+      operator: {
         name: "Copetran",
       },
     },
@@ -230,7 +230,7 @@ const SystemDesigns = () => {
       email: "ana@mail.com",
       whatsapp: "+5123456789",
       role: "user",
-      transport: {
+      operator: {
         name: "Transmasivo",
       },
     },
@@ -240,7 +240,7 @@ const SystemDesigns = () => {
       email: "carlos@mail.com",
       whatsapp: "+573008765432",
       role: "driver",
-      transport: null, // Sin transporte asignado
+      operator: null, // Sin operador asignado
     },
   ];
 

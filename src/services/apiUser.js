@@ -13,12 +13,12 @@ const api = axios.create({
 export const apiUserService = {
   async getAllUsers(filters) {
     try {
-      const { transport, role, page = 1, limit = 10, search } = filters;
+      const { operator, role, page = 1, limit = 10, search } = filters;
 
       // Construir la URL con parámetros dinámicos
       const params = new URLSearchParams();
 
-      if (transport) params.append("transport", transport);
+      if (operator) params.append("operator", operator);
       if (role) params.append("role", role);
       if (search) params.append("search", search);
       if (page) params.append("page", page);

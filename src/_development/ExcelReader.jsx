@@ -28,9 +28,9 @@ const ExcelReader = () => {
         // Filtrar y mapear las columnas deseadas con sus nombres
         const filteredData = jsonData
           .map((row) => ({
-            transportContract: row[Object.keys(row)[0]], // Columna 0
+            operatorContract: row[Object.keys(row)[0]], // Columna 0
             orderNumber: row[Object.keys(row)[1]], // Columna 1
-            mainDiagnosis: row[Object.keys(row)[2]], // Columna 2
+            authorizationNumber: row[Object.keys(row)[2]], // Columna 2
             client: row[Object.keys(row)[3]], // Columna 3
             patientName: row[Object.keys(row)[4]], // Columna 4
             idCard: row[Object.keys(row)[5]], // Columna 5
@@ -45,7 +45,7 @@ const ExcelReader = () => {
             createDate: row[Object.keys(row)[13]], // Columna 13
             value: row[Object.keys(row)[15]], // Columna 15
             netValue: row[Object.keys(row)[16]], // Columna 16
-            check: row[Object.keys(row)[14]], // Columna 14
+            operator: row[Object.keys(row)[14]], // Columna 14
             remarks: row[Object.keys(row)[10]], // Columna 10
           }))
           .filter((row) => Object.values(row).some((value) => value !== undefined && value !== 0 && value !== "")); // Omitir filas vacías
@@ -67,9 +67,9 @@ const ExcelReader = () => {
         <table border="1" style={{ marginTop: "20px", borderCollapse: "collapse", width: "100%" }}>
           <thead>
             <tr>
-              <th>Contrato de Transporte</th>
+              <th>Contrato de Operador</th>
               <th>Número de Orden</th>
-              <th>Diagnóstico Principal</th>
+              <th>Autorización #</th>
               <th>Cliente</th>
               <th>Nombre del Paciente</th>
               <th>Cédula</th>
@@ -84,16 +84,16 @@ const ExcelReader = () => {
               <th>Fecha de Creación</th>
               <th>Valor</th>
               <th>Valor Neto</th>
-              <th>Cheque</th>
+              <th>Operador</th>
               <th>Observaciones</th>
             </tr>
           </thead>
           <tbody>
             {excelData.map((row, index) => (
               <tr key={index}>
-                <td>{row.transportContract}</td>
+                <td>{row.operatorContract}</td>
                 <td>{row.orderNumber}</td>
-                <td>{row.mainDiagnosis}</td>
+                <td>{row.authorizationNumber}</td>
                 <td>{row.client}</td>
                 <td>{row.patientName}</td>
                 <td>{row.idCard}</td>
@@ -108,7 +108,7 @@ const ExcelReader = () => {
                 <td>{row.createDate}</td>
                 <td>{row.value}</td>
                 <td>{row.netValue}</td>
-                <td>{row.check}</td>
+                <td>{row.operator}</td>
                 <td>{row.remarks}</td>
               </tr>
             ))}

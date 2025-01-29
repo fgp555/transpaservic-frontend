@@ -127,8 +127,8 @@
       margin-right: 10px;
     }
 
-    td[data-label="Transporte"]::before {
-      content: "\f207"; /* Icono de transporte */
+    td[data-label="Operador"]::before {
+      content: "\f207"; /* Icono de operador */
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       margin-right: 10px;
