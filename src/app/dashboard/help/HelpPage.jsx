@@ -6,19 +6,19 @@ const HelpPage = () => {
     <div className="HelpPage">
       <header className="help-header">
         <h1>Centro de Ayuda</h1>
-        <p>Encuentra información, tutoriales y guías para usar el sistema de gestión de tickets.</p>
+        <p>Encuentra información, tutoriales y guías para usar el sistema de gestión de orders.</p>
       </header>
 
       <main className="help-main">
         {/* Información del sistema */}
         <section className="help-section">
           <h2>Información del Sistema</h2>
-          <p>Este sistema SaaS está diseñado para administrar y centralizar la gestión de tickets de viajes de múltiples empresas de transporte. Permite:</p>
+          <p>Este sistema SaaS está diseñado para administrar y centralizar la gestión de orders de viajes de múltiples empresas de operador. Permite:</p>
           <ul>
-            <li>Registrar y gestionar empresas de transporte.</li>
-            <li>Administrar rutas y tickets de manera eficiente.</li>
+            <li>Registrar y gestionar empresas de operador.</li>
+            <li>Administrar rutas y orders de manera eficiente.</li>
             <li>Generar reportes personalizados sobre el uso del sistema.</li>
-            <li>Monitorear el estado de los tickets en tiempo real.</li>
+            <li>Monitorear el estado de los orders en tiempo real.</li>
           </ul>
         </section>
 
@@ -42,7 +42,7 @@ const HelpPage = () => {
           <h2>Contacto de Soporte</h2>
           <p>¿Tienes dudas o necesitas ayuda adicional? Contáctanos:</p>
           <ul>
-            <li>Email: soporte@gestiotickets.com</li>
+            <li>Email: soporte@gestioorders.com</li>
             <li>Teléfono: +34 900 123 456</li>
             <li>Horario de atención: Lunes a Viernes, 9:00 a 18:00</li>
           </ul>

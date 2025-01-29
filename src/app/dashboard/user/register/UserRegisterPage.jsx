@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { authService } from "../../../../services/apiAuth";
 import "./UserRegisterPage.css";
-import { transportService } from "../../../../services/apiTransport";
+import { operatorService } from "../../../../services/apiOperator";
 import Swal from "sweetalert2"; // Para mostrar alertas
 import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 
@@ -19,31 +19,31 @@ const UserRegisterPage = () => {
     sendMail: false,
     sendWhatsApp: false,
     image: "https://via.placeholder.com/150",
-    // transport: { id: 1 },
-    // transport: null,
+    // operator: { id: 1 },
+    // operator: null,
   });
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
-  const [transportData, setTransportData] = useState([]);
+  const [operatorData, setOperatorData] = useState([]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : name === "transport" ? { id: parseInt(value) } : value,
+      [name]: type === "checkbox" ? checked : name === "operator" ? { id: parseInt(value) } : value,
     }));
   };
 
   const getAllTranport = async () => {
     try {
-      const response = await transportService.getAll();
-      console.log("Transport data:", response); // Verifica el formato de la respuesta
-      setTransportData(response.results || []); // Asegúrate de manejar un caso donde response sea undefined o null
-      // setTransportData(Array.isArray(response) ? response : []);
+      const response = await operatorService.getAll();
+      console.log("Operator data:", response); // Verifica el formato de la respuesta
+      setOperatorData(response.results || []); // Asegúrate de manejar un caso donde response sea undefined o null
+      // setOperatorData(Array.isArray(response) ? response : []);
     } catch (error) {
-      console.error("Error fetching transport data:", error);
-      setTransportData([]); // Establece un arreglo vacío si ocurre un error
+      console.error("Error fetching operator data:", error);
+      setOperatorData([]); // Establece un arreglo vacío si ocurre un error
     }
   };
 
@@ -56,7 +56,7 @@ const UserRegisterPage = () => {
 
     const payload = {
       ...formData,
-      transport: formData.transport || null, // Si está vacío, envía null
+      operator: formData.operator || null, // Si está vacío, envía null
     };
 
     try {
@@ -167,15 +167,15 @@ const UserRegisterPage = () => {
           </select>
         </label>
 
-        {/* Select para transporte */}
+        {/* Select para operador */}
         <label>
           Operador
           <br />
-          <select name="transport" onChange={handleChange} value={formData.transport?.id || ""}>
+          <select name="operator" onChange={handleChange} value={formData.operator?.id || ""}>
             <option value="">Sin Operador</option>
-            {transportData.map((transport) => (
-              <option key={transport.id} value={transport.id}>
-                {transport.name}
+            {operatorData.map((operator) => (
+              <option key={operator.id} value={operator.id}>
+                {operator.name}
               </option>
             ))}
           </select>

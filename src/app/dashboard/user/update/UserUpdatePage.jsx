@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { authService } from "../../../../services/apiAuth";
-import { transportService } from "../../../../services/apiTransport";
+import { operatorService } from "../../../../services/apiOperator";
 import Swal from "sweetalert2"; // Para mostrar alertas
 import { apiUserService } from "../../../../services/apiUser";
 import "./UserUpdatePage.css";
@@ -18,19 +18,19 @@ const UserUpdatePage = () => {
     password: "",
     role: "user",
     image: "",
-    transport: { id: 1 },
+    operator: { id: 1 },
   });
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
-  const [transportData, setTransportData] = useState([]); // Datos de transporte
+  const [operatorData, setOperatorData] = useState([]); // Datos de operador
 
-  // Cargar los datos de transporte disponibles
-  const getAllTransport = async () => {
+  // Cargar los datos de operador disponibles
+  const getAllOperator = async () => {
     try {
-      const response = await transportService.getAll();
-      setTransportData(response);
+      const response = await operatorService.getAll();
+      setOperatorData(response);
     } catch (error) {
-      console.error("Error al obtener los transportes:", error);
+      console.error("Error al obtener los operadors:", error);
     }
   };
 
@@ -46,7 +46,7 @@ const UserUpdatePage = () => {
   };
 
   useEffect(() => {
-    getAllTransport(); // Cargar los transportes
+    getAllOperator(); // Cargar los operadors
     getUser(); // Obtener el usuario
   }, [id]);
 
@@ -137,15 +137,15 @@ const UserUpdatePage = () => {
         <input type="text" name="username" id="username" placeholder="Usuario" value={formData.username} onChange={handleChange} />
 
         <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+        <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} autoComplete="email" />
 
         <div className="password-fields">
-          <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
+          <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password || ""} onChange={handleChange} autoComplete="password" />
           <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
             {showPassword ? <i className="icon-eye"></i> : <i className="icon-eye-off"></i>}
           </span>
           <br />
-          <button type="button" onClick={handleGeneratePassword} className="generate-password">
+          <button type="button" onClick={handleGeneratePassword} className="generate-password ">
             Generar Contraseña
           </button>
           <br />
@@ -162,14 +162,14 @@ const UserUpdatePage = () => {
         </label>
         <br />
 
-        {/* Select para transporte */}
+        {/* Select para operador */}
         <label>
           Operador
           <br />
-          <select name="transport" value={formData.transport.id} onChange={(e) => setFormData({ ...formData, transport: { id: e.target.value } })} className="select-transport">
-            {transportData?.results?.map((transport) => (
-              <option key={transport.id} value={transport.id}>
-                {transport.name}
+          <select name="operator" value={formData.operator?.id} onChange={(e) => setFormData({ ...formData, operator: { id: e.target.value } })} className="select-operator">
+            {operatorData?.results?.map((operator) => (
+              <option key={operator?.id} value={operator?.id}>
+                {operator.name}
               </option>
             ))}
           </select>

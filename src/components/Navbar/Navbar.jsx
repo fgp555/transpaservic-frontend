@@ -28,7 +28,7 @@ export function Navbar() {
           <span style={{ color: "peru" }}>Bienvenido </span>
           <span> {userSlice?.user?.firstName}</span>
           <span> {userSlice?.user?.lastName}</span>
-          <span style={{ color: "Highlight" }}> {userSlice?.user?.transport?.name}</span>
+          <span style={{ color: "Highlight" }}> {userSlice?.user?.operator?.name}</span>
         </h3>
       </aside>
       <aside className="left"><NavLink to="/" end>INICIO</NavLink>
@@ -40,12 +40,12 @@ export function Navbar() {
       </aside>
       <aside>
         <b>ORDENES</b>
-        <NavLink to="/dashboard/ticket/list" end>list</NavLink>
+        <NavLink to="/dashboard/order/list" end>list</NavLink>
         {isAdmin ?<>
-        <NavLink to="/dashboard/ticket/create" end>create</NavLink>
-        <NavLink to="/dashboard/ticket/update/1" end>update</NavLink>
-        <NavLink to="/dashboard/ticket/delete" end>delete</NavLink>
-        <NavLink to="/dashboard/ticket/import" end>import</NavLink>
+        <NavLink to="/dashboard/order/create" end>create</NavLink>
+        <NavLink to="/dashboard/order/update/1" end>update</NavLink>
+        <NavLink to="/dashboard/order/delete" end>delete</NavLink>
+        <NavLink to="/dashboard/order/import" end>import</NavLink>
         </>:<>
         <NavLink to="/404" end>Aprobar-Ver</NavLink>
         </>}
@@ -60,10 +60,10 @@ export function Navbar() {
       </aside>
       <aside>
         <b>OPERADORES</b>
-        <NavLink to="/dashboard/transport/list" end>list</NavLink>
-        <NavLink to="/dashboard/transport/create" end>create</NavLink>
-        <NavLink to="/dashboard/transport/update/1" end>update</NavLink>
-        <NavLink to="/dashboard/transport/delete" end>delete</NavLink>
+        <NavLink to="/dashboard/operator/list" end>list</NavLink>
+        <NavLink to="/dashboard/operator/create" end>create</NavLink>
+        <NavLink to="/dashboard/operator/update/1" end>update</NavLink>
+        <NavLink to="/dashboard/operator/delete" end>delete</NavLink>
       </aside>
       <aside>
         <b>MUNICIPIOS</b>
@@ -82,7 +82,7 @@ export function Navbar() {
       </>}
       <br />
       <aside>
-        <span>Operador: {userSlice?.user?.transport?.name}</span>
+        <span>Operador: {userSlice?.user?.operator?.name}</span>
         <span>Role: {userSlice?.user?.role}</span>
         <button onClick={handleToggleRole}>Toggle Role</button>
       </aside>

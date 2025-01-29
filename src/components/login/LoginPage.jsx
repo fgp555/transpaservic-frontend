@@ -30,7 +30,7 @@ const LoginPage = () => {
       const response = await authService.signin(userData);
       dispatch(setUser(response));
       Swal.fire("¡Éxito!", "Inicio de sesión exitoso", "success");
-      navigate("/dashboard/ticket/list");
+      navigate("/dashboard/order/list");
     } catch (error) {
       setError("Correo electrónico o contraseña inválidos");
       Swal.fire("¡Error!", "Correo electrónico o contraseña inválidos", "error");

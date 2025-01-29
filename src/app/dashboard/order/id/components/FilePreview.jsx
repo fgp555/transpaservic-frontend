@@ -1,0 +1,55 @@
+import React, { useState } from "react";
+
+const FilePreview = ({ orderData }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+  const [modalImage, setModalImage] = useState(""); // Estado para la imagen del modal
+
+  const openModal = (imageUrl) => {
+    setModalImage(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImage("");
+  };
+
+  const renderPreview = () => {
+    const fileUrl = orderData.ticketImage;
+    if (!fileUrl) return <p>No hay archivo disponible.</p>;
+
+    if (fileUrl.endsWith(".pdf")) {
+      return <iframe src={fileUrl} title="Vista previa del PDF" style={{ width: "100%", height: "500px", border: "none" }}></iframe>;
+    } else if (fileUrl.endsWith(".jpg") || fileUrl.endsWith(".jpeg") || fileUrl.endsWith(".png")) {
+      return (
+        <img
+          src={fileUrl}
+          alt="Vista previa de la imagen"
+          style={{ maxWidth: "100%", height: "auto", cursor: "pointer" }}
+          onClick={() => openModal(fileUrl)} // Abre el modal al hacer clic
+        />
+      );
+    } else {
+      return <p>Tipo de archivo no soportado.</p>;
+    }
+  };
+  return (
+    <aside className="file-preview">
+      <h3>Vista previa</h3>
+      <br />
+      {renderPreview()}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeModal}>
+              &times;
+            </button>
+            <img src={modalImage} alt="Vista previa en modal" style={{ maxWidth: "100%", height: "auto" }} />
+          </div>
+        </div>
+      )}
+    </aside>
+  );
+};
+
+export default FilePreview;

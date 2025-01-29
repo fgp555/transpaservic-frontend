@@ -2,8 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser, toggleAdmin } from "../store/userSlice";
 import { NavLink, useNavigate } from "react-router";
-import MenuDev from "./MenuDev";
-import ExcelReader from "./ExcelReader";
+import MenuDev from "./MenuDev/MenuDev";
+import UploadFileDev from "./UploadFileDevComp/UploadFileDev";
 
 const DevelopmentPage = () => {
   const userSlice = useSelector((state) => state.user);
@@ -17,15 +17,13 @@ const DevelopmentPage = () => {
     navigate("/"); // Navegar a la página de "mis-turnos"
   };
 
-  // const isLogin = true;
-
   const handleToggleRole = () => {
     dispatch(toggleAdmin());
   };
   return (
     <div>
-      <MenuDev />
-      {/* <ExcelReader /> */}
+      <UploadFileDev />
+      {/* <MenuDev /> */}
     </div>
   );
 };

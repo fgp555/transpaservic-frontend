@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { apiUserService } from "../../../../services/apiUser";
-import { transportService } from "../../../../services/apiTransport";
+import { operatorService } from "../../../../services/apiOperator";
 import { UserTableRespoComp } from "./components/UserTableRespoComp";
 import "./UserListPage.css";
 
 const UserListPage = () => {
   const initialFilters = {
     role: "",
-    transport: "",
+    operator: "",
     page: 1,
     limit: 5, // Cantidad de elementos por página
     search: "",
@@ -17,7 +17,7 @@ const UserListPage = () => {
   const [filters, setFilters] = useState(initialFilters);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const [transportData, setTransportData] = useState([]);
+  const [operatorData, setOperatorData] = useState([]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -29,13 +29,13 @@ const UserListPage = () => {
     }));
   };
 
-  const getAllTransport = async () => {
-    const response = await transportService.getAll(); // Obtención de transportes
-    setTransportData(response);
+  const getAllOperator = async () => {
+    const response = await operatorService.getAll(); // Obtención de operadors
+    setOperatorData(response);
   };
 
   useEffect(() => {
-    getAllTransport(); // Llamada para obtener los datos de transporte
+    getAllOperator(); // Llamada para obtener los datos de operador
   }, []);
 
   const handleClearFilters = () => {
@@ -101,12 +101,12 @@ const UserListPage = () => {
             <option value="admin">Administrador</option>
           </select>
 
-          {/* Transporte */}
-          <select name="transport" value={filters.transport} onChange={handleFilterChange}>
+          {/* Operador */}
+          <select name="operator" value={filters.operator} onChange={handleFilterChange}>
             <option value="">Todos los operadores</option>
-            {transportData?.results?.map((transport) => (
-              <option key={transport.id} value={transport.id}>
-                {transport.name}
+            {operatorData?.results?.map((operator) => (
+              <option key={operator.id} value={operator.id}>
+                {operator.name}
               </option>
             ))}
           </select>
