@@ -4,7 +4,7 @@ import "./SidebarComponent.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../../../store/themeSlice";
 import { removeUser, toggleAdmin } from "../../../../store/userSlice";
-import { isDevelopment } from "../../../../services/baseURL";
+import { isLocalhost } from "../../../../services/baseURL";
 
 const SidebarComponent = () => {
   const theme = useSelector((state) => state.theme.theme); // Obtener el tema desde Redux
@@ -94,15 +94,15 @@ const SidebarComponent = () => {
             <ul className={`sub-menu ${subMenus.orders ? "show" : ""}`}>
               <div>
                 <li>
-                  <NavLink to="/dashboard/ticket/list">Listar</NavLink>
+                  <NavLink to="/dashboard/order/list">Listar</NavLink>
                 </li>
                 {isAdmin && (
                   <>
                     <li>
-                      <NavLink to="/dashboard/ticket/create">Registrar</NavLink>
+                      <NavLink to="/dashboard/order/create">Registrar</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/dashboard/ticket/import">Importar</NavLink>
+                      <NavLink to="/dashboard/order/import">Importar</NavLink>
                     </li>
                   </>
                 )}
@@ -137,10 +137,10 @@ const SidebarComponent = () => {
                 <ul className={`sub-menu ${subMenus.operator ? "show" : ""}`}>
                   <div>
                     <li>
-                      <NavLink to="/dashboard/transport/list">Listar</NavLink>
+                      <NavLink to="/dashboard/operator/list">Listar</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/dashboard/transport/create">Registrar</NavLink>
+                      <NavLink to="/dashboard/operator/create">Registrar</NavLink>
                     </li>
                   </div>
                 </ul>
@@ -166,7 +166,7 @@ const SidebarComponent = () => {
                   </div>
                 ) : (
                   <>
-                    <span className="transport"> {userSlice?.user?.transport?.name}</span>
+                    <span className="operator"> {userSlice?.user?.operator?.name}</span>
                   </>
                 )}
               </div>
@@ -213,7 +213,7 @@ const SidebarComponent = () => {
               <span>{theme === "dark" ? "Modo Oscuro" : "Modo Claro"}</span>
             </NavLink>
           </li>
-          {isDevelopment && (
+          {isLocalhost && (
             <li style={{ textAlign: "center" }}>
               <br />
               <hr />

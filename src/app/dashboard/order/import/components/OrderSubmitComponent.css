@@ -1,0 +1,19 @@
+.OrderSubmitComponent {
+  .error-message {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    border: 1px solid var(--line-color);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: var(--border-radius);
+  }
+}
+
+/* Estilos para el modo oscuro */
+.dark-mode .OrderSubmitComponent {
+  .error-message {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    border: 1px solid var(--line-color);
+  }
+}

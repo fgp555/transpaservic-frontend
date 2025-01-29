@@ -11,7 +11,7 @@ export const TableResponsiveComponent = ({ data }) => {
             <th>Correo</th>
             <th>WhatsApp</th>
             <th>Rol</th>
-            <th>Transporte</th>
+            <th>Operador</th>
           </tr>
         </thead>
         <tbody>
@@ -21,7 +21,7 @@ export const TableResponsiveComponent = ({ data }) => {
               <td data-label="Correo">{item.email}</td>
               <td data-label="WhatsApp">{item.whatsapp}</td>
               <td data-label="Rol">{item.role}</td>
-              <td data-label="Transporte">{item.transport?.name || "N/A"}</td>
+              <td data-label="Operador">{item.operator?.name || "N/A"}</td>
             </tr>
           ))}
         </tbody>

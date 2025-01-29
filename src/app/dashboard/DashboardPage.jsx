@@ -20,11 +20,11 @@ const DashboardPage = () => {
           <h2>Acciones Rápidas</h2>
           <div className="actions">
             <button className="btn btn-primary">
-              <NavLink to="/dashboard/ticket/create">Registrar Nueva Orden</NavLink>
+              <NavLink to="/dashboard/order/create">Registrar Nueva Orden</NavLink>
             </button>
 
             <button className="btn btn-primary">
-              <NavLink to="/dashboard/transport/create">Registrar Nuevo Operador</NavLink>
+              <NavLink to="/dashboard/operator/create">Registrar Nuevo Operador</NavLink>
             </button>
           </div>
         </section>

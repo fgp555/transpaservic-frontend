@@ -27,8 +27,8 @@ export const authService = {
   // signup
   signup: async (userData) => {
     console.log("userData",userData)
-    if (userData.transport) {
-      userData.transport.id = Number(userData.transport.id);
+    if (userData.operator) {
+      userData.operator.id = Number(userData.operator.id);
     }
     try {
       const response = await api.post("/api/auth/signup", userData);

@@ -52,31 +52,31 @@ const MenuDev = () => {
             <span style={{ color: "peru" }}>Bienvenido </span>
             <span> {userSlice?.user?.firstName}</span>
             <span> {userSlice?.user?.lastName}</span>
-            <span style={{ color: "Highlight" }}> {userSlice?.user?.transport?.name}</span>
+            <span style={{ color: "Highlight" }}> {userSlice?.user?.operator?.name}</span>
           </h3>
         </aside>
         <aside>
-          <span>Operador: {userSlice?.user?.transport?.name}</span>
+          <span>Operador: {userSlice?.user?.operator?.name}</span>
           <button onClick={handleToggleRole}>Toggle Role</button>
           <span>Role: {userSlice?.user?.role}</span>
         </aside>
         <aside>
           <b>ORDENES</b>
-          <NavLink to="/dashboard/ticket/list" end>
+          <NavLink to="/dashboard/order/list" end>
             list
           </NavLink>
           {isAdmin ? (
             <>
-              <NavLink to="/dashboard/ticket/create" end>
+              <NavLink to="/dashboard/order/create" end>
                 create
               </NavLink>
-              <NavLink to="/dashboard/ticket/update/1" end>
+              <NavLink to="/dashboard/order/update/1" end>
                 update
               </NavLink>
-              <NavLink to="/dashboard/ticket/delete" end>
+              <NavLink to="/dashboard/order/delete" end>
                 delete
               </NavLink>
-              <NavLink to="/dashboard/ticket/import" end>
+              <NavLink to="/dashboard/order/import" end>
                 import
               </NavLink>
             </>
@@ -107,16 +107,16 @@ const MenuDev = () => {
             </aside>
             <aside>
               <b>OPERADORES</b>
-              <NavLink to="/dashboard/transport/list" end>
+              <NavLink to="/dashboard/operator/list" end>
                 list
               </NavLink>
-              <NavLink to="/dashboard/transport/create" end>
+              <NavLink to="/dashboard/operator/create" end>
                 create
               </NavLink>
-              <NavLink to="/dashboard/transport/update/1" end>
+              <NavLink to="/dashboard/operator/update/1" end>
                 update
               </NavLink>
-              <NavLink to="/dashboard/transport/delete" end>
+              <NavLink to="/dashboard/operator/delete" end>
                 delete
               </NavLink>
             </aside>
