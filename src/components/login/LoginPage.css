@@ -64,14 +64,14 @@
   .toggle-password {
     /* position: relative; */
     position: absolute;
-    top: 1.5em;
+    top: 1.6em;
     right: 0px;
-    width: 2rem;
+    width: 3rem;
     /* background-color: peru; */
     border: none;
     background-color: transparent;
     i {
-      font-size: 1.5em;
+      font-size: 1.2em;
       cursor: pointer;
       /* color: var(--line-color); */
       opacity: 0.7;

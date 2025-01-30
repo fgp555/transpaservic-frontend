@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Crear una instancia de Axios con la apiBaseURL
 const api = axios.create({
-  apiBaseURL: apiBaseURL,
+  baseURL: apiBaseURL,
   headers: {
     "Content-Type": "application/json",
   },
