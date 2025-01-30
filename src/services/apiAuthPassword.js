@@ -1,11 +1,11 @@
 // src/services/apiAuthPassword.js
 
-import { baseURL } from "./baseURL";
+import { apiBaseURL } from "../utils/apiBaseURL";
 import axios from "axios";
 
-// Crear una instancia de Axios con la baseURL
+// Crear una instancia de Axios con la apiBaseURL
 const api = axios.create({
-  baseURL: baseURL,
+  apiBaseURL: apiBaseURL,
   headers: {
     "Content-Type": "application/json",
   },

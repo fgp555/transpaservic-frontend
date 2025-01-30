@@ -1,10 +1,10 @@
 // src\services\apiUser.js
 
-import { baseURL } from "./baseURL";
+import { apiBaseURL } from "../utils/apiBaseURL";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: baseURL,
+  apiBaseURL: apiBaseURL,
   headers: {
     "Content-Type": "application/json",
   },

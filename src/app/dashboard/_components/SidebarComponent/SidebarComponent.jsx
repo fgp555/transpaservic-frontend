@@ -4,7 +4,7 @@ import "./SidebarComponent.css";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../../../store/themeSlice";
 import { removeUser, toggleAdmin } from "../../../../store/userSlice";
-import { isLocalhost } from "../../../../services/baseURL";
+import { isLocalhost } from "../../../../utils/apiBaseURL";
 
 const SidebarComponent = () => {
   const theme = useSelector((state) => state.theme.theme); // Obtener el tema desde Redux

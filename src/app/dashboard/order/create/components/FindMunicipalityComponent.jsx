@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dataMunicipality } from "../../../../../services/dataMunicipality";
+import { dataMunicipality } from "../../../../../utils/dataMunicipality";
 
 export const FindMunicipalityComponent = ({ onCitySelect }) => {
   const [searchTerm, setSearchTerm] = useState("");

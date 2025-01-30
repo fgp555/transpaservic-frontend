@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { NavLink, useNavigate, useParams } from "react-router";
 import "./RestorePassword.css";
-import { newfgpPassword } from "../../../services/baseURL";
+import { newfgpPassword } from "../../../utils/apiBaseURL";
 import { authPasswordService } from "../../../services/apiAuthPassword";
 
 const RestorePassword = () => {

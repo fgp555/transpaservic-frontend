@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { NavLink } from "react-router";
 import "./ForgotPassword.css";
-import { fgpEmail } from "../../../services/baseURL";
+import { fgpEmail } from "../../../utils/apiBaseURL";
 import { authPasswordService } from "../../../services/apiAuthPassword";
 
 const ForgotPassword = () => {

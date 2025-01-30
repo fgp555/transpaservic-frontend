@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { NavLink, useNavigate } from "react-router";
 import "./LoginPage.css";
-import { adminEmail, adminPassword } from "../../services/baseURL";
+import { adminEmail, adminPassword } from "../../utils/apiBaseURL";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(adminEmail);

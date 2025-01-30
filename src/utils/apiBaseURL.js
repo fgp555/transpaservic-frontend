@@ -1,6 +1,6 @@
 export const isLocalhost = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
 
-export let baseURL = isLocalhost ? "http://localhost:3000" : window.location.hostname === "vite.fgp.one" ? "https://back.fgp.one" : "";
+export let apiBaseURL = isLocalhost ? "http://localhost:3000" : window.location.hostname === "vite.fgp.one" ? "https://back.fgp.one" : "";
 
 export const fgpEmail = isLocalhost ? "fgp555@gmail.com" : "";
 export const fgpPassword = isLocalhost ? "SecurePass@2023" : "";
@@ -11,7 +11,7 @@ export let isDevelopment = isLocalhost || window.location.hostname === "dev.apps
 export let adminEmail = isDevelopment ? "admin@transpaservic.com.co" : "";
 export let adminPassword = isDevelopment ? "*Transpa/*123" : "";
 
-console.log("baseURL", baseURL);
+console.log("apiBaseURL", apiBaseURL);
 console.log("adminEmail", adminEmail);
 console.log("isDevelopment", isDevelopment);
 
