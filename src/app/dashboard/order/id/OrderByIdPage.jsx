@@ -15,17 +15,17 @@ const OrderByIdPage = () => {
   const [orderData, setOrderData] = useState(null);
   const isPending = orderData?.status === "pendiente";
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const order = await orderService.getById(id);
-        setOrderData(order);
-      } catch (error) {
-        Swal.fire("Error", "No se pudo cargar el order", "error");
-        console.error("Error fetching order:", error);
-      }
-    };
+  const fetchOrder = async () => {
+    try {
+      const order = await orderService.getById(id);
+      setOrderData(order);
+    } catch (error) {
+      Swal.fire("Error", "No se pudo cargar el order", "error");
+      console.error("Error fetching order:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchOrder();
   }, [id]);
 
@@ -60,7 +60,7 @@ const OrderByIdPage = () => {
         <aside>
           <OrderTableByIdComp orderData={orderData} isPending={isPending} />
         </aside>
-        {isPending ? <FileUploadTicket /> : <FilePreview orderData={orderData} />}
+        {isPending ? <FileUploadTicket orderId={id} fetchOrder={fetchOrder} /> : <FilePreview orderData={orderData} fetchOrder={fetchOrder} />}
       </section>
 
       {/* <pre>{JSON.stringify(orderData, null, 2)}</pre> */}
