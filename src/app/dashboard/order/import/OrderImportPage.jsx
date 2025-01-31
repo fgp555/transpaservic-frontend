@@ -151,7 +151,14 @@ const OrderImportPage = () => {
         <label htmlFor="file-input" className="btn btn-primary">
           {isLoading ? "Cargando..." : "Leer archivo Excel"}
         </label>
-        <input id="file-input" type="file" accept=".xlsx, .xls" onChange={handleFileUpload} hidden />
+        <input
+          //
+          id="file-input"
+          type="file"
+          accept=".xlsx, .xls"
+          onChange={handleFileUpload}
+          hidden
+        />
         {isLoading && <div className="loading-spinner"></div>}
       </div>
 

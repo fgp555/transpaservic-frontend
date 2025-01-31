@@ -1,6 +1,7 @@
 // UploadImageButton.js
 import React from "react";
 import { previewImage } from "../../utils/previewImage";
+import "./UploadImageButton.css";
 
 const UploadImageButton = ({ setCompressedFile }) => {
   const handleImageChange = (event) => {
@@ -8,13 +9,22 @@ const UploadImageButton = ({ setCompressedFile }) => {
   };
 
   return (
-    <div>
-      <label htmlFor="profileImage" className="block">
-        Imagen de Perfil
+    <div className="UploadImageButton  ">
+      <label htmlFor="profileImage" className="btn btn-primary mb-1">
+        Seleccionar imagen
       </label>
-      <input type="file" id="profileImage" accept="image/*" onChange={handleImageChange} className="mt-1" required />
+      <input
+        //
+        type="file"
+        id="profileImage"
+        accept="image/*"
+        onChange={handleImageChange}
+        required
+        hidden
+      />
+
       {/* Contenedor de vista previa de la imagen */}
-      <div id="preview" className="mt-2"></div>
+      <div id="preview"></div>
     </div>
   );
 };

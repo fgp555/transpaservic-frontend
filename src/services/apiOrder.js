@@ -11,6 +11,20 @@ const api = axios.create({
 
 // Implementación del servicio
 export const orderService = {
+  async approveOrder(formData) {
+    try {
+      const response = await api.post("/api/order/approve", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error approving order:", error);
+      throw error;
+    }
+  },
+
   // saveFilteredData
   async saveFilteredData(data) {
     console.log("data", data);

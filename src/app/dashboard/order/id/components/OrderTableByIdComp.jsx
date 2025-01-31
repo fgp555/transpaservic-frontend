@@ -29,7 +29,11 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
             <td>
               <strong>Estado:</strong>
             </td>
-            <td>{orderData.status}</td>
+            <td className="TicketStatus">
+              {orderData.status === "pendiente" && <span className="pendiente">Pendiente</span>}
+              {orderData.status === "aprobado" && <span className="aprobado">Aprobado</span>}
+              {orderData.status === "cancelado" && <span className="cancelado">Cancelado</span>}
+            </td>
           </tr>
         </tbody>
       </table>
