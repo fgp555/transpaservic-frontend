@@ -1,0 +1,45 @@
+.ButtonStatus{
+
+
+.btn-warning,
+.btn-danger,
+.btn-success {
+  font-family: "Poppins", sans-serif;
+  width: 120px;
+  height: 32px;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+
+.btn-warning {
+  background-color: #fef2e5;
+  color: #cd6200;
+}
+
+.btn-danger {
+  background-color: #fbe7e8;
+  color: #a30d11;
+}
+
+.btn-success {
+  background-color: #ebf9f1;
+  color: #1f9254;
+}
+.dotButton {
+  
+  display: block;
+}
+span {
+  order: 2;
+  line-height: 1;
+}
+
+}
