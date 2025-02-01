@@ -4,7 +4,7 @@ import "./OrderImportPage.css";
 import OrderSubmitComponent from "./components/OrderSubmitComponent";
 
 const OrderImportPage = () => {
-  const [excelData, setExcelData] = useState([]);
+  const [excelDataInicial, setExcelDataInicial] = useState([]);
   const [duplicateOperatorContract, setDuplicateOperatorContract] = useState([]);
   const [duplicateOrderNumber, setDuplicateOrderNumber] = useState([]);
   const [filteredDataWithoutDuplicates, setFilteredDataWithoutDuplicates] = useState([]);
@@ -53,17 +53,18 @@ const OrderImportPage = () => {
               idCard: row[Object.keys(row)[7]],
               userPhone: row[Object.keys(row)[53]],
               email: row[Object.keys(row)[56]],
+              creationDate: formatDate(row[Object.keys(row)[18]]), // Convertir creationDate
+              // ========== Información de Viaje ==========
               origin: row[Object.keys(row)[8]],
               destination: row[Object.keys(row)[9]],
               itinerary: row[Object.keys(row)[10]],
-              quantity: row[Object.keys(row)[11]],
               travelDate: formatDate(row[Object.keys(row)[16]]), // Convertir travelDate
-              postalNumber: row[Object.keys(row)[17]],
-              createDate: formatDate(row[Object.keys(row)[18]]), // Convertir createDate
+              quantity: row[Object.keys(row)[11]],
               value: row[Object.keys(row)[20]],
               netValue: row[Object.keys(row)[21]],
-              operator: row[Object.keys(row)[19]],
               remarks: row[Object.keys(row)[15]],
+              // ========== Operator operation ==========
+              operator: row[Object.keys(row)[19]],
             };
           })
           // .filter((row) => Object.values(row).some((value) => value !== undefined && value !== null && value !== 0 && value !== "")); // Omitir filas vacías
@@ -77,7 +78,7 @@ const OrderImportPage = () => {
         const duplicates = detectDuplicates(filteredData);
         const nonDuplicateData = filteredData.filter((row) => !duplicates.operatorContract.includes(row.operatorContract) && !duplicates.orderNumber.includes(row.orderNumber));
 
-        setExcelData(filteredData);
+        setExcelDataInicial(filteredData);
         setFilteredDataWithoutDuplicates(nonDuplicateData);
 
         // setExcelData(filteredData);
@@ -161,34 +162,36 @@ const OrderImportPage = () => {
         />
         {isLoading && <div className="loading-spinner"></div>}
       </div>
+      {/* <pre>{JSON.stringify({ data: excelDataInicial }, null, 2)}</pre> */}
 
-      {excelData.length > 0 && (
+      {excelDataInicial.length > 0 && (
         <>
           <section className="filteredDataWithoutDuplicates-section">
             <br />
-            <h2>Datos sin duplicados</h2>
+            <h2>Datos Filtrados</h2>
             <table>
               <thead>
                 <tr>
-                  <th>A | Contrato de operador No. </th>
-                  <th>B | Numero Orden</th>
-                  <th>C | Diagnostico Principal</th>
-                  <th>E | CLIENTE</th>
-                  <th>G | NOMBRE PACIENTE</th>
-                  <th>H | CEDULA</th>
+                  <th>A | Contrato #. </th>
+                  <th>B | Orden #</th>
+                  <th>C | Autorización #</th>
+                  <th>E | Cliente</th>
+                  <th>G | Nombre Paciente</th>
+                  <th>H | Cedula</th>
                   <th>BB | Teléfono</th>
                   <th>BE | Email</th>
+                  <th>S | F. Emision</th>
+                  {/* ========== Información de Viaje ========== */}
                   <th>I | Origen</th>
                   <th>J | Destino</th>
                   <th>K | Itinerario</th>
+                  <th>Q | F. Viaje</th>
                   <th>L | Cantidad</th>
-                  <th>Q | Fecha de Viaje</th>
-                  {/* <th>R | CORREO No.❓</th> */}
-                  <th>S | Fecha de Creación</th>
                   <th>U | Valor</th>
                   <th>V | Valor Neto</th>
-                  <th>T | Operador</th>
                   <th>P | Observaciones</th>
+                  {/* ========== Operator operation ====== */}
+                  <th>T | Operador</th>
                 </tr>
               </thead>
               <tbody>
@@ -202,17 +205,18 @@ const OrderImportPage = () => {
                     <td>{row.idCard}</td>
                     <td>{row.userPhone}</td>
                     <td>{row.email}</td>
+                    <td>{row.creationDate}</td>
+                    {/* ========== Información de Viaje ========== */}
                     <td>{row.origin}</td>
                     <td>{row.destination}</td>
                     <td>{row.itinerary}</td>
-                    <td>{row.quantity}</td>
                     <td>{row.travelDate}</td>
-                    {/* <td>{row.postalNumber}</td> */}
-                    <td>{row.createDate}</td>
+                    <td>{row.quantity}</td>
                     <td>{row.value}</td>
                     <td>{row.netValue}</td>
-                    <td>{row.operator}</td>
                     <td>{row.remarks}</td>
+                    {/* ========== Operator operation ====== */}
+                    <td>{row.operator}</td>
                   </tr>
                 ))}
               </tbody>
@@ -265,57 +269,67 @@ const OrderImportPage = () => {
           <br />
 
           <section className="excelData-container">
-            <h2>Todos los datos leídos sin filtrar</h2>
-            <table border="1" style={{ marginTop: "20px", borderCollapse: "collapse", width: "100%" }}>
-              <thead>
-                <tr>
-                  <th>A | Contrato de operador No. </th>
-                  <th>B | Numero Orden</th>
-                  <th>C | Diagnostico Principal</th>
-                  <th>E | CLIENTE</th>
-                  <th>G | NOMBRE PACIENTE</th>
-                  <th>H | CEDULA</th>
-                  <th>BB | Teléfono</th>
-                  <th>BE | Email</th>
-                  <th>I | Origen</th>
-                  <th>J | Destino</th>
-                  <th>K | Itinerario</th>
-                  <th>L | Cantidad</th>
-                  <th>Q | Fecha de Viaje</th>
-                  {/* <th>R | CORREO No.❓</th> */}
-                  <th>S | Fecha de Creación</th>
-                  <th>U | Valor</th>
-                  <th>V | Valor Neto</th>
-                  <th>T | Operador</th>
-                  <th>P | Observaciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {excelData.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.operatorContract}</td>
-                    <td>{row.orderNumber}</td>
-                    <td>{row.authorizationNumber}</td>
-                    <td>{row.client}</td>
-                    <td>{row.patientName}</td>
-                    <td>{row.idCard}</td>
-                    <td>{row.userPhone}</td>
-                    <td>{row.email}</td>
-                    <td>{row.origin}</td>
-                    <td>{row.destination}</td>
-                    <td>{row.itinerary}</td>
-                    <td>{row.quantity}</td>
-                    <td>{row.travelDate}</td>
-                    {/* <td>{row.postalNumber}</td> */}
-                    <td>{row.createDate}</td>
-                    <td>{row.value}</td>
-                    <td>{row.netValue}</td>
-                    <td>{row.operator}</td>
-                    <td>{row.remarks}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {duplicateOperatorContract.length !== 0 || duplicateOrderNumber.length !== 0 ? (
+              <>
+                <h2>Todos los datos leídos sin filtrar</h2>
+                <table border="1" style={{ marginTop: "20px", borderCollapse: "collapse", width: "100%" }}>
+                  <thead>
+                    <tr>
+                      <th>A | Contrato #. </th>
+                      <th>B | Orden #</th>
+                      <th>C | Autorización #</th>
+                      <th>E | Cliente</th>
+                      <th>G | Nombre Paciente</th>
+                      <th>H | Cedula</th>
+                      <th>BB | Teléfono</th>
+                      <th>BE | Email</th>
+                      <th>S | F. Emision</th>
+                      {/* ========== Información de Viaje ========== */}
+                      <th>I | Origen</th>
+                      <th>J | Destino</th>
+                      <th>K | Itinerario</th>
+                      <th>Q | F. Viaje</th>
+                      <th>L | Cantidad</th>
+                      <th>U | Valor</th>
+                      <th>V | Valor Neto</th>
+                      <th>P | Observaciones</th>
+                      {/* ========== Operator operation ====== */}
+                      <th>T | Operador</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {excelDataInicial.map((row, index) => (
+                      <tr key={index}>
+                        <td>{row.operatorContract}</td>
+                        <td>{row.orderNumber}</td>
+                        <td>{row.authorizationNumber}</td>
+                        <td>{row.client}</td>
+                        <td>{row.patientName}</td>
+                        <td>{row.idCard}</td>
+                        <td>{row.userPhone}</td>
+                        <td>{row.email}</td>
+                        <td>{row.creationDate}</td>
+                        {/* ========== Información de Viaje ========== */}
+                        <td>{row.origin}</td>
+                        <td>{row.destination}</td>
+                        <td>{row.itinerary}</td>
+                        <td>{row.travelDate}</td>
+                        <td>{row.quantity}</td>
+                        <td>{row.value}</td>
+                        <td>{row.netValue}</td>
+                        <td>{row.remarks}</td>
+                        {/* ========== Operator operation ====== */}
+                        <td>{row.operator}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            ) : (
+              <>
+                <h2>No hay duplicados</h2>
+              </>
+            )}
           </section>
         </>
       )}

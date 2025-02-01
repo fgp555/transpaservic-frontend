@@ -9,8 +9,107 @@ const api = axios.create({
   },
 });
 
+// Función para agregar el prefijo 57 al número de teléfono si tiene 10 dígitos
+function agregarPrefijo(numero) {
+  if (numero.length === 10) {
+    return "57" + numero;
+  }
+  return numero; // Si no tiene 10 dígitos, devuelve el número original
+}
+
 // Implementación del servicio
 export const orderService = {
+  /* 
+  
+  POST http://localhost:3000/api/order/save-array-data
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "operatorContract": 573229650957,
+      "orderNumber": 573229650957,
+      "authorizationNumber": 1234,
+      "client": "NEPS",
+      "patientName": "Abel Fernandez",
+      "idCard": 28428866,
+      "userPhone": 3229650957,
+      "email": 0,
+      "creationDate": "2024-01-12",
+      "origin": "SUAITA",
+      "destination": "SOCORRO",
+      "itinerary": "SUAITA-SOCORRO",
+      "travelDate": "2024-03-05",
+      "quantity": 1,
+      "value": 0,
+      "netValue": 0,
+      "remarks": "Transsander TTRC-144037-38-39-40-45-46-47-48-49-50-51-52 / 03-03-2024",
+      "operator": "COPETRAN",
+      "sendWhatsApp": false
+    },
+    {
+      "operatorContract": 51918221790,
+      "orderNumber": 51918221790,
+      "authorizationNumber": 1234,
+      "client": "NEPS",
+      "patientName": "Beatriz Rodriguez",
+      "idCard": 28428866,
+      "userPhone": 51918221790,
+      "email": 0,
+      "origin": "SUAITA",
+      "destination": "SOCORRO",
+      "itinerary": "SUAITA-SOCORRO",
+      "travelDate": "2024-03-05",
+      "quantity": 1,
+      "value": 0,
+      "netValue": 0,
+      "remarks": "Transsander TTRC-144037-38-39-40-45-46-47-48-49-50-51-52 / 03-03-2024",
+      "operator": "COOTRANSUNIDOS"
+    },
+    {
+      "operatorContract": 573114396143,
+      "orderNumber": 573114396143,
+      "authorizationNumber": 1234,
+      "client": "NEPS",
+      "patientName": "Carlos Perez",
+      "idCard": 28428866,
+      "userPhone": 3114396143,
+      "email": 0,
+      "origin": "SUAITA",
+      "destination": "SOCORRO",
+      "itinerary": "SUAITA-SOCORRO",
+      "travelDate": "2024-03-05",
+      "quantity": 1,
+      "value": 0,
+      "netValue": 0,
+      "remarks": "Transsander TTRC-144037-38-39-40-45-46-47-48-49-50-51-52 / 03-03-2024",
+      "operator": "COTAXI"
+    }
+  ]
+}
+  
+*/
+  async saveArrayData(arrayData) {
+    try {
+      // Transformar los números de teléfono y verificar si es necesario agregar el prefijo 57
+      const dataConPrefijos = arrayData.map((item) => {
+        item.userPhone = agregarPrefijo(item.userPhone.toString()); // Asegurarse de que el número es una cadena
+        return item;
+      });
+
+      // Enviar la solicitud POST al backend
+      const response = await api.post("/api/order/save-array-data", { data: dataConPrefijos });
+      return response.data; // Retornar la respuesta del backend
+    } catch (error) {
+      console.error("Error al guardar los datos:", error);
+      if (error.response) {
+        // Si hay un error en la respuesta del servidor
+        return { error: error.response.data.message || "Error desconocido" };
+      }
+      return { error: "Error de conexión al servidor" }; // Si no hay respuesta del servidor
+    }
+  },
+
   async approveOrder(formData) {
     try {
       const response = await api.post("/api/order/approve", formData, {

@@ -99,7 +99,8 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
             <td>
               <strong>Fecha de creación:</strong>
             </td>
-            <td>{orderData.creationDate}</td>
+            {/* <td>{orderData.creationDate}</td> */}
+            <td data-label="F. Emision"> {new Date(orderData.creationDate).toISOString().split("T")[0]}</td>
           </tr>
           <tr>
             <td>
@@ -144,10 +145,14 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
             <td>{orderData.netValue}</td>
           </tr>
           <tr>
-            <td>
+            <td colspan="2">
               <strong>Comentarios:</strong>
             </td>
-            <td>{orderData.remarks}</td>
+          </tr>
+          <tr>
+            <td colspan="2" style={{ width: "20ch" }}>
+              {orderData.remarks}
+            </td>
           </tr>
         </tbody>
       </table>

@@ -78,7 +78,7 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
               <td data-label="Order ID">{order.orderNumber}</td>
               <td data-label="Cliente">{order.client}</td>
               <td data-label="Destino">{order.itinerary}</td>
-              <td data-label="Fecha de Viaje">{order.creationDate}</td>
+              <td data-label="F. Emision"> {new Date(order.creationDate).toISOString().split('T')[0]}</td>
               <td data-label="Valor">{order.value}</td>
               {/* <td data-label="Estado">{order.status}</td> */}
               <td data-label="Estado" className="TicketStatus">

@@ -7,6 +7,7 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
   const [duplicateMessage, setDuplicateMessage] = useState("");
   const [duplicates, setDuplicates] = useState({});
   const [dataToSendWithoutId, setDataToSendWithoutId] = useState([]);
+  const [loading, setLoading] = useState(false); // Estado de carga
 
   useEffect(() => {
     const updatedData = filteredDataWithoutDuplicates.map(({ id, ...rest }) => rest);
@@ -19,12 +20,10 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
       return;
     }
 
-    const dataToSend = {
-      data: dataToSendWithoutId,
-    };
+    setLoading(true); // Activar loading
 
     try {
-      const response = await orderService.saveFilteredData(dataToSend);
+      const response = await orderService.saveArrayData(dataToSendWithoutId);
 
       console.log("Datos enviados correctamente:", response);
 
@@ -47,13 +46,19 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
         console.error("Error al enviar los datos:", error);
         setDuplicateMessage("Hubo un error al enviar los datos.");
       }
+    } finally {
+      setLoading(false); // Desactivar loading después de la petición
     }
   };
 
   return (
     <div className="OrderSubmitComponent">
-      <button onClick={handleSubmit} className="btn btn-primary">
-        Enviar a la base de datos
+      <button
+        onClick={handleSubmit}
+        className="btn btn-primary"
+        disabled={loading} // Deshabilita el botón mientras carga
+      >
+        {loading ? "Enviando..." : "Enviar a la base de datos"}
       </button>
 
       {duplicateMessage && (
