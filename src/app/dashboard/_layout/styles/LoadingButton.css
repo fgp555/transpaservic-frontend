@@ -1,0 +1,55 @@
+.LoadingButton {
+  position: relative;
+  width: 20rem;
+  /* height: 40px; */
+  /* background-image: none; */
+  /* border: none; */
+  /* outline: none;/ */
+  /* background-color: var(--accent-color); */
+  /* border-radius: var(--border-radius); */
+  /* color: var(--white-color); */
+  /* cursor: pointer; */
+  transition: all 0.2s ease-out;
+}
+.LoadingButton.loadingProgress {
+  animation: opacityLoading 1s infinite;
+}
+
+.spinnerLoop {
+  display: block;
+  width: 1.5rem;
+  aspect-ratio: 1;
+  position: absolute;
+  top: 9px;
+  left: 1em;
+  background: transparent;
+  box-sizing: border-box;
+  border-top: 3px solid white;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-radius: 100%;
+  -webkit-animation: spin 0.6s ease-out infinite;
+  animation: spin 0.6s ease-out infinite;
+}
+@-webkit-keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes opacityLoading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
