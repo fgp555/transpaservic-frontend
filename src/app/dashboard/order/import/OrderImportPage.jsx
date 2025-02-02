@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import "./OrderImportPage.css";
 import OrderSubmitComponent from "./components/OrderSubmitComponent";
+import TableExcelComp from "./components/TableExcelComp";
 
 const OrderImportPage = () => {
   const [excelDataInicial, setExcelDataInicial] = useState([]);
@@ -149,8 +150,14 @@ const OrderImportPage = () => {
       <h1>Leer y Subir archivo Excel</h1>
       <br />
       <div className="file-upload">
-        <label htmlFor="file-input" className="btn btn-primary">
-          {isLoading ? "Cargando..." : "Leer archivo Excel"}
+        <label htmlFor="file-input" className={`btn btn-primary LoadingButton ${isLoading ? "loadingProgress" : ""}`}>
+          {isLoading ? (
+            <>
+              <span class="spinnerLoop"></span>Procesando...
+            </>
+          ) : (
+            "Leer archivo excel"
+          )}
         </label>
         <input
           //
@@ -162,69 +169,14 @@ const OrderImportPage = () => {
         />
         {isLoading && <div className="loading-spinner"></div>}
       </div>
-      {/* <pre>{JSON.stringify({ data: excelDataInicial }, null, 2)}</pre> */}
-
       {excelDataInicial.length > 0 && (
         <>
           <section className="filteredDataWithoutDuplicates-section">
             <br />
             <h2>Datos Filtrados</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>A | Contrato #. </th>
-                  <th>B | Orden #</th>
-                  <th>C | Autorización #</th>
-                  <th>E | Cliente</th>
-                  <th>G | Nombre Paciente</th>
-                  <th>H | Cedula</th>
-                  <th>BB | Teléfono</th>
-                  <th>BE | Email</th>
-                  <th>S | F. Emision</th>
-                  {/* ========== Información de Viaje ========== */}
-                  <th>I | Origen</th>
-                  <th>J | Destino</th>
-                  <th>K | Itinerario</th>
-                  <th>Q | F. Viaje</th>
-                  <th>L | Cantidad</th>
-                  <th>U | Valor</th>
-                  <th>V | Valor Neto</th>
-                  <th>P | Observaciones</th>
-                  {/* ========== Operator operation ====== */}
-                  <th>T | Operador</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredDataWithoutDuplicates.map((row) => (
-                  <tr key={row.id}>
-                    <td>{row.operatorContract}</td>
-                    <td>{row.orderNumber}</td>
-                    <td>{row.authorizationNumber}</td>
-                    <td>{row.client}</td>
-                    <td>{row.patientName}</td>
-                    <td>{row.idCard}</td>
-                    <td>{row.userPhone}</td>
-                    <td>{row.email}</td>
-                    <td>{row.creationDate}</td>
-                    {/* ========== Información de Viaje ========== */}
-                    <td>{row.origin}</td>
-                    <td>{row.destination}</td>
-                    <td>{row.itinerary}</td>
-                    <td>{row.travelDate}</td>
-                    <td>{row.quantity}</td>
-                    <td>{row.value}</td>
-                    <td>{row.netValue}</td>
-                    <td>{row.remarks}</td>
-                    {/* ========== Operator operation ====== */}
-                    <td>{row.operator}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <TableExcelComp data={filteredDataWithoutDuplicates} />
           </section>
-
           <br />
-
           <section className="duplicates-section">
             {duplicateOperatorContract.length > 0 && (
               <div className="duplicates">
@@ -239,7 +191,6 @@ const OrderImportPage = () => {
               </div>
             )}
             <br />
-
             {duplicateOrderNumber.length > 0 && (
               <div className="duplicates">
                 <h2>Duplicados en Numero Orden</h2>
@@ -253,77 +204,18 @@ const OrderImportPage = () => {
               </div>
             )}
           </section>
-
           <br />
-
           <section className="actions-section">
             <p>Una vez verificado la informacion ya puede enviar a la base de datos</p>
-            {/* <button className="btn btn-primary" onClick={() => alert("boton en desarrollo")}>
-              Enviar a la base de datos
-            </button> */}
             <OrderSubmitComponent filteredDataWithoutDuplicates={filteredDataWithoutDuplicates} />
-
             <br />
           </section>
-
           <br />
-
           <section className="excelData-container">
             {duplicateOperatorContract.length !== 0 || duplicateOrderNumber.length !== 0 ? (
               <>
                 <h2>Todos los datos leídos sin filtrar</h2>
-                <table border="1" style={{ marginTop: "20px", borderCollapse: "collapse", width: "100%" }}>
-                  <thead>
-                    <tr>
-                      <th>A | Contrato #. </th>
-                      <th>B | Orden #</th>
-                      <th>C | Autorización #</th>
-                      <th>E | Cliente</th>
-                      <th>G | Nombre Paciente</th>
-                      <th>H | Cedula</th>
-                      <th>BB | Teléfono</th>
-                      <th>BE | Email</th>
-                      <th>S | F. Emision</th>
-                      {/* ========== Información de Viaje ========== */}
-                      <th>I | Origen</th>
-                      <th>J | Destino</th>
-                      <th>K | Itinerario</th>
-                      <th>Q | F. Viaje</th>
-                      <th>L | Cantidad</th>
-                      <th>U | Valor</th>
-                      <th>V | Valor Neto</th>
-                      <th>P | Observaciones</th>
-                      {/* ========== Operator operation ====== */}
-                      <th>T | Operador</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {excelDataInicial.map((row, index) => (
-                      <tr key={index}>
-                        <td>{row.operatorContract}</td>
-                        <td>{row.orderNumber}</td>
-                        <td>{row.authorizationNumber}</td>
-                        <td>{row.client}</td>
-                        <td>{row.patientName}</td>
-                        <td>{row.idCard}</td>
-                        <td>{row.userPhone}</td>
-                        <td>{row.email}</td>
-                        <td>{row.creationDate}</td>
-                        {/* ========== Información de Viaje ========== */}
-                        <td>{row.origin}</td>
-                        <td>{row.destination}</td>
-                        <td>{row.itinerary}</td>
-                        <td>{row.travelDate}</td>
-                        <td>{row.quantity}</td>
-                        <td>{row.value}</td>
-                        <td>{row.netValue}</td>
-                        <td>{row.remarks}</td>
-                        {/* ========== Operator operation ====== */}
-                        <td>{row.operator}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <TableExcelComp data={excelDataInicial} />
               </>
             ) : (
               <>
@@ -333,7 +225,6 @@ const OrderImportPage = () => {
           </section>
         </>
       )}
-      {/* <pre>{JSON.stringify(filteredDataWithoutDuplicates, null, 2)}</pre> */}
     </div>
   );
 };
