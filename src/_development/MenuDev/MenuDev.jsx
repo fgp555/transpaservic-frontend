@@ -28,20 +28,6 @@ const MenuDev = () => {
           <NavLink to="/" end>
             INICIO
           </NavLink>
-          <NavLink to="/login" end>
-            login
-          </NavLink>
-          {isLogin && (
-            <NavLink to="/dashboard" end>
-              Dashboard
-            </NavLink>
-          )}
-          <NavLink to="/about" end>
-            About
-          </NavLink>
-          <NavLink to="/systems-design" end>
-            systems-design
-          </NavLink>
           <NavLink to="/404" end>
             404
           </NavLink>

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { orderService } from "../../../../services/apiOrder";
-import { useSelector } from "react-redux";
-import { OrderTableRespoComp } from "./_components/OrderTableRespoComp";
 import "./OrderListPage.css";
-import { downloadCSV } from "./utils/downloadCSV";
 import "jspdf-autotable"; // Para generar tablas automáticamente
+import { downloadCSV } from "./utils/downloadCSV";
 import { downloadPDF } from "./utils/downloadPDF";
-import { useOperators } from "./hooks/useOperators";
+import { orderService } from "../../../../services/apiOrder";
+import { OrderTableRespoComp } from "./_components/OrderTableRespoComp";
 import { renderPaginationComp } from "./_components/renderPagination";
+import { useOperators } from "./hooks/useOperators";
+import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 
 const OrderListPage = () => {
   const userSlice = useSelector((state) => state.user);
@@ -16,6 +16,7 @@ const OrderListPage = () => {
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
+
   const initialFilters = {
     status: "",
     operator: operatorSelect,
@@ -25,6 +26,7 @@ const OrderListPage = () => {
     dateFrom: "",
     dateTo: "",
   };
+
   const [filters, setFilters] = useState(initialFilters);
 
   const { operatorData, operatorLoading, operatorError } = useOperators();
@@ -67,24 +69,21 @@ const OrderListPage = () => {
 
   useEffect(() => {
     if (isAdmin) {
-      // Para admin, no filtrar por operador
       setFilters((prevFilters) => ({
-        // ...prevFilters,
+        ...prevFilters,
         operator: "", // Sin filtro específico
       }));
     } else {
-      // Para usuarios no admin, filtrar por el operador del usuario
       setFilters((prevFilters) => ({
-        // ...prevFilters,
+        ...prevFilters,
         operator: userSlice.user.operator?.id, // ID del operador asociado al usuario
-        // operator: 1, // ID del operador asociado al usuario
       }));
     }
-  }, [userSlice.user.role, userSlice.user.operator]);
+  }, [isAdmin]);
 
   return (
     <div className="OrderListPage">
-      {/* <pre>{JSON.stringify(userSlice.user, null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(userSlice, null, 2)}</pre> */}
       <h1>
         Gestión de Ordenes
         <span>{!isAdmin && <span> de {userSlice?.user?.operator?.name}</span>}</span>
@@ -92,8 +91,14 @@ const OrderListPage = () => {
       <br />
       <form>
         {/* Búsqueda */}
-        <input type="text" name="search" placeholder="Buscar por: orden, cliente, itinerario, paciente..." value={filters.search} onChange={handleFilterChange} />
-
+        <input
+          //
+          type="text"
+          name="search"
+          placeholder="Buscar por: orden, cliente, itinerario, paciente..."
+          value={filters.search}
+          onChange={handleFilterChange}
+        />
         <section className="filters">
           {/* Estado */}
           <select name="status" value={filters.status} onChange={handleFilterChange}>
@@ -117,10 +122,22 @@ const OrderListPage = () => {
             </>
           )}
           {/* Fecha Desde */}
-          <input type="date" name="dateFrom" value={filters.dateFrom} onChange={handleFilterChange} />
+          <input
+            //
+            type="date"
+            name="dateFrom"
+            value={filters.dateFrom}
+            onChange={handleFilterChange}
+          />
 
           {/* Fecha Hasta */}
-          <input type="date" name="dateTo" value={filters.dateTo} onChange={handleFilterChange} />
+          <input
+            //
+            type="date"
+            name="dateTo"
+            value={filters.dateTo}
+            onChange={handleFilterChange}
+          />
 
           {/* Cantidad de elementos por página */}
           <input
@@ -129,6 +146,7 @@ const OrderListPage = () => {
             placeholder="Cantidad por página"
             value={filters.limit}
             min="1"
+            style={{ width: "5rem" }}
             onChange={(e) =>
               setFilters((prev) => ({
                 ...prev,
@@ -136,15 +154,17 @@ const OrderListPage = () => {
               }))
             }
           />
-
-          <button type="button" onClick={handleClearFilters}>
-            Limpiar
+          <button className="btn btn-primary" type="button" onClick={handleClearFilters}>
+            {/* Limpiar */}
+            <i class="fa-solid fa-rotate-right"></i>
           </button>
-          <button type="button" onClick={() => downloadCSV(orders)}>
-            CSV
+          <button className="btn btn-primary" type="button" onClick={() => downloadCSV(orders)}>
+            {/* CSV */}
+            <i class="fa-solid fa-file-csv"></i>
           </button>
-          <button type="button" onClick={() => downloadPDF(orders, userSlice)}>
-            PDF
+          <button className="btn btn-primary" type="button" onClick={() => downloadPDF(orders, userSlice)}>
+            {/* PDF */}
+            <i class="fa-solid fa-file-pdf"></i>
           </button>
         </section>
         <p>{total} Ordenes encontradas</p>

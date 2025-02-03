@@ -1,6 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = JSON.parse(localStorage.getItem("user")) || {};
+const initialState = JSON.parse(localStorage.getItem("user")) || {
+  login: false,
+  user: {
+    id: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    whatsapp: null,
+    username: null,
+    image: null,
+    role: null,
+    createdAt: null,
+    operator: { name: null },
+  },
+  token: null,
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -27,3 +42,10 @@ const userSlice = createSlice({
 
 export const { setUser, removeUser, toggleRole } = userSlice.actions;
 export default userSlice;
+
+/*  
+  const userSlice = useSelector((state) => state.user);
+  const isAdmin = useSelector((state) => state.user?.user?.role === "admin");
+  const isLogin = useSelector((state) => state.user?.login);
+  const userToken = useSelector((state) => state.user?.token);
+*/

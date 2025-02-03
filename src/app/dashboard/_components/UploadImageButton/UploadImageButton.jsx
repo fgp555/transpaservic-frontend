@@ -1,7 +1,7 @@
 // UploadImageButton.js
 import React from "react";
-import { previewImage } from "../../utils/previewImage";
 import "./UploadImageButton.css";
+import { previewImage } from "./utils/previewImage";
 
 const UploadImageButton = ({ setCompressedFile }) => {
   const handleImageChange = (event) => {

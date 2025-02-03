@@ -6,34 +6,33 @@ const HelpPage = () => {
     <div className="HelpPage">
       <header className="help-header">
         <h1>Centro de Ayuda</h1>
-        <p>Encuentra información, tutoriales y guías para usar el sistema de gestión de orders.</p>
+        <p>Encuentra información, tutoriales y guías para usar el sistema de gestión de ordenes.</p>
       </header>
 
       <main className="help-main">
         {/* Información del sistema */}
         <section className="help-section">
           <h2>Información del Sistema</h2>
-          <p>Este sistema SaaS está diseñado para administrar y centralizar la gestión de orders de viajes de múltiples empresas de operador. Permite:</p>
+          <p>Este sistema SaaS está diseñado para administrar y centralizar la gestión de ordenes de viajes de múltiples empresas de operador. Permite:</p>
           <ul>
-            <li>Registrar y gestionar empresas de operador.</li>
-            <li>Administrar rutas y orders de manera eficiente.</li>
-            <li>Generar reportes personalizados sobre el uso del sistema.</li>
-            <li>Monitorear el estado de los orders en tiempo real.</li>
+            <li>Administrar ordenes de manera eficiente.</li>
+            <li>Registrar y gestionar operadores.</li>
+            {/* <li>Monitorear el estado de las ordenes en tiempo real.</li> */}
           </ul>
         </section>
 
         {/* Video tutorial */}
         <section className="help-section">
           <h2>Video Tutorial</h2>
-          <p>Sigue este tutorial en video para aprender los conceptos básicos del sistema:</p>
+          <p>Como vincular whatsapp con el sistema:</p>
           <div className="video-container">
-            <iframe
+            {/* <iframe
               src="https://www.youtube.com/embed/dQw4w9WgXcQ"
               title="Video Tutorial"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-            ></iframe>
+            ></iframe> */}
           </div>
         </section>
 
@@ -42,9 +41,25 @@ const HelpPage = () => {
           <h2>Contacto de Soporte</h2>
           <p>¿Tienes dudas o necesitas ayuda adicional? Contáctanos:</p>
           <ul>
-            <li>Email: soporte@gestioorders.com</li>
-            <li>Teléfono: +34 900 123 456</li>
-            <li>Horario de atención: Lunes a Viernes, 9:00 a 18:00</li>
+            <li className="help-li-title">
+              Email: <a href="mailto:soporte@systered.com">soporte@systered.com</a>
+            </li>
+            <li className="help-li-title">
+              Web:{" "}
+              <a href="https://systered.com/" target="_blank" rel="noopener noreferrer">
+                https://systered.com/
+              </a>
+            </li>
+            <li className="help-li-title">
+              WhatsApp:{" "}
+              <a href="https://wa.me/573114396143" target="_blank" rel="noopener noreferrer">
+                3114396143
+              </a>
+            </li>
+
+            <li className="help-li-title">Horario de atención:</li>
+            <li>Lun-Vie 8:00 a 18:00</li>
+            <li>Sab: 8:00 a 13:00</li>
           </ul>
         </section>
       </main>

@@ -6,16 +6,24 @@ import { useNavigate } from "react-router-dom";
 import { operatorService } from "../../../../services/apiOperator";
 import "./OperatorCreatePage.css";
 import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
+import { isDevelopment } from "../../../../utils/apiBaseURL";
 
-const OperatorCreatePage = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+let dataDev;
+if (isDevelopment) {
+  dataDev = {
     name: "demotranport1",
     username: "demotranport1",
     whatsapp: "33221133221",
     email: "contact@demotranport1.com",
     website: "https://demotranport1.com",
-  });
+  };
+} else {
+  dataDev = {};
+}
+
+const OperatorCreatePage = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState(dataDev);
   const [loading, setLoading] = useState(false);
 
   // Manejar cambios en los campos del formulario

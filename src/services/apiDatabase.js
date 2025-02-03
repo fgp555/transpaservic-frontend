@@ -1,72 +1,70 @@
-import axios from "axios";
-import { apiBaseURL } from "../utils/apiBaseURL";
+import axiosCreate from "./axiosCreate";
 
 const apiDatabaseService = {
-  // Get the list of backup files
+  // Obtener la lista de archivos de respaldo
   getBackups: async () => {
     try {
-      const response = await axios.post(`${apiBaseURL}/api/database/display_backups_files`);
-      //   console.log("response.data", response.data);
+      const response = await axiosCreate.post("/api/database/display_backups_files");
       return response.data.files;
     } catch (error) {
       throw new Error("Failed to fetch backups: " + error.message);
     }
   },
 
-  // Create a Postgres backup
+  // Crear un respaldo de Postgres
   createBackup: async () => {
     try {
-      const response = await axios.post(`${apiBaseURL}/api/database/create_backup`);
-      return response.data; // Assuming success response data
+      const response = await axiosCreate.post("/api/database/create_backup");
+      return response.data;
     } catch (error) {
       throw new Error("Failed to create backup: " + error.message);
     }
   },
 
-  // Download a specific backup
+  // Descargar un respaldo específico
   downloadBackup: async (backupFileName) => {
     try {
-      const response = await axios.get(`${apiBaseURL}/api/database/download/${backupFileName}`, {
-        responseType: "blob", // Important for file downloads
+      const response = await axiosCreate.get(`/api/database/download/${backupFileName}`, {
+        responseType: "blob", // Importante para la descarga de archivos
       });
-      return response.data; // The file blob data
+      return response.data;
     } catch (error) {
       throw new Error("Failed to download backup: " + error.message);
     }
   },
 
-  // Restore a specific backup
+  // Restaurar un respaldo específico
   restoreBackup: async (backupFileName) => {
     try {
-      const response = await axios.post(`${apiBaseURL}/api/database/restore/${backupFileName}`);
-      return response.data; // Assuming success response data
+      const response = await axiosCreate.post(`/api/database/restore/${backupFileName}`);
+      return response.data;
     } catch (error) {
       throw new Error("Failed to restore backup: " + error.message);
     }
   },
 
-  // Delete a specific backup
+  // Eliminar un respaldo específico
   deleteBackup: async (backupFileName) => {
     try {
-      const response = await axios.delete(`${apiBaseURL}/api/database/delete/${backupFileName}`);
-      return response.data; // Assuming success response data
+      const response = await axiosCreate.delete(`/api/database/delete/${backupFileName}`);
+      return response.data;
     } catch (error) {
       throw new Error("Failed to delete backup: " + error.message);
     }
   },
 
-  // Upload a backup file
+  // Subir un archivo de respaldo
   uploadBackup: async (file) => {
     const formData = new FormData();
-    formData.append("file", file); // Append the file to the form data
+    formData.append("file", file);
 
     try {
-      const response = await axios.post(`${apiBaseURL}/api/database/upload_backup`, formData, {
+      const response = await axiosCreate.post("/api/database/upload_backup", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Set correct content type for file upload
+          "Content-Type": "multipart/form-data",
         },
       });
-      return response.data; // Assuming success response data
+      return response.data;
     } catch (error) {
       throw new Error("Failed to upload backup: " + error.message);
     }

@@ -29,7 +29,7 @@ export const downloadPDF = (orders, userSlice) => {
   // Información adicional
   doc.setFontSize(12);
   doc.text(`Fecha de generación: ${new Date().toLocaleDateString()}`, 14, 30);
-  doc.text(`Usuario: ${userSlice?.user?.name || "Desconocido"}`, 14, 35);
+  doc.text(`Usuario: ${userSlice?.user?.firstName + " " + (userSlice?.user?.lastName ? userSlice?.user?.lastName : "") || "Desconocido"}`, 14, 35);
 
   // Columnas de la tabla (incluyendo las adicionales)
   const tableColumn = [
@@ -46,10 +46,13 @@ export const downloadPDF = (orders, userSlice) => {
     "Origen",
     "Destino",
     "Itinerario",
-    "Cantidad",
     "F. Viaje",
+    "Cantidad",
     "Valor",
+    "Valor Neto",
+    "Observaciones",
     "Estado",
+    "Numero de Ticket",
     "Operador",
   ];
 
@@ -68,10 +71,13 @@ export const downloadPDF = (orders, userSlice) => {
     order.origin || "", // Nueva columna: Origen
     order.destination || "", // Nueva columna: Destino
     order.itinerary || "", // Nueva columna: Itinerario
-    order.quantity || "", // Nueva columna: Cantidad
     order.travelDate || "",
+    order.quantity || "", // Nueva columna: Cantidad
     order.value || "", // Nueva columna: Valor
+    order.netValue || "",
+    order.remarks || "",
     order.status || "",
+    order.ticketNumber || "",
     order.operator.name || "", // Nueva columna: Operador
   ]);
 

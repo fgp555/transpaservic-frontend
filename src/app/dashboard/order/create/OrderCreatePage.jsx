@@ -4,14 +4,14 @@ import Swal from "sweetalert2";
 import { orderService } from "../../../../services/apiOrder";
 import FindMunicipalityComponent from "./components/findMunicipalityComponent";
 import FindOperatorComponent from "./components/FindOperatorComponent";
-import './OrderCreatePage.css';
+import "./OrderCreatePage.css";
+import { isDevelopment } from "../../../../utils/apiBaseURL";
 
-const OrderCreatePage = () => {
-  const [selectedOperator, setSelectedOperator] = useState(null);
-  const [errors, setErrors] = useState({ origin: false, destination: false });
-  const [formData, setFormData] = useState({
+let dataDev;
+if (isDevelopment) {
+  dataDev = {
     operatorContract: "100002",
-    orderNumber: "2000002", 
+    orderNumber: "2000002",
     authorizationNumber: "abc",
     client: "NEPS",
     patientName: "David Lopez Mendoza",
@@ -30,7 +30,15 @@ const OrderCreatePage = () => {
     countryCode: "+57",
     userPhone: "3229650957",
     operator: { id: null },
-  });
+  };
+} else {
+  dataDev = {};
+}
+
+const OrderCreatePage = () => {
+  const [selectedOperator, setSelectedOperator] = useState(null);
+  const [errors, setErrors] = useState({ origin: false, destination: false });
+  const [formData, setFormData] = useState(dataDev);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

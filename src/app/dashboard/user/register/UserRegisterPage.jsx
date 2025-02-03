@@ -6,9 +6,11 @@ import "./UserRegisterPage.css";
 import { operatorService } from "../../../../services/apiOperator";
 import Swal from "sweetalert2"; // Para mostrar alertas
 import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
+import { isDevelopment } from "../../../../utils/apiBaseURL";
 
-const UserRegisterPage = () => {
-  const [formData, setFormData] = useState({
+let dataDev;
+if (isDevelopment) {
+  dataDev = {
     firstName: "firstName 1",
     lastName: "lastName 1",
     whatsapp: "999999999",
@@ -21,7 +23,13 @@ const UserRegisterPage = () => {
     image: "https://via.placeholder.com/150",
     // operator: { id: 1 },
     // operator: null,
-  });
+  };
+} else {
+  dataDev = {};
+}
+
+const UserRegisterPage = () => {
+  const [formData, setFormData] = useState(dataDev);
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const [operatorData, setOperatorData] = useState([]);
@@ -136,7 +144,7 @@ const UserRegisterPage = () => {
 
         <label htmlFor="email">Email</label>
         <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-       
+
         <div className="password-fields">
           <label htmlFor="password">Contraseña</label>
           <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
@@ -150,7 +158,7 @@ const UserRegisterPage = () => {
           </span>
           <br />
           {/* Botón para generar contraseña */}
-          <button type="button" onClick={handleGeneratePassword} className="generate-password">
+          <button type="button" onClick={handleGeneratePassword} className="btn btn-primary">
             Generar Contraseña
           </button>
           <br />
@@ -183,7 +191,7 @@ const UserRegisterPage = () => {
 
         <div>
           <p>imagen de perfil</p>
-          <FileUploadComp />
+          {/* <FileUploadComp /> */}
         </div>
         <br />
 

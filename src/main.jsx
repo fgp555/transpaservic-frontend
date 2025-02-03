@@ -22,10 +22,10 @@ import DatabaseBackupPage from "./app/dashboard/config/database/DatabaseBackupPa
 import HelpPage from "./app/dashboard/help/HelpPage";
 import Page404 from "./app/404/Page404";
 import ForgotPassword from "./app/password/forgot/ForgotPassword";
-import DashboardPage from "./app/dashboard/DashboardPage";
 import RestorePassword from "./app/password/restore/RestorePassword.jsx";
 import DevelopmentPage from "./_development/DevelopmentPage";
-// import SystemDesignsPage from "./_dev/designs/SystemDesignsPage";
+import WhatsAppConfigPage from "./app/dashboard/config/whatsapp/WhatsAppPage.jsx";
+import DashboardPage from "./app/dashboard/_home/DashboardPage.jsx";
 
 createRoot(document.getElementById("root")).render(  
   <StrictMode>
@@ -49,10 +49,10 @@ createRoot(document.getElementById("root")).render(
           <Route path="/dashboard/operator/update/:id" element={<DashboardLayout><OperatorUpdatePage /></DashboardLayout>} />
 
           <Route path="/dashboard/config/database" element={<DashboardLayout><DatabaseBackupPage /></DashboardLayout>} />
+          <Route path="/dashboard/config/whatsapp" element={<DashboardLayout><WhatsAppConfigPage /></DashboardLayout>} />
           <Route path="/dashboard/help" element={<DashboardLayout><HelpPage /></DashboardLayout>} />
 
           <Route path="/dev" element={<DashboardLayout><DevelopmentPage /></DashboardLayout>} />
-          {/* <Route path="/designs" element={<DashboardLayout><SystemDesignsPage /></DashboardLayout>} /> */}
 
           <Route path="/" element={<App />} />
           <Route path="/tikets/dist/*" element={<Navigate to="/" replace />} />

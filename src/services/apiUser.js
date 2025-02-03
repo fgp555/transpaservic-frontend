@@ -1,14 +1,4 @@
-// src\services\apiUser.js
-
-import { apiBaseURL } from "../utils/apiBaseURL";
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: apiBaseURL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import axiosCreate from "./axiosCreate";
 
 export const apiUserService = {
   async getAllUsers(filters) {
@@ -25,7 +15,7 @@ export const apiUserService = {
       if (limit) params.append("limit", limit);
 
       // Realizar la solicitud GET con los filtros
-      const response = await api.get(`/api/users/findAll?${params.toString()}`);
+      const response = await axiosCreate.get(`/api/users/findAll?${params.toString()}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -33,9 +23,9 @@ export const apiUserService = {
     }
   },
 
-  getUserById: async (userId) => {
+  async getUserById(userId) {
     try {
-      const response = await api.get(`/api/users/findOne/${userId}`);
+      const response = await axiosCreate.get(`/api/users/findOne/${userId}`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching user with ID ${userId}:`, error);
@@ -43,9 +33,9 @@ export const apiUserService = {
     }
   },
 
-  deleteUser: async (userId) => {
+  async deleteUser(userId) {
     try {
-      const response = await api.delete(`/api/users/Delete/${userId}`);
+      const response = await axiosCreate.delete(`/api/users/Delete/${userId}`);
       return response.data;
     } catch (error) {
       console.error(`Error deleting user with ID ${userId}:`, error);

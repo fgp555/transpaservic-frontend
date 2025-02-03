@@ -1,56 +1,41 @@
-// src\services\apiAuth.js
+import axiosCreate from "./axiosCreate";
 
-import { apiBaseURL } from "../utils/apiBaseURL";
-import axios from "axios";
-
-// Crear una instancia de Axios con la apiBaseURL
-const api = axios.create({
-  baseURL: apiBaseURL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
-// Implementación del servicio
 export const authService = {
-  // login
-  signin: async (userData) => {
+  // Login
+  async signin(userData) {
     try {
-      const response = await api.post("/api/auth/signin", userData);
+      const response = await axiosCreate.post("/api/auth/signin", userData);
       return response.data;
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error signing in:", error);
       throw error;
     }
   },
 
-  // signup
-  signup: async (userData) => {
-    console.log("userData",userData)
+  // Registro de usuario (Signup)
+  async signup(userData) {
+    console.log("userData", userData);
     if (userData.operator) {
       userData.operator.id = Number(userData.operator.id);
     }
     try {
-      const response = await api.post("/api/auth/signup", userData);
-      return response.data; // Devuelve los datos en caso de éxito
+      const response = await axiosCreate.post("/api/auth/signup", userData);
+      return response.data;
     } catch (error) {
       // Extraer el mensaje de error con una estructura más flexible
-      const errorMessage =
-        error.response?.data?.error || // Error específico (e.g., "Email already exists")
-        error.response?.data?.message || // Mensaje genérico (e.g., "Failed to create user")
-        "Error desconocido al registrarse."; // Fallback genérico
+      const errorMessage = error.response?.data?.error || error.response?.data?.message || "Error desconocido al registrarse.";
       const errorStatus = error.response?.status || 500;
 
       console.error("Error signing up:", { message: errorMessage, status: errorStatus });
 
-      // Lanza un error con contexto
       throw { message: errorMessage, status: errorStatus };
     }
   },
 
-  update: async (id, userData) => {
+  // Actualización de usuario
+  async update(id, userData) {
     try {
-      const response = await api.patch(`/api/auth/update/${id}`, userData);
+      const response = await axiosCreate.patch(`/api/auth/update/${id}`, userData);
       return response.data;
     } catch (error) {
       console.error("Error updating user:", error);

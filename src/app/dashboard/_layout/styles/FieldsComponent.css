@@ -84,18 +84,14 @@ form.dashboard {
     input[type="number"],
     input[type="date"],
     textarea {
-      background-color: var(--base-color);
-      color: var(--text-color);
+      background-color: var(--white-color);
+      color: var(--black-color);
       border-color: var(--line-color);
     }
 
     button {
       background-color: var(--accent-color);
       color: var(--white-color);
-
-      &:hover {
-        background-color: var(--hover-color);
-      }
 
       &:disabled {
         background-color: var(--disabled-color);

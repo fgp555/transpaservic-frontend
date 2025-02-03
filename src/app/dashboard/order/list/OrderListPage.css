@@ -32,12 +32,11 @@
   }
 
   form input,
-  form select,
-  form button {
+  form select {
     padding: 0.8em;
     border-radius: var(--border-radius);
     border: 1px solid var(--line-color);
-    font-size: 1em;
+    font-size: 1rem;
   }
 
   form input[type="text"],
@@ -50,21 +49,6 @@
     background-color: var(--white-color);
   }
 
-  form button {
-    background-color: var(--accent-color);
-    color: var(--white-color);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    /* outline: none; */
-  }
-
-  form button:hover {
-    background-color: darken(var(--accent-color), 10%);
-  }
-
-  form button:focus {
-    outline: 2px solid var(--accent-color);
-  }
   */ form input:focus,
   form select:focus {
     outline: 2px solid var(--accent-color);
@@ -76,16 +60,6 @@
 
   form select {
     max-width: 250px;
-  }
-
-  form button[type="button"] {
-    background-color: var(--accent-color);
-    color: var(--white-color);
-    border: 1px solid var(--line-color);
-  }
-
-  form button[type="button"]:hover {
-    background-color: #e0e0e0;
   }
 
   .UserTableRespoComp {

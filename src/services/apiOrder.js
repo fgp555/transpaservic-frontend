@@ -1,13 +1,4 @@
-import { apiBaseURL } from "../utils/apiBaseURL";
-import axios from "axios";
-
-// Crear una instancia de Axios con la apiBaseURL
-const api = axios.create({
-  baseURL: apiBaseURL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import axiosCreate from "./axiosCreate";
 
 // Función para agregar el prefijo 57 al número de teléfono si tiene 10 dígitos
 function agregarPrefijo(numero) {
@@ -19,76 +10,6 @@ function agregarPrefijo(numero) {
 
 // Implementación del servicio
 export const orderService = {
-  /* 
-  
-  POST http://localhost:3000/api/order/save-array-data
-Content-Type: application/json
-
-{
-  "data": [
-    {
-      "operatorContract": 573229650957,
-      "orderNumber": 573229650957,
-      "authorizationNumber": 1234,
-      "client": "NEPS",
-      "patientName": "Abel Fernandez",
-      "idCard": 28428866,
-      "userPhone": 3229650957,
-      "email": 0,
-      "creationDate": "2024-01-12",
-      "origin": "SUAITA",
-      "destination": "SOCORRO",
-      "itinerary": "SUAITA-SOCORRO",
-      "travelDate": "2024-03-05",
-      "quantity": 1,
-      "value": 0,
-      "netValue": 0,
-      "remarks": "Transsander TTRC-144037-38-39-40-45-46-47-48-49-50-51-52 / 03-03-2024",
-      "operator": "COPETRAN",
-      "sendWhatsApp": false
-    },
-    {
-      "operatorContract": 51918221790,
-      "orderNumber": 51918221790,
-      "authorizationNumber": 1234,
-      "client": "NEPS",
-      "patientName": "Beatriz Rodriguez",
-      "idCard": 28428866,
-      "userPhone": 51918221790,
-      "email": 0,
-      "origin": "SUAITA",
-      "destination": "SOCORRO",
-      "itinerary": "SUAITA-SOCORRO",
-      "travelDate": "2024-03-05",
-      "quantity": 1,
-      "value": 0,
-      "netValue": 0,
-      "remarks": "Transsander TTRC-144037-38-39-40-45-46-47-48-49-50-51-52 / 03-03-2024",
-      "operator": "COOTRANSUNIDOS"
-    },
-    {
-      "operatorContract": 573114396143,
-      "orderNumber": 573114396143,
-      "authorizationNumber": 1234,
-      "client": "NEPS",
-      "patientName": "Carlos Perez",
-      "idCard": 28428866,
-      "userPhone": 3114396143,
-      "email": 0,
-      "origin": "SUAITA",
-      "destination": "SOCORRO",
-      "itinerary": "SUAITA-SOCORRO",
-      "travelDate": "2024-03-05",
-      "quantity": 1,
-      "value": 0,
-      "netValue": 0,
-      "remarks": "Transsander TTRC-144037-38-39-40-45-46-47-48-49-50-51-52 / 03-03-2024",
-      "operator": "COTAXI"
-    }
-  ]
-}
-  
-*/
   async saveArrayData(arrayData) {
     try {
       // Transformar los números de teléfono y verificar si es necesario agregar el prefijo 57
@@ -98,7 +19,7 @@ Content-Type: application/json
       });
 
       // Enviar la solicitud POST al backend
-      const response = await api.post("/api/order/save-array-data", { data: dataConPrefijos });
+      const response = await axiosCreate.post("/api/order/save-array-data", { data: dataConPrefijos });
       return response.data; // Retornar la respuesta del backend
     } catch (error) {
       console.error("Error al guardar los datos:", error);
@@ -112,7 +33,7 @@ Content-Type: application/json
 
   async approveOrder(formData) {
     try {
-      const response = await api.post("/api/order/approve", formData, {
+      const response = await axiosCreate.post("/api/order/approve", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -128,7 +49,7 @@ Content-Type: application/json
   async saveFilteredData(data) {
     console.log("data", data);
     try {
-      const response = await api.post("/api/order/save-filtered-data", data);
+      const response = await axiosCreate.post("/api/order/save-filtered-data", data);
       return response.data; // En caso de éxito, devuelve los datos
     } catch (error) {
       // Asegurarse de que el error tenga la estructura esperada
@@ -165,7 +86,7 @@ Content-Type: application/json
       if (dateTo) params.append("dateTo", dateTo); // Agregar dateTo si existe
 
       // Realizar la solicitud GET con los filtros
-      const response = await api.get(`/api/order?${params.toString()}`);
+      const response = await axiosCreate.get(`/api/order?${params.toString()}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -175,7 +96,7 @@ Content-Type: application/json
 
   getAll: async () => {
     try {
-      const response = await api.get("/api/order");
+      const response = await axiosCreate.get("/api/order");
       return response.data;
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -185,7 +106,7 @@ Content-Type: application/json
 
   create: async (orderData) => {
     try {
-      const response = await api.post("/api/order", orderData);
+      const response = await axiosCreate.post("/api/order", orderData);
       return response.data;
     } catch (error) {
       console.error("Error creating order:", error);
@@ -195,7 +116,7 @@ Content-Type: application/json
 
   getById: async (id) => {
     try {
-      const response = await api.get(`/api/order/${id}`);
+      const response = await axiosCreate.get(`/api/order/${id}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching order:", error);
@@ -205,7 +126,7 @@ Content-Type: application/json
 
   update: async (id, orderData) => {
     try {
-      const response = await api.patch(`/api/order/${id}`, orderData);
+      const response = await axiosCreate.patch(`/api/order/${id}`, orderData);
       return response.data;
     } catch (error) {
       console.error("Error updating order:", error);
@@ -215,7 +136,7 @@ Content-Type: application/json
 
   delete: async (id) => {
     try {
-      const response = await api.delete(`/api/order/${id}`);
+      const response = await axiosCreate.delete(`/api/order/${id}`);
       return response.data;
     } catch (error) {
       console.error("Error deleting order:", error);

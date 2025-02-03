@@ -80,22 +80,30 @@ const SidebarComponent = () => {
           <li className="activea">
             <NavLink to="/dashboard" end>
               <i className="icon-home"></i>
-              <span>Home</span>
+              <span>Inicio</span>
             </NavLink>
           </li>
+          {!isAdmin && (
+            <li>
+              <NavLink to="/dashboard/order/list" end>
+                <i className="icon-list-check"></i>
+                <span>Ordenes</span>
+              </NavLink>
+            </li>
+          )}
 
-          <li>
-            <button onClick={() => toggleSubMenu("orders")} className={`dropdown-btn ${subMenus.orders ? "rotate" : ""}`}>
-              <i className="icon-list-check"></i>
-              <span>Ordenes</span>
-              <i className="icon-angle-down"></i>
-            </button>
-            <ul className={`sub-menu ${subMenus.orders ? "show" : ""}`}>
-              <div>
-                <li>
-                  <NavLink to="/dashboard/order/list">Listar</NavLink>
-                </li>
-                {isAdmin && (
+          {isAdmin && (
+            <li>
+              <button onClick={() => toggleSubMenu("orders")} className={`dropdown-btn ${subMenus.orders ? "rotate" : ""}`}>
+                <i className="icon-list-check"></i>
+                <span>Ordenes</span>
+                <i className="icon-angle-down"></i>
+              </button>
+              <ul className={`sub-menu ${subMenus.orders ? "show" : ""}`}>
+                <div>
+                  <li>
+                    <NavLink to="/dashboard/order/list">Listar</NavLink>
+                  </li>
                   <>
                     <li>
                       <NavLink to="/dashboard/order/create">Registrar</NavLink>
@@ -104,10 +112,10 @@ const SidebarComponent = () => {
                       <NavLink to="/dashboard/order/import">Importar</NavLink>
                     </li>
                   </>
-                )}
-              </div>
-            </ul>
-          </li>
+                </div>
+              </ul>
+            </li>
+          )}
           {isAdmin && (
             <>
               <li>
@@ -152,21 +160,20 @@ const SidebarComponent = () => {
           <li>
             {sidebar && (
               <div className="user-info">
-                <div>
-                  <img src={userSlice?.user?.image} alt={userSlice?.user?.firstName} />
-                </div>
+                {userSlice?.user?.image !== null && (
+                  <div>
+                    <img src={userSlice?.user?.image} alt={userSlice?.user?.firstName} />
+                  </div>
+                )}
                 <div className="user-name">
                   <span> {userSlice?.user?.firstName}</span>
                 </div>
                 {isAdmin ? (
                   <div className="user-role">
-                    {/* <span> {userSlice?.user?.role}</span> */}
                     <span>Administrador</span>
                   </div>
                 ) : (
-                  <>
-                    <span className="operator"> {userSlice?.user?.operator?.name}</span>
-                  </>
+                  <span className="operator"> {userSlice?.user?.operator?.name}</span>
                 )}
               </div>
             )}
@@ -189,6 +196,9 @@ const SidebarComponent = () => {
                     <li>
                       <NavLink to="/dashboard/config/whatsapp">WhatsApp</NavLink>
                     </li>
+                    <li>
+                      <NavLink to="/dashboard/help">Centro de ayuda</NavLink>
+                    </li>
                   </div>
                 </ul>
               </li>
@@ -198,12 +208,6 @@ const SidebarComponent = () => {
             <NavLink to="/" end>
               <i className="icon-logout"></i>
               <span onClick={logout}>Cerrar sesión</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dashboard/help" end>
-              <i className="icon-help"></i>
-              <span>Centro de ayuda</span>
             </NavLink>
           </li>
           <li>
