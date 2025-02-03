@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser, toggleAdmin } from "../store/userSlice";
+import { removeUser, toggleRole } from "../store/userSlice";
 import { NavLink, useNavigate } from "react-router";
 import MenuDev from "./MenuDev/MenuDev";
 import UploadFileDev from "./UploadFileDevComp/UploadFileDev";
@@ -18,7 +18,7 @@ const DevelopmentPage = () => {
   };
 
   const handleToggleRole = () => {
-    dispatch(toggleAdmin());
+    dispatch(toggleRole());
   };
   return (
     <div>

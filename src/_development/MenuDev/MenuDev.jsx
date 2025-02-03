@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser, toggleAdmin } from "../../store/userSlice";
+import { removeUser, toggleRole } from "../../store/userSlice";
 import { NavLink, useNavigate } from "react-router";
 import "./MenuDev.css";
 
@@ -19,7 +19,7 @@ const MenuDev = () => {
   // const isLogin = true;
 
   const handleToggleRole = () => {
-    dispatch(toggleAdmin());
+    dispatch(toggleRole());
   };
   return (
     <div>

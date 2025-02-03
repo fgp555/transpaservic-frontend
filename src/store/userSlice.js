@@ -17,7 +17,7 @@ const userSlice = createSlice({
       return {};
     },
 
-    toggleAdmin: (state) => {
+    toggleRole: (state) => {
       const newRole = state.user.role === "admin" ? "user" : "admin";
       state.user.role = newRole; // Actualiza el rol en el estado global
       localStorage.setItem("user", JSON.stringify(state)); // Guarda el estado actualizado
@@ -25,5 +25,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, removeUser, toggleAdmin } = userSlice.actions;
+export const { setUser, removeUser, toggleRole } = userSlice.actions;
 export default userSlice;
