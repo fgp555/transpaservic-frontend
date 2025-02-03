@@ -95,13 +95,16 @@ const SidebarComponent = () => {
               <div>
                 <li>
                   <NavLink to="/dashboard/order/list">Listar</NavLink>
+                  <NavLink to="/dashboard/order/list">Listar</NavLink>
                 </li>
                 {isAdmin && (
                   <>
                     <li>
                       <NavLink to="/dashboard/order/create">Registrar</NavLink>
+                      <NavLink to="/dashboard/order/create">Registrar</NavLink>
                     </li>
                     <li>
+                      <NavLink to="/dashboard/order/import">Importar</NavLink>
                       <NavLink to="/dashboard/order/import">Importar</NavLink>
                     </li>
                   </>
@@ -138,8 +141,10 @@ const SidebarComponent = () => {
                   <div>
                     <li>
                       <NavLink to="/dashboard/operator/list">Listar</NavLink>
+                      <NavLink to="/dashboard/operator/list">Listar</NavLink>
                     </li>
                     <li>
+                      <NavLink to="/dashboard/operator/create">Registrar</NavLink>
                       <NavLink to="/dashboard/operator/create">Registrar</NavLink>
                     </li>
                   </div>
@@ -166,6 +171,7 @@ const SidebarComponent = () => {
                   </div>
                 ) : (
                   <>
+                    <span className="operator"> {userSlice?.user?.operator?.name}</span>
                     <span className="operator"> {userSlice?.user?.operator?.name}</span>
                   </>
                 )}
@@ -213,6 +219,7 @@ const SidebarComponent = () => {
               <span>{theme === "dark" ? "Modo Oscuro" : "Modo Claro"}</span>
             </NavLink>
           </li>
+          {isLocalhost && (
           {isLocalhost && (
             <li style={{ textAlign: "center" }}>
               <br />
