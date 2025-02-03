@@ -19,15 +19,6 @@ const FileUploadTicket = ({ orderId, fetchOrder }) => {
 
     try {
       const res = await orderService.approveOrder(formData);
-      // const res = await fetch("http://192.168.18.21:3000/api/order/approve", {
-      //   method: "POST",
-      //   body: formData,
-      // });
-
-      // if (!res.ok) throw new Error("Failed to upload file");
-
-      // const data = await res.json();
-
       console.log(res);
       fetchOrder();
     } catch (error) {

@@ -40,12 +40,6 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
       <br />
       <hr />
       <table>
-        {/* <thead>
-          <tr>
-            <th>Campo</th>
-            <th>Valor</th>
-          </tr>
-        </thead> */}
         <tbody>
           <tr>
             <td>
@@ -99,7 +93,6 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
             <td>
               <strong>Fecha de creación:</strong>
             </td>
-            {/* <td>{orderData.creationDate}</td> */}
             <td data-label="F. Emision"> {new Date(orderData.creationDate).toISOString().split("T")[0]}</td>
           </tr>
           <tr>
@@ -156,7 +149,6 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
           </tr>
         </tbody>
       </table>
-      {/* <pre>{JSON.stringify(orderData, null, 2)}</pre> */}
     </div>
   );
 };

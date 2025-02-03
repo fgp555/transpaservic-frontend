@@ -102,7 +102,7 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
                   <>
                     {order.status === "pendiente" ? (
                       // dashboard/order/approve/:id
-                      <NavLink to={`/dashboard/order/approve/${order.id}`}>
+                      <NavLink to={`/dashboard/order/${order.id}`}>
                         <span className="btn btn-primary">Aprobar</span>
                       </NavLink>
                     ) : (

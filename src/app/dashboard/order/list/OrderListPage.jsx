@@ -4,7 +4,7 @@ import { operatorService } from "../../../../services/apiOperator";
 import { useSelector } from "react-redux";
 import { OrderTableRespoComp } from "./_components/OrderTableRespoComp";
 import "./OrderListPage.css";
-import { downloadCSV } from "./utils/downloadCSV";
+// import { downloadCSV } from "./utils/downloadCSV";
 import jsPDF from "jspdf";
 import "jspdf-autotable"; // Para generar tablas automáticamente
 // import { downloadPDF } from "./utils/downloadPDF";
@@ -20,32 +20,7 @@ const OrderListPage = () => {
     dateTo: "",
   };
 
-  const [orders, setOrders] = useState([
-    {
-      id: 7,
-      operatorContract: "12218554",
-      orderNumber: "11026",
-      authorizationNumber: "ffff",
-      client: "client701",
-      patientName: "Gloria Sanchez",
-      idCard: "32145698",
-      userPhone: "3191234567",
-      email: "client7@mail.com",
-      creationDate: "2025-01-18T05:00:00.000Z",
-      origin: "cucuta",
-      destination: "bogota",
-      itinerary: "cucuta-bogota",
-      quantity: 1,
-      travelDate: "2024-09-15",
-      value: "100000.00",
-      netValue: "100000.00",
-      remarks: "medical operator",
-      status: "aprobado",
-      operator: {
-        name: "Transricaurte",
-      },
-    },
-  ]);
+  const [orders, setOrders] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
@@ -337,12 +312,9 @@ const OrderListPage = () => {
           <button type="button" onClick={downloadPDF}>
             PDF
           </button>
-          {/* <button onClick={() => downloadPDF(orders)}>Download PDF</button> */}
         </section>
         <p>{total} Ordenes encontradas</p>
       </form>
-
-      {/* <pre>{JSON.stringify(orders, null, 2)}</pre> */}
 
       <OrderTableRespoComp data={orders} fetchOrders={fetchOrders} downloadCSV={downloadCSV} />
 

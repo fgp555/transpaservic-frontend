@@ -7,6 +7,8 @@ import { removeUser, toggleAdmin } from "../../../../store/userSlice";
 import { isLocalhost } from "../../../../utils/apiBaseURL";
 
 const SidebarComponent = () => {
+  const userSlice = useSelector((state) => state.user);
+  const isAdmin = userSlice?.user?.role === "admin";
   const theme = useSelector((state) => state.theme.theme); // Obtener el tema desde Redux
   const dispatch = useDispatch();
 
@@ -26,9 +28,6 @@ const SidebarComponent = () => {
     dispatch(removeUser());
     navigate("/"); // Navegar a la página de "mis-turnos"
   };
-
-  const userSlice = useSelector((state) => state.user);
-  const isAdmin = userSlice?.user?.role === "admin";
 
   // Establecemos el estado inicial en función del tamaño de la pantalla
   const [sidebar, setSidebar] = useState(() => {

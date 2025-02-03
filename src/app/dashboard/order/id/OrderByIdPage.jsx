@@ -7,7 +7,6 @@ import { BreadcrumbsComponent } from "../../_components/BreadcrumbsComponent/Bre
 import OrderTableByIdComp from "./components/OrderTableByIdComp";
 import "./OrderByIdPage.css";
 import FilePreview from "./components/FilePreview";
-import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 import FileUploadTicket from "./components/FileUploadTicket";
 
 const OrderByIdPage = () => {
@@ -60,10 +59,13 @@ const OrderByIdPage = () => {
         <aside>
           <OrderTableByIdComp orderData={orderData} isPending={isPending} />
         </aside>
-        {isPending ? <FileUploadTicket orderId={id} fetchOrder={fetchOrder} /> : <FilePreview orderData={orderData} fetchOrder={fetchOrder} />}
+        {isPending ? (
+          //
+          <FileUploadTicket orderId={id} fetchOrder={fetchOrder} />
+        ) : (
+          <FilePreview orderData={orderData} fetchOrder={fetchOrder} />
+        )}
       </section>
-
-      {/* <pre>{JSON.stringify(orderData, null, 2)}</pre> */}
     </div>
   );
 };

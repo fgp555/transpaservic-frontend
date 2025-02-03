@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { apiBaseURL } from "../../../../../utils/apiBaseURL";
+import { useSelector } from "react-redux";
 
 const FilePreview = ({ orderData, fetchOrder }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
   const [modalImage, setModalImage] = useState(""); // Estado para la imagen del modal
+  const userSlice = useSelector((state) => state.user);
+  const isAdmin = userSlice?.user?.role === "admin";
 
   const openModal = (imageUrl) => {
     setModalImage(imageUrl);
@@ -35,8 +38,20 @@ const FilePreview = ({ orderData, fetchOrder }) => {
     if (!fileUrl) return <p>No hay archivo disponible.</p>;
 
     if (fileUrl.endsWith(".pdf")) {
-      return <iframe src={fileUrl} title="Vista previa del PDF" style={{ width: "100%", height: "500px", border: "none" }}></iframe>;
-    } else if (fileUrl.endsWith(".jpg") || fileUrl.endsWith(".jpeg") || fileUrl.endsWith(".png")) {
+      return (
+        <iframe
+          src={fileUrl}
+          title="Vista previa del PDF"
+          style={{ width: "100%", height: "500px", border: "none" }}
+          //
+        ></iframe>
+      );
+    } else if (
+      fileUrl.endsWith(".jpg") ||
+      fileUrl.endsWith(".jpeg") ||
+      fileUrl.endsWith(".png")
+      //
+    ) {
       return (
         <>
           <img
@@ -45,10 +60,14 @@ const FilePreview = ({ orderData, fetchOrder }) => {
             style={{ maxWidth: "100%", height: "auto", cursor: "pointer" }}
             onClick={() => openModal(fileUrl)} // Abre el modal al hacer clic
           />
-          <p>Solo el administrador puede eliminar el ticket</p>
-          <button onClick={handleDeleteTicket(orderData.id)} className="btn btn-danger">
-            Eliminar Ticket
-          </button>
+          {isAdmin && (
+            <>
+              <p>Solo el administrador puede eliminar el ticket</p>
+              <button onClick={handleDeleteTicket(orderData.id)} className="btn btn-danger">
+                Eliminar Ticket
+              </button>
+            </>
+          )}
         </>
       );
     } else {
