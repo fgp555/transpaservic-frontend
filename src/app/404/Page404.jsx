@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router";
 import "./Page404.css";
+import { NavLink } from "react-router";
+import "./Page404.css";
 
 const Page404 = () => {
   return (
