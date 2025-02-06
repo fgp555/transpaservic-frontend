@@ -39,7 +39,15 @@
     flex: 1 1 26rem;
   }
 
+  .input-custom:focus {
+    border: 1px solid var(--accent-color);
+    outline: none;
+  }
+  .input-custom {
+    transition: all 0.15s;
+  }
   /* ========== Left... ========== */
+
   aside.left {
     display: flex;
     align-items: center;
