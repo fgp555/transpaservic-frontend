@@ -12,7 +12,7 @@
 9      quantity
 11      travelDate
 12      postalNumber
-13      createDate
+13      creationDate
 15      value
 16      netValue
 14      check
@@ -35,7 +35,7 @@
 09      quantity
 11      travelDate
 12      postalNumber
-13      createDate
+13      creationDate
 15      value
 16      netValue
 14      check
@@ -104,7 +104,7 @@ K
     "quantity": 1,
     "travelDate": "2024-03-05",
     "postalNumber": 19536,
-    "createDate": "2024-01-12",
+    "creationDate": "2024-01-12",
     "value": 0,
     "netValue": 0,
     "check": 0,
@@ -126,7 +126,7 @@ K
     "quantity": 3,
     "travelDate": "2024-03-07",
     "postalNumber": 19538,
-    "createDate": "2024-01-14",
+    "creationDate": "2024-01-14",
     "value": 0,
     "netValue": 0,
     "check": 2,

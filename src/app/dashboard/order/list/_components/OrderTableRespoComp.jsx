@@ -65,7 +65,7 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
             <th>Orden#</th>
             <th>Cliente</th>
             <th>Itinerario</th>
-            <th>F. Viaje</th>
+            <th>F. Emision</th>
             <th>Valor</th>
             <th>Estado</th>
             <th>Operador</th>
@@ -78,9 +78,14 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
               <td data-label="Order ID">{order.orderNumber}</td>
               <td data-label="Cliente">{order.client}</td>
               <td data-label="Destino">{order.itinerary}</td>
-              <td data-label="Fecha de Viaje">{order.travelDate}</td>
+              <td data-label="F. Emision"> {new Date(order.creationDate).toISOString().split('T')[0]}</td>
               <td data-label="Valor">{order.value}</td>
-              <td data-label="Estado">{order.status}</td>
+              {/* <td data-label="Estado">{order.status}</td> */}
+              <td data-label="Estado" className="TicketStatus">
+                {order.status === "pendiente" && <span className="pendiente">Pendiente</span>}
+                {order.status === "aprobado" && <span className="aprobado">Aprobado</span>}
+                {order.status === "cancelado" && <span className="cancelado">Cancelado</span>}
+              </td>
               <td data-label="Operador">{order.operator?.name || "N/A"}</td>
               <td data-label="Acciones" className="actions">
                 {isAdmin ? (
@@ -97,7 +102,7 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
                   <>
                     {order.status === "pendiente" ? (
                       // dashboard/order/approve/:id
-                      <NavLink to={`/dashboard/order/approve/${order.id}`}>
+                      <NavLink to={`/dashboard/order/${order.id}`}>
                         <span className="btn btn-primary">Aprobar</span>
                       </NavLink>
                     ) : (

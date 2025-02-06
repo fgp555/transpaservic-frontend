@@ -29,19 +29,17 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
             <td>
               <strong>Estado:</strong>
             </td>
-            <td>{orderData.status}</td>
+            <td className="TicketStatus">
+              {orderData.status === "pendiente" && <span className="pendiente">Pendiente</span>}
+              {orderData.status === "aprobado" && <span className="aprobado">Aprobado</span>}
+              {orderData.status === "cancelado" && <span className="cancelado">Cancelado</span>}
+            </td>
           </tr>
         </tbody>
       </table>
       <br />
       <hr />
       <table>
-        {/* <thead>
-          <tr>
-            <th>Campo</th>
-            <th>Valor</th>
-          </tr>
-        </thead> */}
         <tbody>
           <tr>
             <td>
@@ -95,7 +93,7 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
             <td>
               <strong>Fecha de creación:</strong>
             </td>
-            <td>{orderData.creationDate}</td>
+            <td data-label="F. Emision"> {new Date(orderData.creationDate).toISOString().split("T")[0]}</td>
           </tr>
           <tr>
             <td>
@@ -140,14 +138,17 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
             <td>{orderData.netValue}</td>
           </tr>
           <tr>
-            <td>
+            <td colspan="2">
               <strong>Comentarios:</strong>
             </td>
-            <td>{orderData.remarks}</td>
+          </tr>
+          <tr>
+            <td colspan="2" style={{ width: "20ch" }}>
+              {orderData.remarks}
+            </td>
           </tr>
         </tbody>
       </table>
-      {/* <pre>{JSON.stringify(orderData, null, 2)}</pre> */}
     </div>
   );
 };

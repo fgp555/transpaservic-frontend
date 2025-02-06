@@ -50,14 +50,16 @@ const LoginPage = () => {
           <div className="form-group">
             <label>Email:</label>
             <div>
-              <input type="email" value={email} onChange={handleEmailChange} required placeholder="user@mail.com" />
+              <input type="email" value={email} onChange={handleEmailChange} required placeholder="user@mail.com" className="input-custom" />
             </div>
           </div>
 
           <div className="form-group">
-            <label>Password:</label>
+            
             <div className="password-wrapper">
-              <input type={showPassword ? "text" : "password"} value={password} onChange={handlePasswordChange} required placeholder="************" />
+              <input type={showPassword ? "text" : "password"} value={password} onChange={handlePasswordChange} required placeholder="************" className="input-custom"/>
+             <label>Password:</label> 
+              
               <button type="button" className="toggle-password " onClick={toggleShowPassword}>
                 {showPassword ? (
                   <i class="fa-regular fa-eye"></i> // Ícono para mostrar la contraseña

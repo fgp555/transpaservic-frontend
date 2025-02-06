@@ -28,7 +28,7 @@ const OrderCreatePage = () => {
     netValue: 120000,
     serviceProvider: "Motilones Operator",
     countryCode: "+57",
-    userPhone: "3124163032",
+    userPhone: "3229650957",
     operator: { id: null },
   });
 

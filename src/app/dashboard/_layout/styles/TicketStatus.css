@@ -1,0 +1,47 @@
+.TicketStatus {
+  --white-color: #fff;
+  --font-size-icon: 1.5rem;
+  --font-size: 0.8rem;
+  --padding: 1px 15px 1px 10px;
+  --border-radius: 18px;
+}
+
+.TicketStatus {
+  .pendiente,
+  .cancelado,
+  .aprobado {
+    font-size: var(--font-size);
+    color: var(--white-color);
+    display: inline-flex;
+    align-items: center;
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+    text-transform: lowercase;
+    width: 6.9rem;
+  }
+
+  .pendiente {
+    background-color: #cd6200;
+  }
+
+  .cancelado {
+    background-color: gray;
+  }
+
+  .aprobado {
+    background-color: #1f9254;
+  }
+
+  .pendiente::before,
+  .cancelado::before,
+  .aprobado::before {
+    content: "•";
+    font-size: var(--font-size-icon);
+    color: inherit;
+    margin-right: 5px;
+  }
+
+  span {
+    color: var(--white-color);
+  }
+}
