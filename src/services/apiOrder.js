@@ -114,9 +114,39 @@ export const orderService = {
     }
   },
 
+  createBackTicket: async (orderNumber, body) => {
+    try {
+      const response = await axiosCreate.patch("/api/order/createBackTicket/" + orderNumber, body);
+      return response.data;
+    } catch (error) {
+      console.error("Error creating order:", error);
+      throw error;
+    }
+  },
+
+  deleteBackTicket: async (orderId) => {
+    try {
+      const response = await axiosCreate.delete(`/api/order/deleteBackTicket/${orderId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      throw error;
+    }
+  },
+
+  findOneOrderNumber: async (orderNumber) => {
+    try {
+      const response = await axiosCreate.get(`/api/order/findOneOrderNumber/${orderNumber}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching order:", error);
+      throw error;
+    }
+  },
+
   getById: async (id) => {
     try {
-      const response = await axiosCreate.get(`/api/order/${id}`);
+      const response = await axiosCreate.get(`/api/order/findOne/${id}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching order:", error);

@@ -1,10 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import "./OrderTableByIdComp.css";
 
-const OrderTableByIdComp = ({ orderData, isPending }) => {
+const OrderTableByIdComp = ({ orderData, isPending, setOrderId, orderId }) => {
+  const [searchId, setSearchId] = useState(orderId); // Estado local para el input
+
+  const handleSearch = (e) => {
+    // alert("en desarrollo...");
+    // return;
+    e.preventDefault();
+    setOrderId(searchId); // Actualiza el estado solo al hacer clic en el botón
+  };
   return (
     <div className="OrderTableByIdComp">
-      <h3>Información de la Orden #{orderData.id}</h3>
+      <div>
+        <label htmlFor="">Buscar orden</label>
+        <form action="" className="dashboard findOneOrderNumber">
+          <input
+            id="orderInput"
+            type="text"
+            placeholder="Número de Orden"
+            value={searchId}
+            onChange={(e) => setSearchId(e.target.value)} // Solo cambia el input, no busca aún
+          />
+          <button type="submit" onClick={handleSearch} className="btn btn-primary">
+            Buscar Orden
+          </button>
+        </form>
+        <br />
+      </div>
+      <div className="header_container">
+        <h3>Detalles de la Orden {orderData.orderNumber}</h3>
+        <span className="btn_container">
+          <button className="btn btn-primary">
+            <i className="fa-solid fa-file-csv"></i>
+          </button>
+          <button className="btn btn-primary">
+            <i className="fa-solid fa-file-pdf"></i>
+          </button>
+        </span>
+      </div>
       <table>
         <thead>
           <tr>
@@ -27,6 +61,18 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
           </tr>
           <tr>
             <td>
+              <strong>Fecha de viaje:</strong>
+            </td>
+            <td>{orderData.travelDate}</td>
+          </tr>
+          {/* </tbody>
+      </table>
+      <br />
+      <hr />
+      <table>
+        <tbody> */}
+          <tr>
+            <td>
               <strong>Estado:</strong>
             </td>
             <td className="TicketStatus">
@@ -35,12 +81,6 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
               {orderData.status === "cancelado" && <span className="cancelado">Cancelado</span>}
             </td>
           </tr>
-        </tbody>
-      </table>
-      <br />
-      <hr />
-      <table>
-        <tbody>
           <tr>
             <td>
               <strong>Contrato de operador:</strong>
@@ -121,12 +161,6 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
           </tr>
           <tr>
             <td>
-              <strong>Fecha de viaje:</strong>
-            </td>
-            <td>{orderData.travelDate}</td>
-          </tr>
-          <tr>
-            <td>
               <strong>Valor:</strong>
             </td>
             <td>{orderData.value}</td>
@@ -138,12 +172,12 @@ const OrderTableByIdComp = ({ orderData, isPending }) => {
             <td>{orderData.netValue}</td>
           </tr>
           <tr>
-            <td colspan="2">
+            <td colSpan="2">
               <strong>Comentarios:</strong>
             </td>
           </tr>
           <tr>
-            <td colspan="2" style={{ width: "20ch" }}>
+            <td colSpan="2" style={{ width: "20ch" }}>
               {orderData.remarks}
             </td>
           </tr>

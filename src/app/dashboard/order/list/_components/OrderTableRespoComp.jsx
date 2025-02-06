@@ -59,6 +59,7 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
 
   return (
     <div className="OrderTableRespoComp">
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       <table>
         <thead>
           <tr>
@@ -66,9 +67,12 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
             <th>Cliente</th>
             <th>Itinerario</th>
             <th>F. Emision</th>
-            <th>Valor</th>
+            {/* <th>Valor</th> */}
             <th>Estado</th>
             <th>Operador</th>
+            <th>
+              <i className="fa-solid fa-clock-rotate-left"></i>
+            </th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -79,7 +83,7 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
               <td data-label="Cliente">{order.client}</td>
               <td data-label="Destino">{order.itinerary}</td>
               <td data-label="F. Emision"> {new Date(order.creationDate).toISOString().split("T")[0]}</td>
-              <td data-label="Valor">{order.value}</td>
+              {/* <td data-label="Valor">{order.value}</td> */}
               {/* <td data-label="Estado">{order.status}</td> */}
               <td data-label="Estado" className="TicketStatus">
                 {order.status === "pendiente" && <span className="pendiente">Pendiente</span>}
@@ -87,30 +91,34 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
                 {order.status === "cancelado" && <span className="cancelado">Cancelado</span>}
               </td>
               <td data-label="Operador">{order.operator?.name || "N/A"}</td>
+              <td data-label="Backticket">{order.backticketHistory?.length || "0"}</td>
               <td data-label="Acciones" className="actions">
                 {isAdmin ? (
-                  <>
-                    <NavLink to={`/dashboard/order/${order.id}`}>
-                      <i className="icon-eye"></i>
+                  <span className="actions-container">
+                    <NavLink to={`/dashboard/order/detail/${order.orderNumber}`}>
+                      <i className="fa-regular fa-eye"></i>
+                    </NavLink>
+                    <NavLink to={`/dashboard/order/backticket/${order.orderNumber}`}>
+                      <i className="fa-solid fa-clock-rotate-left"></i>
                     </NavLink>
                     <NavLink to={`/dashboard/order/update/${order.id}`}>
-                      <i className="icon-pencil"></i>
+                      <i className="fa-regular fa-pen-to-square"></i>
                     </NavLink>
-                    <i className="icon-trash" onClick={() => handleDelete(order.id)}></i>
-                  </>
+                    <span>
+                      <i className="fa-regular fa-trash-can" onClick={() => handleDelete(order.id)}></i>
+                    </span>
+                  </span>
                 ) : (
                   <>
                     {order.status === "pendiente" ? (
-                      // dashboard/order/approve/:id
-                      <NavLink to={`/dashboard/order/${order.id}`}>
+                      <NavLink to={`/dashboard/order/detail/${order.id}`}>
                         <span className="btn btn-primary">Aprobar</span>
                       </NavLink>
                     ) : (
-                      <NavLink to={`/dashboard/order/${order.id}`}>
-                        {/* <i className="icon-eye"></i> */}
+                      <NavLink to={`/dashboard/order/detail/${order.id}`}>
                         <span className="btn btn-primary">Ver</span>
                       </NavLink>
-                    )}{" "}
+                    )}
                   </>
                 )}
               </td>

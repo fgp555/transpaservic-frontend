@@ -61,7 +61,7 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
       >
         {isLoading ? (
           <>
-            <span class="spinnerLoop"></span>Enviando...
+            <span className="spinnerLoop"></span>Enviando...
           </>
         ) : (
           "Enviar a la base de datos"

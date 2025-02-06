@@ -7,7 +7,7 @@ const Page404 = () => {
     <div className="Page404">
       <div className="PageFilter">
         <div className="Page404Box">
-          <i class="fa-solid fa-truck-fast Icon404 fa-5x"></i>
+          <i className="fa-solid fa-truck-fast Icon404 fa-5x"></i>
           <h1 className="Title404">404</h1>
 
           <p className="Text404">La página que buscas no existe.</p>

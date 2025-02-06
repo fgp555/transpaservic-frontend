@@ -60,9 +60,9 @@ const LoginPage = () => {
               <input type={showPassword ? "text" : "password"} value={password} onChange={handlePasswordChange} required placeholder="************" className="input-custom" />
               <button type="button" className="toggle-password " onClick={toggleShowPassword}>
                 {showPassword ? (
-                  <i class="fa-regular fa-eye"></i> // Ícono para mostrar la contraseña
+                  <i className="fa-regular fa-eye"></i> // Ícono para mostrar la contraseña
                 ) : (
-                  <i class="fa-regular fa-eye-slash"></i> // Ícono para ocultar la contraseña
+                  <i className="fa-regular fa-eye-slash"></i> // Ícono para ocultar la contraseña
                 )}
               </button>
             </div>

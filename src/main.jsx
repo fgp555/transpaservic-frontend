@@ -26,6 +26,7 @@ import RestorePassword from "./app/password/restore/RestorePassword.jsx";
 import DevelopmentPage from "./_development/DevelopmentPage";
 import WhatsAppConfigPage from "./app/dashboard/config/whatsapp/WhatsAppPage.jsx";
 import DashboardPage from "./app/dashboard/_home/DashboardPage.jsx";
+import OrderBackTicket from "./app/dashboard/order/id/OrderBackTicket.jsx";
 
 createRoot(document.getElementById("root")).render(  
   <StrictMode>
@@ -38,7 +39,8 @@ createRoot(document.getElementById("root")).render(
           <Route path="/dashboard/order/create" element={<DashboardLayout><OrderCreatePage /></DashboardLayout>} />
           <Route path="/dashboard/order/update/:id" element={<DashboardLayout><OrderUpdatePage /></DashboardLayout>} />
           <Route path="/dashboard/order/import" element={<DashboardLayout><OrderImportPage /></DashboardLayout>} />
-          <Route path="/dashboard/order/:id" element={<DashboardLayout><OrderByIdPage /></DashboardLayout>} />
+          <Route path="/dashboard/order/detail/:orderNumber" element={<DashboardLayout><OrderByIdPage /></DashboardLayout>} />
+          <Route path="/dashboard/order/backticket/:orderNumber" element={<DashboardLayout><OrderBackTicket /></DashboardLayout>} />
 
           <Route path="/dashboard/user/list" element={<DashboardLayout><UserListPage /></DashboardLayout>} />
           <Route path="/dashboard/user/register" element={<DashboardLayout><UserRegisterPage /></DashboardLayout>} />

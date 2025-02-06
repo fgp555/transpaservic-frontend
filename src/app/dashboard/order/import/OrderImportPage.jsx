@@ -153,7 +153,7 @@ const OrderImportPage = () => {
         <label htmlFor="file-input" className={`btn btn-primary LoadingButton ${isLoading ? "loadingProgress" : ""}`}>
           {isLoading ? (
             <>
-              <span class="spinnerLoop"></span>Procesando...
+              <span className="spinnerLoop"></span>Procesando...
             </>
           ) : (
             "Leer archivo excel"

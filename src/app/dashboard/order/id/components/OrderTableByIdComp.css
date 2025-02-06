@@ -1,4 +1,26 @@
 .OrderTableByIdComp {
+  .header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btn_container {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+  .findOneOrderNumber {
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+
+    input[type="text"] {
+      margin-bottom: initial;
+      flex: 1;
+    }
+  }
+
   table {
     /* min-width: 40rem; */
     /* display: block; */

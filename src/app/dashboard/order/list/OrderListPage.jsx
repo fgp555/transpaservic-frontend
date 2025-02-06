@@ -21,7 +21,7 @@ const OrderListPage = () => {
     status: "",
     operator: operatorSelect,
     page: 1,
-    limit: 5, // Cantidad de elementos por página
+    limit: 20, // Cantidad de elementos por página
     search: "",
     dateFrom: "",
     dateTo: "",
@@ -90,15 +90,32 @@ const OrderListPage = () => {
       </h1>
       <br />
       <form>
-        {/* Búsqueda */}
-        <input
-          //
-          type="text"
-          name="search"
-          placeholder="Buscar por: orden, cliente, itinerario, paciente..."
-          value={filters.search}
-          onChange={handleFilterChange}
-        />
+        <section className="filters_top">
+          {/* Búsqueda */}
+          <input
+            //
+            type="text"
+            name="search"
+            placeholder="Buscar por: orden, cliente, itinerario, paciente..."
+            value={filters.search}
+            onChange={handleFilterChange}
+            className="search-input"
+          />
+          {/* Cantidad de elementos por página */}
+
+          <button className="btn btn-primary" type="button" onClick={handleClearFilters}>
+            {/* Limpiar */}
+            <i className="fa-solid fa-rotate-right"></i>
+          </button>
+          <button className="btn btn-primary" type="button" onClick={() => downloadCSV(orders)}>
+            {/* CSV */}
+            <i className="fa-solid fa-file-csv"></i>
+          </button>
+          <button className="btn btn-primary" type="button" onClick={() => downloadPDF(orders, userSlice)}>
+            {/* PDF */}
+            <i className="fa-solid fa-file-pdf"></i>
+          </button>
+        </section>
         <section className="filters">
           {/* Estado */}
           <select name="status" value={filters.status} onChange={handleFilterChange}>
@@ -121,6 +138,11 @@ const OrderListPage = () => {
               </select>
             </>
           )}
+          {/* Estado */}
+          <select name="status">
+            <option value="">Todos</option>
+            <option value="pendiente">Con back-ticket</option>
+          </select>
           {/* Fecha Desde */}
           <input
             //
@@ -138,8 +160,6 @@ const OrderListPage = () => {
             value={filters.dateTo}
             onChange={handleFilterChange}
           />
-
-          {/* Cantidad de elementos por página */}
           <input
             type="number"
             name="limit"
@@ -154,18 +174,6 @@ const OrderListPage = () => {
               }))
             }
           />
-          <button className="btn btn-primary" type="button" onClick={handleClearFilters}>
-            {/* Limpiar */}
-            <i class="fa-solid fa-rotate-right"></i>
-          </button>
-          <button className="btn btn-primary" type="button" onClick={() => downloadCSV(orders)}>
-            {/* CSV */}
-            <i class="fa-solid fa-file-csv"></i>
-          </button>
-          <button className="btn btn-primary" type="button" onClick={() => downloadPDF(orders, userSlice)}>
-            {/* PDF */}
-            <i class="fa-solid fa-file-pdf"></i>
-          </button>
         </section>
         <p>{total} Ordenes encontradas</p>
       </form>

@@ -30,6 +30,14 @@
     gap: 1em;
     flex-wrap: wrap;
   }
+  .filters_top {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    .search-input {
+      flex-grow: 1;
+    }
+  }
 
   form input,
   form select {

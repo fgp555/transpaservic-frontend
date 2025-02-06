@@ -1,0 +1,30 @@
+table.TableComp {
+  min-width: min(40rem, 20vw);
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--line-color);
+  }
+
+  th {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    font-weight: bold;
+  }
+
+  td {
+    background-color: var(--line-color);
+  }
+
+  tr:nth-child(even) td {
+    background-color: var(--light-color);
+  }
+}
+hr {
+  opacity: 0.5;
+}

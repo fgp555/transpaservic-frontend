@@ -54,26 +54,6 @@ form.dashboard {
     font-size: 0.9em;
     margin-top: 5px;
   }
-
-  button {
-    padding: 12px;
-    background-color: var(--accent-color);
-    color: var(--white-color);
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: var(--hover-color);
-    }
-
-    &:disabled {
-      background-color: var(--disabled-color);
-      cursor: not-allowed;
-    }
-  }
 }
 
 .dark-mode {
@@ -87,15 +67,6 @@ form.dashboard {
       background-color: var(--white-color);
       color: var(--black-color);
       border-color: var(--line-color);
-    }
-
-    button {
-      background-color: var(--accent-color);
-      color: var(--white-color);
-
-      &:disabled {
-        background-color: var(--disabled-color);
-      }
     }
 
     .error-message {
