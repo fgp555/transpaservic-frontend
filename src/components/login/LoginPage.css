@@ -38,8 +38,37 @@
   aside {
     flex: 1 1 26rem;
   }
+  .input-custom:focus {
+    border: 2px solid var(--accent-color);
+    outline: none;
+  }
+  .input-wrapper{
+    position:relative;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .input-custom{
+    transition:all 0.15s;
+    
+  }
 
+  .input-wrapper label{
+    position: absolute;
+    top: 50%;
+    left:20px;
+    transform: translateY(-50%);
+    transition: .3s;
+    pointer-events: none;
+  }
+  .input-field:focus~label,
+  .input-field:valid~label{
+    top:0;
+    left: 20px;
+    background-color: aqua;
+  }
   /* ========== Left... ========== */
+  
+
   aside.left {
     display: flex;
     align-items: center;

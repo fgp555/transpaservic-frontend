@@ -11,7 +11,6 @@ import OrderListPage from "./app/dashboard/order/list/OrderListPage";
 import OrderCreatePage from "./app/dashboard/order/create/OrderCreatePage";
 import OrderUpdatePage from "./app/dashboard/order/update/OrderUpdatePage";
 import OrderImportPage from "./app/dashboard/order/import/OrderImportPage";
-import OrderApprovePage from "./app/dashboard/order/approve/OrderApprovePage";
 import OrderByIdPage from "./app/dashboard/order/id/OrderByIdPage";
 import UserListPage from "./app/dashboard/user/list/UserListPage";
 import UserRegisterPage from "./app/dashboard/user/register/UserRegisterPage";
@@ -39,7 +38,6 @@ createRoot(document.getElementById("root")).render(
           <Route path="/dashboard/order/create" element={<DashboardLayout><OrderCreatePage /></DashboardLayout>} />
           <Route path="/dashboard/order/update/:id" element={<DashboardLayout><OrderUpdatePage /></DashboardLayout>} />
           <Route path="/dashboard/order/import" element={<DashboardLayout><OrderImportPage /></DashboardLayout>} />
-          <Route path="/dashboard/order/approve/:id" element={<DashboardLayout><OrderApprovePage /></DashboardLayout>} />
           <Route path="/dashboard/order/:id" element={<DashboardLayout><OrderByIdPage /></DashboardLayout>} />
 
           <Route path="/dashboard/user/list" element={<DashboardLayout><UserListPage /></DashboardLayout>} />

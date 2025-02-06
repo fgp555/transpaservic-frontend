@@ -91,4 +91,7 @@
   .UserTableRespoComp {
     margin-top: 2em;
   }
+  .left{
+    background-color: aqua;
+  }
 }
