@@ -38,34 +38,74 @@
   aside {
     flex: 1 1 26rem;
   }
+  .input-custom{
+    transition: all 0.15s;
+    outline: none;
+  }
+
   .input-custom:focus {
     border: 2px solid var(--accent-color);
     outline: none;
-  }
-  .input-wrapper{
-    position:relative;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .input-custom{
-    transition:all 0.15s;
-    
+    color: black;
   }
 
-  .input-wrapper label{
+  .form-group{
+    margin-bottom: 7px;
+  }
+  .form-group  label{
     position: absolute;
-    top: 50%;
+    top:50%;
     left:20px;
     transform: translateY(-50%);
+    color: var(--accent-color);
     transition: .3s;
     pointer-events: none;
+    font-size: 13px; 
   }
-  .input-field:focus~label,
+  .input-custom:focus~label,
   .input-field:valid~label{
     top:0;
     left: 20px;
-    background-color: aqua;
+    background-color: white;
+    padding: 0 5px;
   }
+  .input-custom {
+    color: transparent; 
+    caret-color: black; 
+  }
+  .input-custom-password{
+    transition: all 0.15s;
+    outline: none;
+  }
+  .input-custom-password:focus {
+    border: 2px solid var(--accent-color);
+    outline: none;
+    color: black;
+  }
+  .form-group-password label{
+    position: absolute;
+    top:50%;
+    left:20px;
+    transform: translateY(-50%);
+    color: var(--accent-color);
+    transition: .3s;
+    pointer-events: none;
+    font-size: 13px;
+    margin-left: 5px;
+  }
+  .input-custom-password:focus~label,
+  .input-field:valid~label{
+    top:0;
+    left: 20px;
+    background-color: white;
+    padding: 0 5px;
+  }
+  .input-custom-password {
+    color: transparent; 
+    caret-color: black; 
+  }
+ 
+
   /* ========== Left... ========== */
   
 

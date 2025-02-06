@@ -33,7 +33,11 @@ const LoginPage = () => {
       navigate("/dashboard/order/list");
     } catch (error) {
       setError("Correo electrónico o contraseña inválidos");
-      Swal.fire("¡Error!", "Correo electrónico o contraseña inválidos", "error");
+      Swal.fire(
+        "¡Error!",
+        "Correo electrónico o contraseña inválidos",
+        "error"
+      );
     } finally {
       setLoading(false);
     }
@@ -48,26 +52,39 @@ const LoginPage = () => {
         <br />
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Email:</label>
-            <div>
-              <input type="email" value={email} onChange={handleEmailChange} required placeholder="user@mail.com" className="input-custom" />
-            </div>
+            <input
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              className="input-custom"
+              required="false"
+            />
+            <label>Email</label>
           </div>
 
-          <div className="form-group">
-            
+          <div className="form-group-password">
             <div className="password-wrapper">
-              <input type={showPassword ? "text" : "password"} value={password} onChange={handlePasswordChange} required placeholder="************" className="input-custom"/>
-             <label>Password:</label> 
-              
-              <button type="button" className="toggle-password " onClick={toggleShowPassword}>
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={handlePasswordChange}
+                className="input-custom-password"
+                required="false"
+              />
+              <label className="password-label">Password</label>
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={toggleShowPassword}
+              >
                 {showPassword ? (
-                  <i class="fa-regular fa-eye"></i> // Ícono para mostrar la contraseña
+                  <i className="fa-regular fa-eye"></i> // Ícono para mostrar la contraseña
                 ) : (
-                  <i class="fa-regular fa-eye-slash"></i> // Ícono para ocultar la contraseña
+                  <i className="fa-regular fa-eye-slash"></i> // Ícono para ocultar la contraseña
                 )}
               </button>
             </div>
+            
           </div>
 
           {error && <div className="error-message">{error}</div>}
@@ -85,15 +102,26 @@ const LoginPage = () => {
         <br />
         {/* <p>RECUPERAR CONTRASEÑA</p> */}
         <p className="footer">
-          Diseñado por <NavLink to="https://www.systered.com/">Systered</NavLink>® - Sistemas y Redes 2025
+          Diseñado por{" "}
+          <NavLink to="https://www.systered.com/">Systered</NavLink>® - Sistemas
+          y Redes 2025
         </p>
       </aside>
 
       <aside className="right">
         <article className="right-imgs">
-          <img src="https://i.postimg.cc/4yw2TfQ1/transpaservic-01.webp" alt="" />
-          <img src="https://i.postimg.cc/nrnS5jBz/transpaservic-02.webp" alt="" />
-          <img src="https://i.postimg.cc/JnNdPcyv/transpaservic-03.webp" alt="" />
+          <img
+            src="https://i.postimg.cc/4yw2TfQ1/transpaservic-01.webp"
+            alt=""
+          />
+          <img
+            src="https://i.postimg.cc/nrnS5jBz/transpaservic-02.webp"
+            alt=""
+          />
+          <img
+            src="https://i.postimg.cc/JnNdPcyv/transpaservic-03.webp"
+            alt=""
+          />
           {/* <img src="https://i.postimg.cc/KYKcm5qw/transpaservic-04-buss.webp" alt="" /> */}
         </article>
         <article className="right-text">
