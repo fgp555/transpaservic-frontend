@@ -5,21 +5,10 @@ import { operatorService } from "../../../../services/apiOperator";
 import Swal from "sweetalert2"; // Para mostrar alertas
 import { apiUserService } from "../../../../services/apiUser";
 import "./UserUpdatePage.css";
-import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 
 const UserUpdatePage = () => {
   const { id } = useParams(); // Obtener el id del usuario de la URL
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    whatsapp: "",
-    username: "",
-    email: "",
-    password: "",
-    role: "user",
-    image: "",
-    operator: { id: 1 },
-  });
+  const [formData, setFormData] = useState({});
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const [operatorData, setOperatorData] = useState([]); // Datos de operador
@@ -133,38 +122,42 @@ const UserUpdatePage = () => {
         <label htmlFor="whatsapp">WhatsApp</label>
         <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
 
-        <label htmlFor="username">Usuario</label>
-        <input type="text" name="username" id="username" placeholder="Usuario" value={formData.username} onChange={handleChange} />
-
         <label htmlFor="email">Email</label>
         <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} autoComplete="email" />
 
-        <div className="password-fields">
-          <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password || ""} onChange={handleChange} autoComplete="password" />
+        <label htmlFor="password">Contraseña</label>
+        <span className="password-fields">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Contraseña"
+            value={formData.password || ""}
+            onChange={handleChange}
+            autoComplete="password"
+          />
           <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
             {showPassword ? <i className="icon-eye"></i> : <i className="icon-eye-off"></i>}
           </span>
           <br />
-          <button type="button" onClick={handleGeneratePassword} className="generate-password ">
+          <button type="button" onClick={handleGeneratePassword} className="btn btn-primary ">
             Generar Contraseña
           </button>
           <br />
-        </div>
+        </span>
 
         {/* Select para rol */}
         <label>
-          Tipo de usuario
+          Seleccionar Rol
           <br />
           <select name="role" value={formData.role} onChange={handleChange} className="select-role">
             <option value="user">Operador</option>
             <option value="admin">Administrador</option>
           </select>
         </label>
-        <br />
 
         {/* Select para operador */}
         <label>
-          Operador
+          Seleccionar Operador
           <br />
           <select name="operator" value={formData.operator?.id} onChange={(e) => setFormData({ ...formData, operator: { id: e.target.value } })} className="select-operator">
             {operatorData?.results?.map((operator) => (
@@ -174,14 +167,16 @@ const UserUpdatePage = () => {
             ))}
           </select>
         </label>
-
+        {/* 
         <div>
           <p>imagen de perfil</p>
           <FileUploadComp />
-        </div>
+        </div>*/}
         <br />
 
-        <button type="submit">Actualizar</button>
+        <button type="submit" className="btn btn-primary">
+          Actualizar
+        </button>
       </form>
     </div>
   );

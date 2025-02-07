@@ -8,7 +8,16 @@
     color: var(--text-color);
     border: 1px solid var(--line-color);
     border-radius: var(--border-radius);
-    overflow: scroll;
+    overflow: auto;
+    max-height: 400px; /* Ajusta según sea necesario */
+    display: block; /* Necesario para que el sticky funcione */
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--hover-color);
+    z-index: 10;
   }
 
   th,
@@ -39,5 +48,10 @@
     font-weight: bold;
     font-size: 1.2em;
     color: var(--text-color);
+  }
+
+  .file-upload {
+    display: flex;
+    gap: 1em;
   }
 }

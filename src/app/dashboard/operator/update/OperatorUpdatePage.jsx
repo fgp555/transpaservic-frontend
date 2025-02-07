@@ -10,7 +10,6 @@ const OperatorUpdatePage = () => {
   const navigate = useNavigate(); // Usar navigate para redirigir
   const [formData, setFormData] = useState({
     name: "",
-    username: "", // Campo para el nombre de usuario
     whatsapp: "", // Campo para WhatsApp
     email: "",
     website: "",
@@ -26,7 +25,6 @@ const OperatorUpdatePage = () => {
         const operator = await operatorService.findOne(id);
         setFormData({
           name: operator.name,
-          username: operator.username,
           whatsapp: operator.whatsapp,
           email: operator.email,
           website: operator.website,
@@ -77,10 +75,6 @@ const OperatorUpdatePage = () => {
           <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
         </div>
         <div>
-          <label htmlFor="username">Nombre de Usuario:</label>
-          <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
-        </div>
-        <div>
           <label htmlFor="whatsapp">WhatsApp:</label>
           <input type="text" id="whatsapp" name="whatsapp" value={formData.whatsapp} onChange={handleChange} />
         </div>
@@ -92,34 +86,12 @@ const OperatorUpdatePage = () => {
           <label htmlFor="website">Sitio Web:</label>
           <input type="url" id="website" name="website" value={formData.website} onChange={handleChange} />
         </div>
-        <div>
-          <label htmlFor="image">Imagen (URL):</label>
-          <input type="url" id="image" name="image" value={formData.image} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="registrationDate">Fecha de Registro:</label>
-          <input
-            type="date"
-            id="registrationDate"
-            name="registrationDate"
-            value={formData.registrationDate}
-            onChange={handleChange}
-            disabled // No permitir editar la fecha de registro
-          />
-        </div>
-        <div>
-          <p>Logo del Operador</p>
-          <FileUploadComp />
-        </div>
         <br />
         <div>
           <button type="submit" disabled={loading}>
             {loading ? "Actualizando..." : "Actualizar"}
           </button>
           <br />
-          {/* <button type="button" onClick={() => navigate("/dashboard/operator/list")}>
-            Cancelar
-          </button> */}
         </div>
       </form>
     </div>

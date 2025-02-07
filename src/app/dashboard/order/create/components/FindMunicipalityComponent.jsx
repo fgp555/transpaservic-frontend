@@ -38,7 +38,7 @@ export const FindMunicipalityComponent = ({ onCitySelect }) => {
   };
 
   return (
-    <span>
+    <div>
       <input type="text" value={searchTerm} onChange={handleSearch} onKeyDown={handleKeyDown} placeholder="Buscar Municipalidad" />
       {searchTerm.length >= 2 && filteredData.length > 0 && (
         <div
@@ -67,9 +67,8 @@ export const FindMunicipalityComponent = ({ onCitySelect }) => {
           ))}
         </div>
       )}
-    </span>
+    </div>
   );
 };
 
-
-export default FindMunicipalityComponent
+export default FindMunicipalityComponent;

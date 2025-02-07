@@ -82,16 +82,18 @@ export const UserTableRespoComp = ({ data, fetchUsers }) => {
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
-              <td data-label="Nombre">{`${item.firstName} ${item.lastName}`}</td>
+              <td data-label="Nombre">{`${item.firstName} ${item.lastName ? item.lastName : ""}`}</td>
               <td data-label="Correo">{item.email}</td>
               <td data-label="WhatsApp">{item.whatsapp}</td>
-              <td data-label="Rol">{item.role}</td>
+              <td data-label="Rol">{item.role === "admin" ? "Administrador" : "Usuario"}</td>
               <td data-label="Operador">{item.operator?.name || "N/A"}</td>
-              <td data-label="Acciones" className="actions">
-                <NavLink to={`/dashboard/user/update/${item.id}`}>
-                  <i className="icon-pencil"></i>
-                </NavLink>
-                <i className="icon-trash" onClick={() => handleDelete(item.id)}></i>
+              <td data-label="Acciones">
+                <div className="actions">
+                  <NavLink to={`/dashboard/user/update/${item.id}`}>
+                    <i className="icon-pencil"></i>
+                  </NavLink>
+                  <i className="icon-trash" onClick={() => handleDelete(item.id)}></i>
+                </div>
               </td>
             </tr>
           ))}

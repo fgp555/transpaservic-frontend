@@ -7,7 +7,7 @@ const OperatorListPage = () => {
   const initialFilters = {
     search: "",
     page: 1,
-    limit: 10, // Cantidad de elementos por página
+    limit: 24, // Cantidad de elementos por página
   };
 
   const [totalPages, setTotalPages] = useState(1);

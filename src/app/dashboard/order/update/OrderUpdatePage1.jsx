@@ -1,9 +1,9 @@
-import "./OrderUpdatePage.css";
-import { orderService } from "../../../../services/apiOrder";
-import { useParams } from "react-router-dom";
-import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { orderService } from "../../../../services/apiOrder";
+import "./OrderUpdatePage.css";
+import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 
 const OrderUpdatePage = () => {
   const { id } = useParams(); // Obtener el ID del order desde la URL
@@ -91,23 +91,11 @@ const OrderUpdatePage = () => {
             <input type="text" id="patientName" name="patientName" value={orderData.patientName} onChange={handleChange} />
           </div>
           <div>
-            <label htmlFor="idCard">Cédula de Identidad</label>
+            <label htmlFor="idCard">ID del paciente</label>
             <input type="text" id="idCard" name="idCard" value={orderData.idCard} onChange={handleChange} />
-          </div>
-          <div>
-            <label htmlFor="userPhone">Celular No</label>
-            <input type="text" id="userPhone" name="userPhone" value={orderData.userPhone} onChange={handleChange} />
-          </div>
-          <div>
-            <label htmlFor="email">Correo electrónico</label>
-            <input type="email" id="email" name="email" value={orderData.email} onChange={handleChange} />
           </div>
         </aside>
         <aside>
-          <div>
-            <label htmlFor="operator">Operador</label>
-            <input type="text" id="operator" name="operator" value={orderData.operator} onChange={handleChange} />
-          </div>
           <div>
             <label htmlFor="origin">Origen</label>
             <input type="text" id="origin" name="origin" value={orderData.origin} onChange={handleChange} />
@@ -118,11 +106,23 @@ const OrderUpdatePage = () => {
           </div>
           <div>
             <label htmlFor="itinerary">Itinerario</label>
-            <input type="text" id="itinerary" name="itinerary" value={orderData.itinerary} onChange={handleChange} disabled />
+            <input type="text" id="itinerary" name="itinerary" value={orderData.itinerary} onChange={handleChange} />
           </div>
           <div>
             <label htmlFor="quantity">Cantidad</label>
             <input type="number" id="quantity" name="quantity" value={orderData.quantity} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="remarks">Observaciones</label>
+            <textarea id="remarks" name="remarks" value={orderData.remarks} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="travelDate">Fecha de viaje</label>
+            <input type="date" id="travelDate" name="travelDate" value={orderData.travelDate} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" value={orderData.email} onChange={handleChange} />
           </div>
           <div>
             <label htmlFor="value">Valor</label>
@@ -133,27 +133,23 @@ const OrderUpdatePage = () => {
             <input type="number" id="netValue" name="netValue" value={orderData.netValue} onChange={handleChange} />
           </div>
           <div>
-            <label htmlFor="travelDate">Fecha de viaje</label>
-            <input type="date" id="travelDate" name="travelDate" value={orderData.travelDate} onChange={handleChange} />
+            <label htmlFor="serviceProvider">Proveedor de servicio</label>
+            <input type="text" id="serviceProvider" name="serviceProvider" value={orderData.serviceProvider} onChange={handleChange} />
           </div>
           <div>
-            <label htmlFor="remarks">Observaciones</label>
-            <textarea id="remarks" name="remarks" value={orderData.remarks} onChange={handleChange} />
+            <label htmlFor="userPhone">Teléfono del usuario</label>
+            <input type="text" id="userPhone" name="userPhone" value={orderData.userPhone} onChange={handleChange} />
           </div>
-
           {/* <div>
           <p>Subir Order (solo imagenes)</p>
           <FileUploadComp />
         </div> */}
           <br />
           <div>
-            <button type="submit" className="btn btn-primary">
-              Actualizar
-            </button>
+            <button type="submit">Actualizar</button>
           </div>
         </aside>
       </form>
-      {/* <pre>{JSON.stringify(orderData, null, 2)}</pre> */}
     </div>
   );
 };

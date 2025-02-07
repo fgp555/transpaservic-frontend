@@ -9,7 +9,7 @@ const UserListPage = () => {
     role: "",
     operator: "",
     page: 1,
-    limit: 5, // Cantidad de elementos por página
+    limit: 24, // Cantidad de elementos por página
     search: "",
   };
 

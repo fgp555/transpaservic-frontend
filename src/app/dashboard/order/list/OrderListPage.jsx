@@ -139,10 +139,10 @@ const OrderListPage = () => {
             </>
           )}
           {/* Estado */}
-          <select name="status">
+          {/* <select name="status">
             <option value="">Todos</option>
             <option value="pendiente">Con back-ticket</option>
-          </select>
+          </select> */}
           {/* Fecha Desde */}
           <input
             //

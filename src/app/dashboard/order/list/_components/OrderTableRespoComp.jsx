@@ -1,9 +1,9 @@
-import React from "react";
 import "./OrderTableRespoComp.css"; // Asegúrate de incluir un archivo CSS con estilos adecuados
 import { NavLink } from "react-router";
-import Swal from "sweetalert2"; // Para mostrar alertas
 import { orderService } from "../../../../../services/apiOrder";
 import { useSelector } from "react-redux";
+import React from "react";
+import Swal from "sweetalert2"; // Para mostrar alertas
 
 export const OrderTableRespoComp = ({ data, fetchOrders }) => {
   const userSlice = useSelector((state) => state.user);
@@ -64,9 +64,9 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
         <thead>
           <tr>
             <th>Orden#</th>
-            <th>Cliente</th>
+            <th>Paciente</th>
             <th>Itinerario</th>
-            <th>F. Emision</th>
+            <th>F. Viaje</th>
             {/* <th>Valor</th> */}
             <th>Estado</th>
             <th>Operador</th>
@@ -80,9 +80,9 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
           {data.map((order, index) => (
             <tr key={index}>
               <td data-label="Order ID">{order.orderNumber}</td>
-              <td data-label="Cliente">{order.client}</td>
+              <td data-label="Paciente">{order.patientName}</td>
               <td data-label="Destino">{order.itinerary}</td>
-              <td data-label="F. Emision"> {new Date(order.creationDate).toISOString().split("T")[0]}</td>
+              <td data-label="F. Viaje"> {new Date(order.travelDate).toISOString().split("T")[0]}</td>
               {/* <td data-label="Valor">{order.value}</td> */}
               {/* <td data-label="Estado">{order.status}</td> */}
               <td data-label="Estado" className="TicketStatus">
@@ -101,9 +101,9 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
                     <NavLink to={`/dashboard/order/backticket/${order.orderNumber}`}>
                       <i className="fa-solid fa-clock-rotate-left"></i>
                     </NavLink>
-                    <NavLink to={`/dashboard/order/update/${order.id}`}>
+                    {/* <NavLink to={`/dashboard/order/update/${order.id}`}>
                       <i className="fa-regular fa-pen-to-square"></i>
-                    </NavLink>
+                    </NavLink> */}
                     <span>
                       <i className="fa-regular fa-trash-can" onClick={() => handleDelete(order.id)}></i>
                     </span>
@@ -126,6 +126,7 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
           ))}
         </tbody>
       </table>
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
     </div>
   );
 };

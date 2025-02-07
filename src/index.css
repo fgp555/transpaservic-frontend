@@ -28,3 +28,7 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
 }
+
+.error {
+  color: red;
+}

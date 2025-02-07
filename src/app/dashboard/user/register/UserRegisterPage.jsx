@@ -5,34 +5,13 @@ import { authService } from "../../../../services/apiAuth";
 import "./UserRegisterPage.css";
 import { operatorService } from "../../../../services/apiOperator";
 import Swal from "sweetalert2"; // Para mostrar alertas
-import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
-import { isDevelopment } from "../../../../utils/apiBaseURL";
-
-let dataDev;
-if (isDevelopment) {
-  dataDev = {
-    firstName: "firstName 1",
-    lastName: "lastName 1",
-    whatsapp: "999999999",
-    username: "username1",
-    email: "user2@mail.com",
-    password: "user2@mail.com",
-    role: "user",
-    sendMail: false,
-    sendWhatsApp: false,
-    image: "https://via.placeholder.com/150",
-    // operator: { id: 1 },
-    // operator: null,
-  };
-} else {
-  dataDev = {};
-}
+import { validateUserForm } from "./userValitation";
 
 const UserRegisterPage = () => {
-  const [formData, setFormData] = useState(dataDev);
-
+  const [formData, setFormData] = useState({});
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const [operatorData, setOperatorData] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -41,6 +20,7 @@ const UserRegisterPage = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : name === "operator" ? { id: parseInt(value) } : value,
     }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: undefined })); // Reiniciar error al escribir
   };
 
   const getAllTranport = async () => {
@@ -61,6 +41,13 @@ const UserRegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const validationErrors = validateUserForm(formData);
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     const payload = {
       ...formData,
@@ -132,6 +119,7 @@ const UserRegisterPage = () => {
 
         <label htmlFor="firstName">Nombre</label>
         <input type="text" name="firstName" id="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
+        {errors.firstName && <span className="error">{errors.firstName}</span>}
 
         <label htmlFor="lastName">Apellido</label>
         <input type="text" name="lastName" id="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
@@ -139,17 +127,14 @@ const UserRegisterPage = () => {
         <label htmlFor="whatsapp">WhatsApp</label>
         <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
 
-        <label htmlFor="username">Usuario</label>
-        <input type="text" name="username" id="username" placeholder="Usuario" value={formData.username} onChange={handleChange} />
-
         <label htmlFor="email">Email</label>
         <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+        {errors.email && <span className="error">{errors.email}</span>}
 
         <div className="password-fields">
           <label htmlFor="password">Contraseña</label>
           <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
           <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
-            {/* {showPassword ? "Ocultar" : "Mostrar"} */}
             {showPassword ? (
               <i className="icon-eye"></i> // Ícono para mostrar la contraseña
             ) : (
@@ -162,12 +147,14 @@ const UserRegisterPage = () => {
             Generar Contraseña
           </button>
           <br />
+          {errors.password && <span className="error">{errors.password}</span>}
+
           <br />
         </div>
 
         {/* Select para role */}
         <label>
-          Tipo de usuario
+          Tipo de rol
           <br />
           <select name="role" value={formData.role} onChange={handleChange} className="select-role">
             <option value="user">Usuario</option>
@@ -188,15 +175,9 @@ const UserRegisterPage = () => {
             ))}
           </select>
         </label>
-
-        <div>
-          <p>imagen de perfil</p>
-          {/* <FileUploadComp /> */}
-        </div>
-        <br />
-
-        <button type="submit">Registrar</button>
-        {/* <pre>{JSON.stringify(formData, null, 3)}</pre> */}
+        <button type="submit" className="btn btn-primary">
+          Registrar
+        </button>
       </form>
     </div>
   );

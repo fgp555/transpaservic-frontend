@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import * as XLSX from "xlsx";
 import "./OrderImportPage.css";
+import * as XLSX from "xlsx";
 import OrderSubmitComponent from "./components/OrderSubmitComponent";
+import React, { useState } from "react";
 import TableExcelComp from "./components/TableExcelComp";
 
 const OrderImportPage = () => {
@@ -150,79 +150,93 @@ const OrderImportPage = () => {
       <h1>Leer y Subir archivo Excel</h1>
       <br />
       <div className="file-upload">
-        <label htmlFor="file-input" className={`btn btn-primary LoadingButton ${isLoading ? "loadingProgress" : ""}`}>
-          {isLoading ? (
-            <>
-              <span className="spinnerLoop"></span>Procesando...
-            </>
-          ) : (
-            "Leer archivo excel"
+        <aside>
+          <label htmlFor="file-input" className={`btn btn-primary LoadingButton ${isLoading ? "loadingProgress" : ""}`}>
+            {isLoading ? (
+              <>
+                <span className="spinnerLoop"></span>Procesando...
+              </>
+            ) : (
+              "Leer archivo excel"
+            )}
+          </label>
+          <input
+            //
+            id="file-input"
+            type="file"
+            accept=".xlsx, .xls"
+            onChange={handleFileUpload}
+            hidden
+          />
+          {isLoading && <div className="loading-spinner"></div>}
+        </aside>
+        <aside>
+          {excelDataInicial.length > 0 && (
+            <section className="actions-section">
+              {/* <p>Una vez verificado la informacion ya puede enviar a la base de datos</p> */}
+              <OrderSubmitComponent filteredDataWithoutDuplicates={filteredDataWithoutDuplicates} />
+              <br />
+            </section>
           )}
-        </label>
-        <input
-          //
-          id="file-input"
-          type="file"
-          accept=".xlsx, .xls"
-          onChange={handleFileUpload}
-          hidden
-        />
-        {isLoading && <div className="loading-spinner"></div>}
+        </aside>
       </div>
+
+      <div>
+        <section className="duplicates-section">
+          {duplicateOperatorContract.length > 0 && (
+            <div className="duplicates">
+              <h2>Duplicados en Contrato de operador No.</h2>
+              <ul>
+                {duplicateOperatorContract.map((row) => (
+                  <li key={row.id}>
+                    Fila {row.id}: {row.operatorContract}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <br />
+          {duplicateOrderNumber.length > 0 && (
+            <div className="duplicates">
+              <h2>Duplicados en Numero Orden</h2>
+              <ul>
+                {duplicateOrderNumber.map((row) => (
+                  <li key={row.id}>
+                    Fila {row.id}: {row.orderNumber}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+        {/* <br /> */}
+
+        <section>
+          {excelDataInicial.length > 0 && (
+            <section className="excelData-container">
+              {duplicateOperatorContract.length !== 0 || duplicateOrderNumber.length !== 0 ? (
+                <>
+                  <h2>Todos los datos leídos sin filtrar</h2>
+                  <TableExcelComp data={excelDataInicial} />
+                </>
+              ) : (
+                <>
+                  <h2>No hay duplicados</h2>
+                </>
+              )}
+            </section>
+          )}
+        </section>
+      </div>
+      {/* <pre>{JSON.stringify(duplicateOperatorContract, null, 2)}</pre> */}
       {excelDataInicial.length > 0 && (
         <>
           <section className="filteredDataWithoutDuplicates-section">
             <br />
-            <h2>Datos Filtrados</h2>
+            {/* <h2>Datos Filtrados</h2> */}
             <TableExcelComp data={filteredDataWithoutDuplicates} />
           </section>
           <br />
-          <section className="duplicates-section">
-            {duplicateOperatorContract.length > 0 && (
-              <div className="duplicates">
-                <h2>Duplicados en Contrato de operador No.</h2>
-                <ul>
-                  {duplicateOperatorContract.map((row) => (
-                    <li key={row.id}>
-                      Fila {row.id}: {row.operatorContract}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <br />
-            {duplicateOrderNumber.length > 0 && (
-              <div className="duplicates">
-                <h2>Duplicados en Numero Orden</h2>
-                <ul>
-                  {duplicateOrderNumber.map((row) => (
-                    <li key={row.id}>
-                      Fila {row.id}: {row.orderNumber}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </section>
-          <br />
-          <section className="actions-section">
-            <p>Una vez verificado la informacion ya puede enviar a la base de datos</p>
-            <OrderSubmitComponent filteredDataWithoutDuplicates={filteredDataWithoutDuplicates} />
-            <br />
-          </section>
-          <br />
-          <section className="excelData-container">
-            {duplicateOperatorContract.length !== 0 || duplicateOrderNumber.length !== 0 ? (
-              <>
-                <h2>Todos los datos leídos sin filtrar</h2>
-                <TableExcelComp data={excelDataInicial} />
-              </>
-            ) : (
-              <>
-                <h2>No hay duplicados</h2>
-              </>
-            )}
-          </section>
         </>
       )}
     </div>

@@ -193,12 +193,12 @@ const SidebarComponent = () => {
                     <li>
                       <NavLink to="/dashboard/config/database">Base de datos</NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                       <NavLink to="/dashboard/config/whatsapp">WhatsApp</NavLink>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                       <NavLink to="/dashboard/help">Centro de ayuda</NavLink>
-                    </li>
+                    </li> */}
                   </div>
                 </ul>
               </li>

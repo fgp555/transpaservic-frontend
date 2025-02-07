@@ -42,7 +42,7 @@
 
       .toggle-password {
         position: absolute;
-        top: 29%;
+        top: 33%;
         right: 10px;
         transform: translateY(-50%);
         background: none;
@@ -51,30 +51,7 @@
         cursor: pointer;
       }
 
-      .generate-password {
-        background-color: transparent;
-        border: none;
-        color: var(--accent-color);
-        cursor: pointer;
-        font-size: 1em;
-        margin-top: 10px;
-      }
-    }
 
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: var(--accent-color);
-      color: var(--white-color);
-      border: none;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: var(--hover-color);
-      }
     }
 
     label {
@@ -112,15 +89,6 @@
         background-color: var(--base-color);
         color: var(--text-color);
         border-color: var(--line-color);
-      }
-
-      button {
-        background-color: var(--accent-color);
-        color: var(--white-color);
-
-        &:hover {
-          background-color: var(--hover-color);
-        }
       }
     }
   }

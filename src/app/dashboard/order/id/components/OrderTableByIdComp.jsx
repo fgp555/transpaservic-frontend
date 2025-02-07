@@ -30,14 +30,14 @@ const OrderTableByIdComp = ({ orderData, isPending, setOrderId, orderId }) => {
       </div>
       <div className="header_container">
         <h3>Detalles de la Orden {orderData.orderNumber}</h3>
-        <span className="btn_container">
+        {/* <span className="btn_container">
           <button className="btn btn-primary">
             <i className="fa-solid fa-file-csv"></i>
           </button>
           <button className="btn btn-primary">
             <i className="fa-solid fa-file-pdf"></i>
           </button>
-        </span>
+        </span> */}
       </div>
       <table>
         <thead>

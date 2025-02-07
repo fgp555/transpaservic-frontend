@@ -40,9 +40,8 @@ if (isDevelopment) {
 const OrderCreatePage = () => {
   const [selectedOperator, setSelectedOperator] = useState(null);
   const [errors, setErrors] = useState({});
-  // const [errors, setErrors] = useState({ origin: false, destination: false });
-  const [formData, setFormData] = useState({countryCode: "+57",});
-  // const [formData, setFormData] = useState(dataDev);
+  // const [formData, setFormData] = useState({countryCode: "+57",});
+  const [formData, setFormData] = useState(dataDev);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,18 +72,11 @@ const OrderCreatePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validar campos requeridos
-    const newErrors = {
-      operator: !formData.operator?.id, // Validar que el operador tenga un ID
-      origin: !formData.origin, // Validar que haya un origen seleccionado
-      destination: !formData.destination, // Validar que haya un destino seleccionado
-    };
+    const validationErrors = validateOrderForm(formData);
+    setErrors(validationErrors);
 
-    setErrors(newErrors);
-
-    // Si hay errores, detener el envío y mostrar alerta
-    if (Object.values(newErrors).some((error) => error)) {
-      Swal.fire("Error", "Por favor, completa todos los campos requeridos", "error");
+    if (Object.keys(validationErrors).length > 0) {
+      Swal.fire("Error", "Por favor, corrige los errores en el formulario", "error");
       return;
     }
 
@@ -220,18 +212,18 @@ const OrderCreatePage = () => {
 
           <div>
             <FindOperatorComponent onOperatorSelect={handleOperatorSelect} />
-            {errors.operator && <p className="error">Debe seleccionar un operador</p>}
+            {errors.operator && <p style={{ color: "red" }}>El operador es obligatorio</p>}
           </div>
 
           <div>
             <label>Origen</label>
             <FindMunicipalityComponent onCitySelect={(city) => handleCitySelect("origin", city)} />
-            {errors.origin && <p className="error">Debe seleccionar un municipio de origen</p>}
+            {errors.origin && <span style={{ color: "red" }}>Se requiere origen</span>}
           </div>
           <div>
             <label>Destino</label>
             <FindMunicipalityComponent onCitySelect={(city) => handleCitySelect("destination", city)} />
-            {errors.destination && <p className="error">Debe seleccionar un municipio de destino</p>}
+            {errors.destination && <span style={{ color: "red" }}>Se requiere destino</span>}
           </div>
 
           <div>

@@ -34,6 +34,7 @@ export const authService = {
 
   // Actualización de usuario
   async update(id, userData) {
+    console.log("userData", userData);
     try {
       const response = await axiosCreate.patch(`/api/auth/update/${id}`, userData);
       return response.data;
