@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import "./OrderTableByIdComp.css";
+import { namesFields } from "../../../../../utils/namesFields";
 
-const OrderTableByIdComp = ({ orderData, isPending, setOrderId, orderId }) => {
-  const [searchId, setSearchId] = useState(orderId); // Estado local para el input
+const OrderTableByIdComp = ({ orderData, isPending, setOrderNumberState, orderNumberState }) => {
+  const [searchId, setSearchId] = useState(orderNumberState); // Estado local para el input
 
   const handleSearch = (e) => {
     // alert("en desarrollo...");
     // return;
     e.preventDefault();
-    setOrderId(searchId); // Actualiza el estado solo al hacer clic en el botón
+    setOrderNumberState(searchId); // Actualiza el estado solo al hacer clic en el botón
   };
   return (
     <div className="OrderTableByIdComp">
@@ -48,33 +49,47 @@ const OrderTableByIdComp = ({ orderData, isPending, setOrderId, orderId }) => {
         </thead>
         <tbody>
           <tr>
-            <td>
-              <strong>Operador:</strong>
-            </td>
+            <td>{namesFields.operator}</td>
             <td>{orderData.operator}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Numero de Ticket:</strong>
-            </td>
+            <td>{namesFields.ticketNumber}</td>
             <td>{orderData.ticketNumber || "N/A"}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Fecha de viaje:</strong>
-            </td>
-            <td>{orderData.travelDate}</td>
+            <td>{namesFields.travelDate}</td>
+            <td>{orderData.travelDate || "N/A"}</td>
           </tr>
-          {/* </tbody>
-      </table>
-      <br />
-      <hr />
-      <table>
-        <tbody> */}
           <tr>
+            <td>{namesFields.approvalDate}</td>
             <td>
-              <strong>Estado:</strong>
+              {orderData.approvalDate
+                ? new Date(orderData.approvalDate).toLocaleString("es-CO", {
+                    timeZone: "America/Bogota",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })
+                : "N/A"}
             </td>
+          </tr>
+          <tr>
+            <td>{namesFields.quantity}</td>
+            <td>{orderData.quantity}</td>
+          </tr>
+          <tr>
+            <td>{namesFields.value}</td>
+            <td>{orderData.value}</td>
+          </tr>
+          <tr>
+            <td>{namesFields.netValue}</td>
+            <td>{orderData.netValue}</td>
+          </tr>
+          <tr>
+            <td>{namesFields.status}</td>
             <td className="TicketStatus">
               {orderData.status === "pendiente" && <span className="pendiente">Pendiente</span>}
               {orderData.status === "aprobado" && <span className="aprobado">Aprobado</span>}
@@ -82,99 +97,55 @@ const OrderTableByIdComp = ({ orderData, isPending, setOrderId, orderId }) => {
             </td>
           </tr>
           <tr>
-            <td>
-              <strong>Contrato de operador:</strong>
-            </td>
+            <td>{namesFields.operatorContract}</td>
             <td>{orderData.operatorContract}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Número de orden:</strong>
-            </td>
+            <td>{namesFields.orderNumber}</td>
             <td>{orderData.orderNumber}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Número de Autorización:</strong>
-            </td>
+            <td>{namesFields.authorizationNumber}</td>
             <td>{orderData.authorizationNumber}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Cliente:</strong>
-            </td>
+            <td>{namesFields.client}</td>
             <td>{orderData.client}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Nombre del paciente:</strong>
-            </td>
+            <td>{namesFields.patientName}</td>
             <td>{orderData.patientName}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Cédula:</strong>
-            </td>
+            <td>{namesFields.idCard}</td>
             <td>{orderData.idCard}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Teléfono:</strong>
-            </td>
+            <td>{namesFields.userPhone}</td>
             <td>{orderData.userPhone}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Correo electrónico:</strong>
-            </td>
+            <td>{namesFields.email}</td>
             <td>{orderData.email}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Fecha de creación:</strong>
-            </td>
+            <td>{namesFields.creationDate}</td>
             <td data-label="F. Emision"> {new Date(orderData.creationDate).toISOString().split("T")[0]}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Origen:</strong>
-            </td>
+            <td>{namesFields.origin}</td>
             <td>{orderData.origin}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Destino:</strong>
-            </td>
+            <td>{namesFields.destination}</td>
             <td>{orderData.destination}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Itinerario:</strong>
-            </td>
+            <td>{namesFields.itinerary}</td>
             <td>{orderData.itinerary}</td>
           </tr>
           <tr>
-            <td>
-              <strong>Cantidad:</strong>
-            </td>
-            <td>{orderData.quantity}</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Valor:</strong>
-            </td>
-            <td>{orderData.value}</td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Valor neto:</strong>
-            </td>
-            <td>{orderData.netValue}</td>
-          </tr>
-          <tr>
-            <td colSpan="2">
-              <strong>Comentarios:</strong>
-            </td>
+            <td colSpan="2">{namesFields.remarks}</td>
           </tr>
           <tr>
             <td colSpan="2" style={{ width: "20ch" }}>

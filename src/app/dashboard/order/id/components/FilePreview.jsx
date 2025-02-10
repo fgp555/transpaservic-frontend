@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { apiBaseURL } from "../../../../../utils/apiBaseURL";
 import { useSelector } from "react-redux";
+import { orderService } from "../../../../../services/apiOrder";
+import Swal from "sweetalert2"; // Para mostrar alertas
 
 const FilePreview = ({ orderData, fetchOrder }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
@@ -18,19 +20,38 @@ const FilePreview = ({ orderData, fetchOrder }) => {
     setModalImage("");
   };
 
-  const handleDeleteTicket = (id) => {
-    return async () => {
-      try {
-        const response = await fetch(`${apiBaseURL}/api/order/delete-ticket-image/${id}`, {
-          method: "DELETE",
-        });
-        const data = await response.json();
-        console.log(data);
-        fetchOrder();
-      } catch (error) {
-        console.error("Error al eliminar el ticket:", error);
-      }
-    };
+  const handleDeleteTicket = async (id) => {
+    const confirmSend = await Swal.fire({
+      title: "¿Estas seguro de eliminar el ticket?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Si, eliminar",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (!confirmSend.isConfirmed) {
+      return;
+    }
+
+    try {
+      const res = await orderService.deleteTicketImage(id);
+      console.log(res);
+      Swal.fire({
+        title: "Éxito",
+        text: "Ticket eliminado correctamente",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      fetchOrder();
+    } catch (error) {
+      console.error("Error al eliminar el ticket:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Hubo un problema al eliminar el ticket. Intenta nuevamente.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
   const renderPreview = () => {
@@ -63,7 +84,7 @@ const FilePreview = ({ orderData, fetchOrder }) => {
           {isAdmin && (
             <>
               <p>Solo el administrador puede eliminar el ticket</p>
-              <button onClick={handleDeleteTicket(orderData.id)} className="btn btn-danger">
+              <button onClick={() => handleDeleteTicket(orderData.id)} className="btn btn-danger">
                 Eliminar Ticket
               </button>
             </>

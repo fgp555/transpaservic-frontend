@@ -1,6 +1,17 @@
 import axiosCreate from "./axiosCreate";
 
 export const authService = {
+  // refreshAccessToken
+  async refreshAccessToken() {
+    try {
+      const response = await axiosCreate.post("/api/auth/token/refresh");
+      return response.data;
+    } catch (error) {
+      console.error("Error refreshing access token:", error);
+      throw error;
+    }
+  },
+
   // Login
   async signin(userData) {
     try {

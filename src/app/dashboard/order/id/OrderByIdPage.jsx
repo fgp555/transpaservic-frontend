@@ -60,14 +60,14 @@ const OrderByIdPage = () => {
           <OrderTableByIdComp
             orderData={orderData}
             isPending={isPending}
-            setOrderId={setOrderNumberState}
-            orderId={orderNumberState}
+            setOrderNumberState={setOrderNumberState}
+            orderNumberState={orderNumberState}
             //
           />
         </aside>
         {isPending ? (
           //
-          <FileUploadTicket orderId={orderNumber} fetchOrder={fetchOrder} />
+          <FileUploadTicket orderNumberState={orderNumberState} fetchOrder={fetchOrder} />
         ) : (
           <FilePreview orderData={orderData} fetchOrder={fetchOrder} />
         )}

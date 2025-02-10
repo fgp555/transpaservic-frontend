@@ -65,7 +65,7 @@ const OrderListPage = () => {
   useEffect(() => {
     fetchOrders();
     console.log("fetchOrders");
-  }, [filters, userSlice.user.role]);
+  }, [filters, userSlice.user?.role]);
 
   useEffect(() => {
     if (isAdmin) {
@@ -76,7 +76,7 @@ const OrderListPage = () => {
     } else {
       setFilters((prevFilters) => ({
         ...prevFilters,
-        operator: userSlice.user.operator?.id, // ID del operador asociado al usuario
+        operator: userSlice.user?.operator?.id, // ID del operador asociado al usuario
       }));
     }
   }, [isAdmin]);

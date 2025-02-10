@@ -10,6 +10,20 @@ function agregarPrefijo(numero) {
 
 // Implementación del servicio
 export const orderService = {
+  async approveOrder(formData) {
+    try {
+      const response = await axiosCreate.post("/api/order/approve", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error approving order:", error);
+      throw error;
+    }
+  },
+
   async saveArrayData(arrayData) {
     try {
       // Transformar los números de teléfono y verificar si es necesario agregar el prefijo 57
@@ -28,20 +42,6 @@ export const orderService = {
         return { error: error.response.data.message || "Error desconocido" };
       }
       return { error: "Error de conexión al servidor" }; // Si no hay respuesta del servidor
-    }
-  },
-
-  async approveOrder(formData) {
-    try {
-      const response = await axiosCreate.post("/api/order/approve", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.error("Error approving order:", error);
-      throw error;
     }
   },
 
@@ -120,6 +120,16 @@ export const orderService = {
       return response.data;
     } catch (error) {
       console.error("Error creating order:", error);
+      throw error;
+    }
+  },
+
+  deleteTicketImage: async (id) => {
+    try {
+      const response = await axiosCreate.delete(`/api/order/delete-ticket-image/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting order:", error);
       throw error;
     }
   },

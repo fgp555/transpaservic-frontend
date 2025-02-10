@@ -1,3 +1,4 @@
+// src\store\userSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = JSON.parse(localStorage.getItem("user")) || {
@@ -37,10 +38,16 @@ const userSlice = createSlice({
       state.user.role = newRole; // Actualiza el rol en el estado global
       localStorage.setItem("user", JSON.stringify(state)); // Guarda el estado actualizado
     },
+
+    refreshToken: (state, action) => {
+      const newToken = action.payload;
+      state.token = newToken;
+      localStorage.setItem("user", JSON.stringify(state));
+    },
   },
 });
 
-export const { setUser, removeUser, toggleRole } = userSlice.actions;
+export const { setUser, removeUser, toggleRole, refreshToken } = userSlice.actions;
 export default userSlice;
 
 /*  
