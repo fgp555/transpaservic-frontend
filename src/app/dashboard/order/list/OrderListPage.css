@@ -57,7 +57,6 @@
     background-color: var(--white-color);
   }
 
-  */ form input:focus,
   form select:focus {
     outline: 2px solid var(--accent-color);
   }

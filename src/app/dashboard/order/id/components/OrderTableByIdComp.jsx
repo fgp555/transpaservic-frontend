@@ -42,28 +42,24 @@ const OrderTableByIdComp = ({ orderData, isPending, setOrderNumberState, orderNu
       </div>
       <table>
         <thead>
-          <tr>
-            <th>Campo</th>
-            <th>Valor</th>
-          </tr>
+          <tr><th>Campo</th><th>Valor</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>{namesFields.operator}</td>
-            <td>{orderData.operator}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.ticketNumber}</td>
-            <td>{orderData.ticketNumber || "N/A"}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.travelDate}</td>
-            <td>{orderData.travelDate || "N/A"}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.approvalDate}</td>
-            <td>
-              {orderData.approvalDate
+          <tr><td>{namesFields.operator}</td><td>{orderData.operator}</td></tr>
+          <tr><td>{namesFields.orderNumber}</td><td>{orderData.orderNumber}</td></tr>
+          <tr><td>{namesFields.status}</td><td className="TicketStatus">{orderData.status === "pendiente" && <span className="pendiente">Pendiente</span>}
+              {orderData.status === "aprobado" && <span className="aprobado">Aprobado</span>}
+              {orderData.status === "cancelado" && <span className="cancelado">Cancelado</span>}
+              </td></tr>
+          <tr><td>{namesFields.patientName}</td><td>{orderData.patientName}</td></tr>
+          <tr><td>{namesFields.idCard}</td><td>{orderData.idCard}</td></tr>
+          <tr><td>{namesFields.userPhone}</td><td>{orderData.userPhone}</td></tr>
+          <tr><td>{namesFields.itinerary}</td><td>{orderData.itinerary}</td></tr>
+
+          <tr><td>{namesFields.creationDate}</td><td data-label="F. Emision"> {new Date(orderData.creationDate).toISOString().split("T")[0]}</td></tr>
+          <tr><td>"Vigencia (48 dias?)"</td><td>"2025-02-02"</td></tr>
+          <tr><td>{namesFields.travelDate}</td><td>{orderData.travelDate || "N/A"}</td></tr>
+          <tr><td>{namesFields.approvalDate}</td><td>{orderData.approvalDate
                 ? new Date(orderData.approvalDate).toLocaleString("es-CO", {
                     timeZone: "America/Bogota",
                     year: "numeric",
@@ -76,81 +72,18 @@ const OrderTableByIdComp = ({ orderData, isPending, setOrderNumberState, orderNu
                 : "N/A"}
             </td>
           </tr>
-          <tr>
-            <td>{namesFields.quantity}</td>
-            <td>{orderData.quantity}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.value}</td>
-            <td>{orderData.value}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.netValue}</td>
-            <td>{orderData.netValue}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.status}</td>
-            <td className="TicketStatus">
-              {orderData.status === "pendiente" && <span className="pendiente">Pendiente</span>}
-              {orderData.status === "aprobado" && <span className="aprobado">Aprobado</span>}
-              {orderData.status === "cancelado" && <span className="cancelado">Cancelado</span>}
-            </td>
-          </tr>
-          <tr>
-            <td>{namesFields.operatorContract}</td>
-            <td>{orderData.operatorContract}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.orderNumber}</td>
-            <td>{orderData.orderNumber}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.authorizationNumber}</td>
-            <td>{orderData.authorizationNumber}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.client}</td>
-            <td>{orderData.client}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.patientName}</td>
-            <td>{orderData.patientName}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.idCard}</td>
-            <td>{orderData.idCard}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.userPhone}</td>
-            <td>{orderData.userPhone}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.email}</td>
-            <td>{orderData.email}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.creationDate}</td>
-            <td data-label="F. Emision"> {new Date(orderData.creationDate).toISOString().split("T")[0]}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.origin}</td>
-            <td>{orderData.origin}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.destination}</td>
-            <td>{orderData.destination}</td>
-          </tr>
-          <tr>
-            <td>{namesFields.itinerary}</td>
-            <td>{orderData.itinerary}</td>
-          </tr>
-          <tr>
-            <td colSpan="2">{namesFields.remarks}</td>
-          </tr>
-          <tr>
-            <td colSpan="2" style={{ width: "20ch" }}>
-              {orderData.remarks}
-            </td>
+          <tr><td>{namesFields.ticketNumber}</td><td>{orderData.ticketNumber || "N/A"}</td></tr>
+          <tr><td>{namesFields.quantity}</td><td>{orderData.quantity}</td></tr>
+          <tr><td>{namesFields.value}</td><td>{orderData.value}</td></tr>
+          <tr><td>{namesFields.netValue}</td><td>{orderData.netValue}</td></tr>
+
+          <tr><td>{namesFields.operatorContract}</td><td>{orderData.operatorContract}</td></tr>
+          <tr><td>{namesFields.authorizationNumber}</td><td>{orderData.authorizationNumber}</td></tr>
+          <tr><td>{namesFields.client}</td><td>{orderData.client}</td></tr>
+          <tr><td>{namesFields.email}</td><td>{orderData.email}</td></tr>
+          <tr><td>{namesFields.origin}</td><td>{orderData.origin}</td></tr>
+          <tr><td>{namesFields.destination}</td><td>{orderData.destination}</td></tr>
+          <tr><td colSpan="2">{namesFields.remarks}</td></tr><tr><td colSpan="2" style={{ width: "20ch" }}>{orderData.remarks}</td>
           </tr>
         </tbody>
       </table>

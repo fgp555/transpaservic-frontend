@@ -1,10 +1,10 @@
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
 import "./SidebarComponent.css";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../../../../store/themeSlice";
-import { removeUser, toggleRole } from "../../../../store/userSlice";
 import { isLocalhost } from "../../../../utils/apiBaseURL";
+import { NavLink } from "react-router-dom";
+import { removeUser, toggleRole } from "../../../../store/userSlice";
+import { toggleTheme } from "../../../../store/themeSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 const SidebarComponent = () => {
   const userSlice = useSelector((state) => state.user);

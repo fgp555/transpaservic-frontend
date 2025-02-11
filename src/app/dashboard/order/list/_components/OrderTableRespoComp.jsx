@@ -70,16 +70,22 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
             {/* <th>Valor</th> */}
             <th>Estado</th>
             <th>Operador</th>
-            <th>
-              <i className="fa-solid fa-clock-rotate-left"></i>
-            </th>
-            <th>Acciones</th>
+            {isAdmin && (
+              <>
+                <th>
+                  <i className="fa-solid fa-clock-rotate-left"></i>
+                </th>
+                <th>Acciones</th>
+              </>
+            )}
           </tr>
         </thead>
         <tbody>
           {data.map((order, index) => (
             <tr key={index}>
-              <td data-label="Order ID">{order.orderNumber}</td>
+              <td data-label="Order ID">
+                <NavLink to={`/dashboard/order/detail/${order.orderNumber}`}>{order.orderNumber}</NavLink>
+              </td>
               <td data-label="Paciente">{order.patientName}</td>
               <td data-label="Destino">{order.itinerary}</td>
               <td data-label="F. Viaje"> {new Date(order.travelDate).toISOString().split("T")[0]}</td>
@@ -87,41 +93,37 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
               {/* <td data-label="Estado">{order.status}</td> */}
               <td data-label="Estado" className="TicketStatus">
                 {order.status === "pendiente" && <span className="pendiente">Pendiente</span>}
-                {order.status === "aprobado" && <span className="aprobado">Aprobado</span>}
+                {order.status === "aprobado" && <span className="aprobado">Cumplido</span>}
                 {order.status === "cancelado" && <span className="cancelado">Cancelado</span>}
+                {order.status === "expirado" && <span className="cancelado">Expirado</span>}
               </td>
               <td data-label="Operador">{order.operator?.name || "N/A"}</td>
-              <td data-label="Backticket">{order.backticketHistory?.length || "0"}</td>
-              <td data-label="Acciones" className="actions">
-                {isAdmin ? (
+              {isAdmin && (
+                <td data-label="Backticket">
+                  <NavLink to={`/dashboard/order/backticket/${order.orderNumber}`}>
+                    {order.backticketHistory?.length || "0"}
+                    {/* <i className="fa-solid fa-clock-rotate-left"></i> */}
+                  </NavLink>
+                </td>
+              )}
+              {isAdmin && (
+                <td data-label="Acciones" className="actions">
                   <span className="actions-container">
-                    <NavLink to={`/dashboard/order/detail/${order.orderNumber}`}>
+                    {/* <NavLink to={`/dashboard/order/detail/${order.orderNumber}`}>
                       <i className="fa-regular fa-eye"></i>
-                    </NavLink>
-                    <NavLink to={`/dashboard/order/backticket/${order.orderNumber}`}>
-                      <i className="fa-solid fa-clock-rotate-left"></i>
-                    </NavLink>
-                    {/* <NavLink to={`/dashboard/order/update/${order.id}`}>
-                      <i className="fa-regular fa-pen-to-square"></i>
                     </NavLink> */}
+                    {/* <NavLink to={`/dashboard/order/backticket/${order.orderNumber}`}>
+                      <i className="fa-solid fa-clock-rotate-left"></i>
+                    </NavLink> */}
+                    <NavLink /* to={`/dashboard/order/update/${order.id}`} */>
+                      <i className="fa-regular fa-pen-to-square"></i>
+                    </NavLink>
                     <span>
                       <i className="fa-regular fa-trash-can" onClick={() => handleDelete(order.id)}></i>
                     </span>
                   </span>
-                ) : (
-                  <>
-                    {order.status === "pendiente" ? (
-                      <NavLink to={`/dashboard/order/detail/${order.id}`}>
-                        <span className="btn btn-primary">Aprobar</span>
-                      </NavLink>
-                    ) : (
-                      <NavLink to={`/dashboard/order/detail/${order.id}`}>
-                        <span className="btn btn-primary">Ver</span>
-                      </NavLink>
-                    )}
-                  </>
-                )}
-              </td>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -73,7 +73,8 @@
   }
   i {
     flex-shrink: 0;
-    fill: var(--text-color);
+    /* fill: var(--text-color); */
+    color: var(--text-color);
   }
   a span,
   .dropdown-btn span {
