@@ -1,9 +1,11 @@
 import "./OrderTableRespoComp.css"; // Asegúrate de incluir un archivo CSS con estilos adecuados
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { orderService } from "../../../../../services/apiOrder";
 import { useSelector } from "react-redux";
 import React from "react";
 import Swal from "sweetalert2"; // Para mostrar alertas
+import { namesOrderFields } from "../../../../../utils/namesFields";
+import { formatDate, formatDateISO } from "../../utils/OrderComp";
 
 export const OrderTableRespoComp = ({ data, fetchOrders }) => {
   const userSlice = useSelector((state) => state.user);
@@ -57,23 +59,32 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="OrderTableRespoComp">
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       <table>
         <thead>
           <tr>
-            <th>Orden#</th>
-            <th>Paciente</th>
-            <th>Itinerario</th>
-            <th>F. Viaje</th>
-            {/* <th>Valor</th> */}
-            <th>Estado</th>
+            <th>{namesOrderFields.orderNumber}</th>
+            <th>{namesOrderFields.patientName}</th>
+            <th>{namesOrderFields.idCard}</th>
+            <th>{namesOrderFields.itinerary}</th>
+            <th>{namesOrderFields.creationDate}</th>
+            <th>{namesOrderFields.approvalTravelDate[0]}</th>
+            <th>{namesOrderFields.approvalDate[0]}</th>
             <th>Operador</th>
+            <th>{namesOrderFields.ticketNumber}</th>
+            <th>{namesOrderFields.quantity[0]}</th>
+            <th>{namesOrderFields.approvalQuantity[0]}</th>
+            <th>
+              <i class="fa-solid fa-square-check"></i>
+            </th>
             {isAdmin && (
               <>
                 <th>
-                  <i className="fa-solid fa-clock-rotate-left"></i>
+                  <i className="fa-solid fa-power-off"></i>
                 </th>
                 <th>Acciones</th>
               </>
@@ -82,47 +93,66 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
         </thead>
         <tbody>
           {data.map((order, index) => (
-            <tr key={index}>
-              <td data-label="Order ID">
-                <NavLink to={`/dashboard/order/detail/${order.orderNumber}`}>{order.orderNumber}</NavLink>
+            <tr
+              key={index}
+              onClick={() => navigate(`/dashboard/order/detail/${order.orderNumber}`)}
+              style={{ cursor: "pointer" }}
+              //
+            >
+              <td data-label="Order #" className="OrderStatusTable">
+                {order.status === "pendiente" && <i class="fa-solid fa-stopwatch pendiente"></i>}
+                {order.status === "aprobado" && <i class="fa-solid fa-circle-check aprobado"></i>}
+                {order.status === "cancelado" && <i class="fa-solid fa-ban cancelado"></i>}
+                {order.status === "expirado" && <i class="fa-solid fa-power-off expirado"></i>}{" "}
+                <NavLink to={`/dashboard/order/detail/${order.orderNumber}`} className={order.status}>
+                  {order.orderNumber}
+                </NavLink>
               </td>
               <td data-label="Paciente">{order.patientName}</td>
+              <td data-label="Cedula">{order.idCard}</td>
               <td data-label="Destino">{order.itinerary}</td>
-              <td data-label="F. Viaje"> {new Date(order.travelDate).toISOString().split("T")[0]}</td>
-              {/* <td data-label="Valor">{order.value}</td> */}
-              {/* <td data-label="Estado">{order.status}</td> */}
-              <td data-label="Estado" className="TicketStatus">
-                {order.status === "pendiente" && <span className="pendiente">Pendiente</span>}
-                {order.status === "aprobado" && <span className="aprobado">Cumplido</span>}
-                {order.status === "cancelado" && <span className="cancelado">Cancelado</span>}
-                {order.status === "expirado" && <span className="cancelado">Expirado</span>}
+
+              <td data-label="F. Emision">{formatDateISO(order.creationDate)}</td>
+              <td data-label="F. Viaje">{order.approvalTravelDate || "—"}</td>
+              <td>{formatDate(order.approvalDate)}</td>
+
+              <td data-label="Operador">{order.operator?.name || "—"}</td>
+              <td data-label="N° Ticket">{order.ticketNumber || "—"}</td>
+              <td data-label="C.Solicitada">{order.quantity || "—"}</td>
+              <td data-label="C.Usada">{order.approvalQuantity || "—"}</td>
+              <td data-label="Estado" className="OrderStatusTable">
+                {order.status === "pendiente" && <i class="fa-solid fa-stopwatch pendiente"></i>}
+                {order.status === "aprobado" && <i class="fa-solid fa-circle-check aprobado"></i>}
+                {order.status === "cancelado" && <i class="fa-solid fa-ban cancelado"></i>}
+                {order.status === "expirado" && <i class="fa-solid fa-power-off expirado"></i>}
               </td>
-              <td data-label="Operador">{order.operator?.name || "N/A"}</td>
               {isAdmin && (
-                <td data-label="Backticket">
-                  <NavLink to={`/dashboard/order/backticket/${order.orderNumber}`}>
-                    {order.backticketHistory?.length || "0"}
-                    {/* <i className="fa-solid fa-clock-rotate-left"></i> */}
-                  </NavLink>
-                </td>
-              )}
-              {isAdmin && (
-                <td data-label="Acciones" className="actions">
-                  <span className="actions-container">
-                    {/* <NavLink to={`/dashboard/order/detail/${order.orderNumber}`}>
-                      <i className="fa-regular fa-eye"></i>
-                    </NavLink> */}
-                    {/* <NavLink to={`/dashboard/order/backticket/${order.orderNumber}`}>
-                      <i className="fa-solid fa-clock-rotate-left"></i>
-                    </NavLink> */}
-                    <NavLink /* to={`/dashboard/order/update/${order.id}`} */>
-                      <i className="fa-regular fa-pen-to-square"></i>
+                <>
+                  <td
+                    data-label="Backticket"
+                    onClick={(event) => event.stopPropagation()} // Evita que la fila redirija al hacer clic en "Acciones"
+                  >
+                    <NavLink to={`/dashboard/order/backticket/${order.orderNumber}`}>
+                      {order.backticketHistory?.length || "0"}
+                      {/*  */}
                     </NavLink>
-                    <span>
-                      <i className="fa-regular fa-trash-can" onClick={() => handleDelete(order.id)}></i>
+                  </td>
+
+                  <td
+                    data-label="Acciones"
+                    className="actions"
+                    onClick={(event) => event.stopPropagation()} // Evita que la fila redirija al hacer clic en "Acciones"
+                  >
+                    <span className="actions-container">
+                      <NavLink /* to={`/dashboard/order/update/${order.id}`} */>
+                        <i className="fa-regular fa-pen-to-square"></i>
+                      </NavLink>
+                      <span>
+                        <i className="fa-regular fa-trash-can" onClick={() => handleDelete(order.id)}></i>
+                      </span>
                     </span>
-                  </span>
-                </td>
+                  </td>
+                </>
               )}
             </tr>
           ))}

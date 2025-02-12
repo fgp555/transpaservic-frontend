@@ -1,12 +1,13 @@
-.TicketStatus {
+.OrderStatusDetail {
   --white-color: #fff;
   --font-size-icon: 1.5rem;
   --font-size: 0.8rem;
   --padding: 1px 15px 1px 10px;
+  /* --padding: 0.5em; */
   --border-radius: 18px;
 }
 
-.TicketStatus {
+.OrderStatusDetail {
   .pendiente,
   .cancelado,
   .aprobado {
@@ -17,7 +18,8 @@
     padding: var(--padding);
     border-radius: var(--border-radius);
     text-transform: lowercase;
-    width: 6.9rem;
+    /* height: 1.5rem; */
+    /* width: 6.9rem; */
   }
 
   .pendiente {
@@ -44,4 +46,28 @@
   span {
     color: var(--white-color);
   }
+}
+
+.OrderStatusTable {
+  .pendiente {
+    color: #cd6200;
+  }
+
+  .aprobado {
+    color: #1f9254;
+  }
+
+  .cancelado {
+    color: gray;
+  }
+
+  .expirado {
+    color: red;
+  }
+}
+
+.OrderStatusFlex {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-left: 0.5rem;
 }

@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { NavLink, useNavigate, useParams } from "react-router";
 import "./RestorePassword.css";
-import { newfgpPassword } from "../../../utils/apiBaseURL";
 import { authPasswordService } from "../../../services/apiAuthPassword";
 
 const RestorePassword = () => {
   const { emailEncrypt } = useParams();
   const [showPassword, setShowPassword] = useState(false);
-  const [newPassword, setNewPassword] = useState(newfgpPassword);
+  const [newPassword, setNewPassword] = useState();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");

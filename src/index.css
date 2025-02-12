@@ -22,6 +22,8 @@
   --text-color: #e6e6ef;
   --white-color: #ffffff;
   --black-color: #111111;
+
+  --border-radius: 0.5em;
 }
 
 body {
@@ -33,3 +35,29 @@ body {
   color: red;
 }
 
+/* Estilos para navegadores basados en WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Grosor de la barra de desplazamiento */
+  height: 8px; /* Para barras de desplazamiento horizontales */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Fondo transparente */
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-color); /* Color de la barra deslizante */
+  border-radius: 10px; /* Más redondeado */
+  min-height: 20px; /* Para evitar que se vea demasiado pequeña */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color); /* Color cuando el usuario pasa el mouse */
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent; /* Fondo transparente */
+}

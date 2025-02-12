@@ -25,6 +25,10 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
     try {
       const response = await orderService.saveArrayData(dataToSendWithoutId);
 
+      if (response.error) {
+        throw new Error(response.error); // Forzar el catch si hay error
+      }
+
       console.log("Datos enviados correctamente:", response);
 
       // Mostrar SweetAlert2 solo cuando el envío sea exitoso
@@ -38,14 +42,14 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
       setDuplicateMessage("");
       setDuplicates({});
     } catch (error) {
-      if (error.duplicates) {
-        // Si hay duplicados, se muestran los duplicados en la UI
-        setDuplicateMessage(error.message || "Se han detectado entradas duplicadas.");
-        setDuplicates(error.duplicates);
-      } else {
-        console.error("Error al enviar los datos:", error);
-        setDuplicateMessage("Hubo un error al enviar los datos.");
-      }
+      console.error("Error en la solicitud:", error.message);
+      setDuplicateMessage(error.message);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error al enviar los datos",
+        text: error.message,
+      });
     } finally {
       setIsLoading(false); // Desactivar loading después de la petición
     }

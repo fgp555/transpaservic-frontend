@@ -137,7 +137,7 @@ const OrderBackTicket = () => {
       </section>
       <br />
       <br />
-      <h1>Detalles de la Orden</h1>
+      <h1>BackTicket de la Orden</h1>
       <br />
       <section className="info-container">
         <aside>
@@ -184,15 +184,15 @@ const OrderBackTicket = () => {
                   <tbody>
                     <tr>
                       <td>Operador:</td>
-                      <td>{backticket.operator || "N/A"}</td>
+                      <td>{backticket.operator || "—"}</td>
                     </tr>
                     <tr>
                       <td>Numero de Ticket: </td>
-                      <td>{backticket.ticketNumber || "N/A"}</td>
+                      <td>{backticket.ticketNumber || "—"}</td>
                     </tr>
                     <tr>
                       <td>Fecha de viaje:</td>
-                      <td>{backticket.travelDate || "N/A"}</td>
+                      <td>{backticket.travelDate || "—"}</td>
                     </tr>
                     <tr>
                       <td>{/* <pre>{JSON.stringify(backticket, null, 2)}</pre> */}</td>

@@ -69,7 +69,9 @@ const OrderByIdPage = () => {
           //
           <FileUploadTicket orderNumberState={orderNumberState} fetchOrder={fetchOrder} />
         ) : (
-          <FilePreview orderData={orderData} fetchOrder={fetchOrder} />
+          <>
+            <FilePreview orderData={orderData} fetchOrder={fetchOrder} />
+          </>
         )}
       </section>
     </div>

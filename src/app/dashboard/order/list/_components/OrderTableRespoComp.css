@@ -8,17 +8,25 @@
     color: inherit;
   }
   a:hover {
-    color: var(--accent-color);
+    /* color: var(--accent-color); */
+    opacity: 0.8;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
     min-width: 10rem;
+
+    overflow: auto;
+    /* max-height: 400px; */
+    display: block; /* Necesario para que el sticky funcione */
   }
 
   thead {
     background-color: var(--base-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 
   th,
@@ -27,6 +35,8 @@
     text-align: left;
     border-bottom: 1px solid var(--line-color);
     color: var(--text-color);
+  }
+  td {
     white-space: nowrap;
   }
 

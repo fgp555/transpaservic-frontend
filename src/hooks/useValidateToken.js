@@ -17,7 +17,6 @@ const useValidateToken = () => {
 
       try {
         const response = await authService.refreshAccessToken();
-        console.log("response 123", response);
         if (response?.newAccessToken) {
           setIsAuthenticated(true);
           dispatch(refreshToken(response?.newAccessToken));

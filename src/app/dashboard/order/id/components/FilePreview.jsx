@@ -3,6 +3,7 @@ import { apiBaseURL } from "../../../../../utils/apiBaseURL";
 import { useSelector } from "react-redux";
 import { orderService } from "../../../../../services/apiOrder";
 import Swal from "sweetalert2"; // Para mostrar alertas
+import ApprovalTravelDateComp from "./approvalTravelDateComp";
 
 const FilePreview = ({ orderData, fetchOrder }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
@@ -56,7 +57,7 @@ const FilePreview = ({ orderData, fetchOrder }) => {
 
   const renderPreview = () => {
     const fileUrl = orderData.ticketImage;
-    if (!fileUrl) return <p>No hay archivo disponible.</p>;
+    if (!fileUrl) return <p>No hay imagen disponible.</p>;
 
     if (fileUrl.endsWith(".pdf")) {
       return (
@@ -81,6 +82,7 @@ const FilePreview = ({ orderData, fetchOrder }) => {
             style={{ maxWidth: "100%", height: "auto", cursor: "pointer" }}
             onClick={() => openModal(fileUrl)} // Abre el modal al hacer clic
           />
+
           {isAdmin && (
             <>
               <p>Solo el administrador puede eliminar el ticket</p>
@@ -97,20 +99,28 @@ const FilePreview = ({ orderData, fetchOrder }) => {
   };
   return (
     <aside className="file-preview">
-      <h3>Vista previa</h3>
-      {/* <pre>{JSON.stringify(orderData, null, 2)}</pre> */}
-      <br />
-      {renderPreview()}
-      {isModalOpen && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-button" onClick={closeModal}>
-              &times;
-            </button>
-            <img src={`${apiBaseURL}/uploads/${modalImage}`} alt="Vista previa en modal" style={{ maxWidth: "100%", height: "auto" }} />
+      <section>
+        <h3>Vista previa</h3>
+        {/* <pre>{JSON.stringify(orderData, null, 2)}</pre> */}
+        <br />
+        {renderPreview()}
+        {isModalOpen && (
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="close-button" onClick={closeModal}>
+                &times;
+              </button>
+              <img src={`${apiBaseURL}/uploads/${modalImage}`} alt="Vista previa en modal" style={{ maxWidth: "100%", height: "auto" }} />
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </section>
+      <br />
+      <hr />
+      <br />
+      <section>
+        <ApprovalTravelDateComp fetchOrder={fetchOrder} orderNumberState={orderData.orderNumber} />
+      </section>
     </aside>
   );
 };

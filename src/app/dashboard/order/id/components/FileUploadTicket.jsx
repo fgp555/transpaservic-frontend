@@ -1,16 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { orderService } from "../../../../../services/apiOrder";
 import UploadImageButton from "../../../_components/UploadImageButton/UploadImageButton";
-import Swal from "sweetalert2"; // Para mostrar alertas
+import Swal from "sweetalert2";
+import { isLocalhost } from "../../../../../utils/apiBaseURL";
+
+let tempData;
+if (isLocalhost) {
+  tempData = {
+    ticketNumber: "123123",
+    approvalTravelDate: "2025-03-05",
+    approvalQuantity: "2",
+    value: "3",
+    netValue: "",
+    approvalDate: "",
+  };
+} else {
+  tempData = {
+    ticketNumber: "",
+    approvalTravelDate: "",
+    approvalQuantity: "",
+    value: "",
+    netValue: "",
+    approvalDate: "",
+  };
+}
 
 const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
   const [compressedFile, setCompressedFile] = useState(null); // Para almacenar la imagen comprimida
 
+  // const [formState, setFormState] = useState(tempData);
   const [formState, setFormState] = useState({
-    ticketNumber: "123123",
-    travelDate: "2022-01-01",
-    quantity: "2",
-    value: "3",
+    ticketNumber: "",
+    approvalTravelDate: "",
+    approvalQuantity: "",
+    value: "",
     netValue: "",
     approvalDate: "",
   });
@@ -36,9 +59,9 @@ const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
   useEffect(() => {
     setFormState((prev) => ({
       ...prev,
-      netValue: prev.value * prev.quantity, // Calculamos netValue
+      netValue: prev.value * prev.approvalQuantity, // Calculamos netValue
     }));
-  }, [formState.value, formState.quantity]);
+  }, [formState.value, formState.approvalQuantity]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,8 +81,8 @@ const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
       formData.append("ticketNumber", formState.ticketNumber);
       formData.append("file", compressedFile);
       formData.append("orderNumber", orderNumberState);
-      formData.append("travelDate", formState.travelDate);
-      formData.append("quantity", formState.quantity);
+      formData.append("approvalTravelDate", formState.approvalTravelDate);
+      formData.append("approvalQuantity", formState.approvalQuantity);
       formData.append("value", formState.value);
       formData.append("netValue", formState.netValue);
       formData.append("fulfillmentDate", currentDateTime); // Agregar fecha de cumplimiento
@@ -101,16 +124,25 @@ const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
 
   return (
     <aside>
-      <h2>Aprobar ticket</h2>
+      <h2>Cumplir ticket</h2>
       <br />
       <form className="dashboard" onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="travelDate">Fecha real de viaje</label>
-          <input type="date" id="travelDate" name="travelDate" value={formState.travelDate} onChange={handleChange} />
+          <label htmlFor="approvalDate">Fecha de cumplimiento</label>
+          <input type="datetime-local" id="approvalDate" name="approvalDate" value={formState.approvalDate} disabled />
+        </div>
+
+        <div>
+          <label htmlFor="approvalTravelDate">Fecha real de viaje</label>
+          <input type="date" id="approvalTravelDate" name="approvalTravelDate" value={formState.approvalTravelDate} onChange={handleChange} />
         </div>
         <div>
-          <label htmlFor="quantity">Cantidad</label>
-          <input type="number" id="quantity" name="quantity" value={formState.quantity} onChange={handleChange} />
+          <label htmlFor="ticketNumber">Numero de ticket</label>
+          <input type="text" id="ticketNumber" name="ticketNumber" value={formState.ticketNumber} onChange={handleChange} />
+        </div>
+        <div>
+          <label htmlFor="approvalQuantity">Cantidad Usada</label>
+          <input type="number" id="approvalQuantity" name="approvalQuantity" value={formState.approvalQuantity} onChange={handleChange} />
         </div>
         <div>
           <label htmlFor="value">Valor</label>
@@ -120,14 +152,7 @@ const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
           <label htmlFor="netValue">Valor total</label>
           <input type="number" id="netValue" name="netValue" value={formState.netValue} disabled />
         </div>
-        <div>
-          <label htmlFor="approvalDate">Fecha de cumplimiento</label>
-          <input type="datetime-local" id="approvalDate" name="approvalDate" value={formState.approvalDate} disabled />
-        </div>
-        <div>
-          <label htmlFor="ticketNumber">Numero de ticket</label>
-          <input type="text" id="ticketNumber" name="ticketNumber" value={formState.ticketNumber} onChange={handleChange} />
-        </div>
+
         <div className="mb-1">
           <UploadImageButton setCompressedFile={setCompressedFile} />
         </div>

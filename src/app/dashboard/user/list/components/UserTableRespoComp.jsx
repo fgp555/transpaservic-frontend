@@ -86,7 +86,7 @@ export const UserTableRespoComp = ({ data, fetchUsers }) => {
               <td data-label="Correo">{item.email}</td>
               <td data-label="WhatsApp">{item.whatsapp}</td>
               <td data-label="Rol">{item.role === "admin" ? "Administrador" : "Usuario"}</td>
-              <td data-label="Operador">{item.operator?.name || "N/A"}</td>
+              <td data-label="Operador">{item.operator?.name || "—"}</td>
               <td data-label="Acciones">
                 <div className="actions">
                   <NavLink to={`/dashboard/user/update/${item.id}`}>

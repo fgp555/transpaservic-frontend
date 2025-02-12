@@ -88,7 +88,7 @@ const OrderListPage = () => {
         Gestión de Ordenes
         <span>{!isAdmin && <span> de {userSlice?.user?.operator?.name}</span>}</span>
       </h1>
-      <br />
+      {/* <br /> */}
       <form>
         <section className="filters_top">
           {/* Búsqueda */}
@@ -118,11 +118,20 @@ const OrderListPage = () => {
         </section>
         <section className="filters">
           {/* Estado */}
-          <select name="status" value={filters.status} onChange={handleFilterChange}>
+          <select name="status" className="OrderStatusTable" value={filters.status} onChange={handleFilterChange}>
             <option value="">Todos los estados</option>
-            <option value="pendiente">vigente-pendiente</option>
-            <option value="aprobado">aprobado</option>
-            <option value="cancelado">cancelado</option>
+            <option value="pendiente" className="pendiente">
+              pendiente
+            </option>
+            <option value="aprobado" className="aprobado">
+              cumplido
+            </option>
+            <option value="cancelado" className="cancelado">
+              cancelado
+            </option>
+            <option value="expirado" className="expirado">
+              expirado
+            </option>
           </select>
 
           {isAdmin && (
@@ -175,8 +184,29 @@ const OrderListPage = () => {
             }
           />
         </section>
-        <p>{total} Ordenes encontradas</p>
+        <section>
+          <span>{total} Ordenes encontradas | </span>
+          <span className="OrderStatusTable OrderStatusFlex">
+            <span className="pendiente">
+              <i class="fa-solid fa-stopwatch pendiente"></i> pendiente
+            </span>
+            <span className="aprobado">
+              <i class="fa-solid fa-circle-check aprobado"></i> cumplido
+            </span>
+            <span className="cancelado">
+              <i class="fa-solid fa-ban cancelado"></i> cancelado
+            </span>
+            <span className="expirado">
+              <i class="fa-solid fa-power-off"></i> expirado
+            </span>
+          </span>
+          <br />
+          <br />
+        </section>
       </form>
+
+      {/* {renderPaginationComp(totalPages, filters, setFilters)}
+      <br /> */}
 
       <OrderTableRespoComp data={orders} fetchOrders={fetchOrders} />
 

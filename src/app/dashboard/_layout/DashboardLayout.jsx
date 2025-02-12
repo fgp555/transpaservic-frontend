@@ -4,7 +4,7 @@ import "./styles/FieldsComponent.css";
 import "./styles/LoadingButton.css";
 import "./styles/renderPagination.css";
 import "./styles/TableComp.css";
-import "./styles/TicketStatus.css";
+import "./styles/OrderStatus.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
@@ -20,7 +20,7 @@ const DashboardLayout = ({ children }) => {
     if (isAuthenticated === false) {
       navigate("/");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, /* navigate */]);
 
   if (isAuthenticated === null) {
     return <div>Cargando...</div>; // Mientras se valida, mostrar un loader

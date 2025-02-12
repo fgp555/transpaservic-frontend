@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { NavLink } from "react-router";
 import "./ForgotPassword.css";
-import { fgpEmail } from "../../../utils/apiBaseURL";
 import { authPasswordService } from "../../../services/apiAuthPassword";
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState(fgpEmail);
+  const [email, setEmail] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [domain, setDomain] = useState(window.location.origin); // Dominio de la aplicación
