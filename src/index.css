@@ -61,3 +61,17 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--accent-color) transparent; /* Fondo transparente */
 }
+
+.title {
+  color: var(--accent-color);
+  font-size: 2em;
+  text-align: center;
+}
+.subtitle {
+  color: var(--accent-color);
+  font-size: 1.5em;
+  text-align: center;
+}
+textarea {
+  font: inherit;
+}

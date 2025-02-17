@@ -1,12 +1,33 @@
-import React, { useState } from "react";
+import "./FindOperatorComponent.css"; // Importar estilos
+import { namesOrderFields } from "../../../../../utils/namesFields";
 import { operatorService } from "../../../../../services/apiOperator";
+import React, { useState, useRef, useEffect } from "react";
 
 const FindOperatorComponent = ({ onOperatorSelect }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [operators, setOperators] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [loading, setLoading] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const inputRef = useRef(null);
+  const dropdownRef = useRef(null);
 
+  // Función para obtener todos los operadores
+  const fetchAllOperators = async () => {
+    setLoading(true);
+    try {
+      const results = await operatorService.findByName("");
+      setOperators(results);
+      setIsDropdownOpen(true);
+    } catch (error) {
+      console.error("Error fetching operators:", error);
+      setOperators([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Manejar búsqueda dinámica
   const handleSearch = async (e) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -15,8 +36,9 @@ const FindOperatorComponent = ({ onOperatorSelect }) => {
       setLoading(true);
       try {
         const results = await operatorService.findByName(value);
-        setOperators(results); // Asignar resultados a la lista de operadors
-        setHighlightedIndex(-1); // Resetear el índice resaltado
+        setOperators(results);
+        setIsDropdownOpen(true);
+        setHighlightedIndex(-1);
       } catch (error) {
         console.error("Error fetching operators:", error);
         setOperators([]);
@@ -24,65 +46,74 @@ const FindOperatorComponent = ({ onOperatorSelect }) => {
         setLoading(false);
       }
     } else {
-      setOperators([]); // Limpiar resultados si el término es menor a 3 caracteres
+      setOperators([]);
+      setIsDropdownOpen(false);
     }
   };
 
+  // Manejar selección de operador
   const handleSelect = (operator) => {
-    onOperatorSelect(operator); // Pasar operador seleccionado al componente padre
-    setSearchTerm(operator.name); // Mostrar el nombre seleccionado en el input
-    setOperators([]); // Limpiar la lista de resultados
+    onOperatorSelect(operator);
+    setSearchTerm(operator.name);
+    setOperators([]);
+    setIsDropdownOpen(false);
   };
 
-  const handleKeyDown = (e) => {
-    if (operators.length === 0) return;
-
-    if (e.key === "ArrowDown") {
-      // Mover hacia abajo
-      setHighlightedIndex((prevIndex) => Math.min(prevIndex + 1, operators.length - 1));
-    } else if (e.key === "ArrowUp") {
-      // Mover hacia arriba
-      setHighlightedIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-    } else if (e.key === "Enter" && highlightedIndex >= 0) {
-      // Seleccionar el elemento resaltado al presionar Enter
-      handleSelect(operators[highlightedIndex]);
+  // Mostrar la lista solo al hacer clic
+  const handleInputClick = () => {
+    if (!isDropdownOpen) {
+      fetchAllOperators();
     }
   };
+
+  // Cerrar el dropdown al hacer clic fuera del input o dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target) && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false); // Cierra el dropdown si se hace clic fuera
+      }
+    };
+
+    // Agregar listener para detectar clics fuera
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Eliminar listener cuando el componente se desmonte
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div>
-      <label htmlFor="operator-search">Proveedor de Servicio</label>
-      <input id="operator-search" type="text" value={searchTerm} onChange={handleSearch} onKeyDown={handleKeyDown} placeholder="Buscar proveedor" />
+    <div className="FindOperatorComponent">
+      <label htmlFor="operator-search">{namesOrderFields.operator}</label>
+      <input
+        id="operator-search"
+        type="text"
+        value={searchTerm}
+        onChange={handleSearch}
+        onClick={handleInputClick}
+        ref={inputRef}
+        placeholder="Buscar proveedor"
+        //
+      />
 
-      {/* Mostrar lista de operadors */}
-      {loading && <p>Loading...</p>}
-      {operators.length > 0 && (
-        <div
-          style={{
-            border: "1px solid #ccc",
-            maxHeight: "150px",
-            overflowY: "auto",
-            marginTop: "5px",
-            position: "absolute",
-            backgroundColor: "white",
-            width: "100%",
-          }}
-        >
-          {operators.map((operator, index) => (
+      {/* Dropdown de operadores */}
+      <div ref={dropdownRef} className={`operator-dropdown ${isDropdownOpen ? "open" : ""}`}>
+        {loading ? (
+          <p>Cargando...</p>
+        ) : (
+          operators.map((operator, index) => (
             <div
               key={operator.id}
-              onClick={() => handleSelect(operator)} // Seleccionar operador al hacer clic
-              style={{
-                padding: "8px",
-                cursor: "pointer",
-                backgroundColor: index === highlightedIndex ? "#bde0fe" : "white", // Resaltar la opción actual
-              }}
+              className={`operator-item ${index === highlightedIndex ? "highlighted" : ""}`}
+              onClick={() => handleSelect(operator)}
+              //
             >
               {operator.name}
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
     </div>
   );
 };

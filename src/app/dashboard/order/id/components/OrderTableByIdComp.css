@@ -54,4 +54,9 @@
   hr {
     opacity: 0.5;
   }
+  a {
+    font: inherit;
+    text-decoration: none;
+    color: inherit;
+  }
 }

@@ -1,10 +1,13 @@
-import React, { useState } from "react";
 import "./OrderTableByIdComp.css";
-import { namesOrderFields, statusOrderNames } from "../../../../../utils/namesFields";
 import { formatDate, formatDateISO, renderStatus } from "../../utils/OrderComp";
+import { namesOrderFields, statusOrderNames } from "../../../../../utils/namesFields";
+import { NavLink } from "react-router";
+import { useSelector } from "react-redux";
+import React, { useState } from "react";
 
 const OrderTableByIdComp = ({ orderData, isPending, setOrderNumberState, orderNumberState }) => {
   const [searchId, setSearchId] = useState(orderNumberState); // Estado local para el input
+  const isAdmin = useSelector((state) => state.user?.user?.role === "admin");
 
   const handleSearch = (e) => {
     // alert("en desarrollo...");
@@ -28,6 +31,11 @@ const OrderTableByIdComp = ({ orderData, isPending, setOrderNumberState, orderNu
           <button type="submit" onClick={handleSearch} className="btn btn-primary">
             Buscar Orden
           </button>
+          {isAdmin && (
+            <NavLink className={"btn btn-primary"} to={`/dashboard/order/update/${orderData.id}`}>
+              <i className="fa-regular fa-pen-to-square"></i> Editar
+            </NavLink>
+          )}
         </form>
         <br />
       </div>

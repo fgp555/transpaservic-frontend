@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { orderService } from "../../../../../services/apiOrder";
-import UploadImageButton from "../../../_components/UploadImageButton/UploadImageButton";
-import Swal from "sweetalert2";
 import { isLocalhost } from "../../../../../utils/apiBaseURL";
+import { orderService } from "../../../../../services/apiOrder";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import UploadImageButton from "../../../_components/UploadImageButton/UploadImageButton";
 
 let tempData;
 if (isLocalhost) {
@@ -25,7 +25,7 @@ if (isLocalhost) {
   };
 }
 
-const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
+const FileUploadTicket = ({ orderNumberState, fetchOrder, orderData }) => {
   const [compressedFile, setCompressedFile] = useState(null); // Para almacenar la imagen comprimida
 
   // const [formState, setFormState] = useState(tempData);
@@ -48,12 +48,30 @@ const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
     return () => clearInterval(interval);
   }, []);
 
+  // Handle change function
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+
+    if (name === "approvalTravelDate") {
+      setFormState((prevState) => ({
+        ...prevState,
+        [name]: value, // Actualizamos la fecha
+      }));
+    } else if (name === "value" || name === "ticketNumber") {
+      setFormState((prevState) => ({
+        ...prevState,
+        [name]: value, // No aplicamos límites en `value` ni en `approvalQuantity`
+      }));
+    } else {
+      const maxValue = orderData.quantity; // Límite máximo solo en `approvalQuantity`
+
+      const newValue = Math.min(maxValue, Number(value)); // Aplicamos el límite solo a `approvalQuantity`
+
+      setFormState((prevState) => ({
+        ...prevState,
+        [name]: newValue,
+      }));
+    }
   };
 
   useEffect(() => {
@@ -66,6 +84,50 @@ const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const currentDateTime = new Date().toISOString(); // Fecha y hora actual
+
+    // Validar si no se ha seleccionado una imagen
+    if (!compressedFile) {
+      Swal.fire({
+        title: "Error",
+        text: "Por favor, selecciona una imagen antes de enviar.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return; // Detener el envío del formulario si no hay imagen
+    }
+
+    // Validar si el número de ticket está vacío
+    if (!formState.ticketNumber) {
+      Swal.fire({
+        title: "Error",
+        text: "Por favor, ingresa el número de ticket.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return; // Detener el envío del formulario si el número de ticket está vacío
+    }
+
+    // Validar si la cantidad usada está vacía o no es válida
+    if (!formState.approvalQuantity || formState.approvalQuantity <= 0) {
+      Swal.fire({
+        title: "Error",
+        text: "Por favor, ingresa una cantidad usada válida.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return; // Detener el envío del formulario si la cantidad usada es inválida
+    }
+
+    // Validar si el valor está vacío o no es válido
+    if (!formState.value || formState.value <= 0) {
+      Swal.fire({
+        title: "Error",
+        text: "Por favor, ingresa un valor válido.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return; // Detener el envío del formulario si el valor es inválido
+    }
 
     // Confirmación antes de enviar el formulario
     const confirmSend = await Swal.fire({
@@ -142,7 +204,7 @@ const FileUploadTicket = ({ orderNumberState, fetchOrder }) => {
         </div>
         <div>
           <label htmlFor="approvalQuantity">Cantidad Usada</label>
-          <input type="number" id="approvalQuantity" name="approvalQuantity" value={formState.approvalQuantity} onChange={handleChange} />
+          <input type="number" id="approvalQuantity" name="approvalQuantity" max={orderData.quantity} min="1" value={formState.approvalQuantity} onChange={handleChange} />
         </div>
         <div>
           <label htmlFor="value">Valor</label>

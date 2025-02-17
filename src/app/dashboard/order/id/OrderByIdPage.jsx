@@ -67,7 +67,7 @@ const OrderByIdPage = () => {
         </aside>
         {isPending ? (
           //
-          <FileUploadTicket orderNumberState={orderNumberState} fetchOrder={fetchOrder} />
+          <FileUploadTicket orderNumberState={orderNumberState} fetchOrder={fetchOrder} orderData={orderData} />
         ) : (
           <>
             <FilePreview orderData={orderData} fetchOrder={fetchOrder} />

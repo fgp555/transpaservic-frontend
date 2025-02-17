@@ -144,7 +144,7 @@ export const OrderTableRespoComp = ({ data, fetchOrders }) => {
                     onClick={(event) => event.stopPropagation()} // Evita que la fila redirija al hacer clic en "Acciones"
                   >
                     <span className="actions-container">
-                      <NavLink /* to={`/dashboard/order/update/${order.id}`} */>
+                      <NavLink to={`/dashboard/order/update/${order.id}`}>
                         <i className="fa-regular fa-pen-to-square"></i>
                       </NavLink>
                       <span>

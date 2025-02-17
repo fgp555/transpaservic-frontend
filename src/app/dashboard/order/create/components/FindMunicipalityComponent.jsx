@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { dataMunicipality } from "../../../../../utils/dataMunicipality";
+import "./FindMunicipalityComponent.css";
 
 export const FindMunicipalityComponent = ({ onCitySelect }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const inputRef = useRef(null);
+  const dropdownRef = useRef(null);
 
   const handleSearch = (e) => {
     const value = e.target.value;
@@ -17,12 +22,14 @@ export const FindMunicipalityComponent = ({ onCitySelect }) => {
     } else {
       setFilteredData([]); // Limpiar los resultados si no cumple con los caracteres
     }
+    setIsDropdownOpen(true); // Mantener el dropdown abierto siempre
   };
 
   const handleSelect = (municipality) => {
     setSearchTerm(municipality[1]); // Mostrar el municipio seleccionado en el input
     setFilteredData([]); // Limpiar los resultados
     onCitySelect(municipality[1]); // Enviar solo la ciudad seleccionada al padre
+    setIsDropdownOpen(false);
   };
 
   const handleKeyDown = (e) => {
@@ -37,37 +44,45 @@ export const FindMunicipalityComponent = ({ onCitySelect }) => {
     }
   };
 
+  // Cerrar el dropdown al hacer clic fuera del input o dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target) && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false); // Cierra el dropdown si se hace clic fuera
+      }
+    };
+
+    // Agregar listener para detectar clics fuera
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Eliminar listener cuando el componente se desmonte
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div>
-      <input type="text" value={searchTerm} onChange={handleSearch} onKeyDown={handleKeyDown} placeholder="Buscar Municipalidad" />
-      {searchTerm.length >= 2 && filteredData.length > 0 && (
-        <div
-          style={{
-            border: "1px solid #ccc",
-            maxHeight: "150px",
-            overflowY: "auto",
-            marginTop: "5px",
-            position: "absolute",
-            backgroundColor: "white",
-            width: "100%",
-          }}
-        >
-          {filteredData.map((municipality, index) => (
-            <div
-              key={index}
-              onClick={() => handleSelect(municipality)}
-              style={{
-                padding: "8px",
-                cursor: "pointer",
-                backgroundColor: index === highlightedIndex ? "#bde0fe" : "white",
-              }}
-            >
+    <span className="FindMunicipalityComponent">
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleSearch}
+        onKeyDown={handleKeyDown}
+        placeholder="Buscar Municipalidad"
+        ref={inputRef}
+        onClick={() => setIsDropdownOpen(true)} // Mostrar la lista al hacer clic
+      />
+
+      {isDropdownOpen && (
+        <span ref={dropdownRef} className="dropdown-list">
+          {(searchTerm.length >= 2 ? filteredData : dataMunicipality).map((municipality, index) => (
+            <div key={index} className={`dropdown-item ${index === highlightedIndex ? "highlighted" : ""}`} onClick={() => handleSelect(municipality)}>
               {municipality[1]} - {municipality[0]}
             </div>
           ))}
-        </div>
+        </span>
       )}
-    </div>
+    </span>
   );
 };
 

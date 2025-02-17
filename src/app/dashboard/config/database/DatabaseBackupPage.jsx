@@ -343,6 +343,7 @@ const DatabaseBackupPage = () => {
         {isLoading && <p>Cargando...</p>}
 
         <h2>Crear Copia de Seguridad</h2>
+        <p>Las copias de seguridad se realizan de manera diaria, manteniendo únicamente las 7 copias más recientes.</p>
         <br />
         {error && <p className="error">{error}</p>}
         <button onClick={handleCreateBackup}>Crear Copia de Seguridad</button>

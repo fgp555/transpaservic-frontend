@@ -118,9 +118,11 @@ const FilePreview = ({ orderData, fetchOrder }) => {
       <br />
       <hr />
       <br />
-      <section>
-        <ApprovalTravelDateComp fetchOrder={fetchOrder} orderNumberState={orderData.orderNumber} />
-      </section>
+      {orderData.state === "pendiente" && orderData.approvalTravelDate === null && (
+        <section>
+          <ApprovalTravelDateComp fetchOrder={fetchOrder} orderNumberState={orderData.orderNumber} />
+        </section>
+      )}
     </aside>
   );
 };

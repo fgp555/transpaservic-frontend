@@ -12,6 +12,7 @@ const OrderImportPage = () => {
   const [isLoading, setIsLoading] = useState(false); // Estado de carga
 
   const handleFileUpload = (e) => {
+    const fileInput = e.target;
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -93,6 +94,7 @@ const OrderImportPage = () => {
         setDuplicateOrderNumber(duplicatesOrderNumber);
 
         setIsLoading(false); // Terminar el estado de carga
+        fileInput.value = ""; // 💡 Resetear el input para permitir cargar el mismo archivo
       }
     };
 

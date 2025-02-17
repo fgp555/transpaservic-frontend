@@ -5,6 +5,7 @@ export const namesOrderFields = {
   status: "Estado",
   patientName: "Paciente",
   idCard: "Cedula",
+  countryCode: "Codigo de Pais",
   userPhone: "Telefono",
   itinerary: "Itinerario",
 
@@ -36,11 +37,3 @@ export const statusOrderNames = {
   cancelado: "Cancelado",
   expirado: "Expirado",
 };
-
-/*
- * Fecha emisión
- * Fecha probable de viaje.
- * Fecha cumplimento.
- * Fecha real de viaje.
- * Vencimiento. ( O vigencia )
- */
