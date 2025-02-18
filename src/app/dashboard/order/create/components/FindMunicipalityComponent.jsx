@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { dataMunicipality } from "../../../../../utils/dataMunicipality";
 import "./FindMunicipalityComponent.css";
 
-export const FindMunicipalityComponent = ({ onCitySelect }) => {
+export const FindMunicipalityComponent = ({ onCitySelect, placeholderString }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -15,14 +15,15 @@ export const FindMunicipalityComponent = ({ onCitySelect }) => {
     const value = e.target.value;
     setSearchTerm(value);
 
-    // Solo filtrar si el término de búsqueda tiene 3 o más caracteres
+    // Filtrar municipios basados en la búsqueda
     if (value.length >= 2) {
       const filtered = dataMunicipality.filter((municipality) => municipality[1].toLowerCase().includes(value.toLowerCase()));
       setFilteredData(filtered);
     } else {
-      setFilteredData([]); // Limpiar los resultados si no cumple con los caracteres
+      setFilteredData(dataMunicipality); // Si no hay búsqueda, mostrar todos
     }
-    setIsDropdownOpen(true); // Mantener el dropdown abierto siempre
+
+    setIsDropdownOpen(true); // Siempre mantener el dropdown abierto
   };
 
   const handleSelect = (municipality) => {
@@ -30,6 +31,11 @@ export const FindMunicipalityComponent = ({ onCitySelect }) => {
     setFilteredData([]); // Limpiar los resultados
     onCitySelect(municipality[1]); // Enviar solo la ciudad seleccionada al padre
     setIsDropdownOpen(false);
+  };
+
+  const handleInputClick = () => {
+    setIsDropdownOpen(true);
+    setFilteredData(dataMunicipality); // Asegurar que la lista se muestra completa
   };
 
   const handleKeyDown = (e) => {
@@ -67,10 +73,11 @@ export const FindMunicipalityComponent = ({ onCitySelect }) => {
         type="text"
         value={searchTerm}
         onChange={handleSearch}
+        onClick={handleInputClick} // Asegurar que siempre abra la lista
         onKeyDown={handleKeyDown}
-        placeholder="Buscar Municipalidad"
+        placeholder={placeholderString}
         ref={inputRef}
-        onClick={() => setIsDropdownOpen(true)} // Mostrar la lista al hacer clic
+        // onClick={() => setIsDropdownOpen(true)} // Mostrar la lista al hacer clic
       />
 
       {isDropdownOpen && (

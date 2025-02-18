@@ -1,6 +1,6 @@
 // import "./OrderUpdatePage.css";
 import { BreadcrumbsComponent } from "../../_components/BreadcrumbsComponent/BreadcrumbsComponent";
-import { namesOrderFields } from "../../../../utils/namesFields";
+import { namesOrderFields, statusOrderNames } from "../../../../utils/namesFields";
 import { orderService } from "../../../../services/apiOrder";
 import { useParams } from "react-router-dom";
 import BackButtonComponent from "../../_components/Buttons/BackButtonComponent";
@@ -8,6 +8,7 @@ import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import FindOperatorComponent from "../create/components/FindOperatorComponent";
+import FindMunicipalityComponent from "../create/components/findMunicipalityComponent";
 
 const OrderUpdatePage = () => {
   const { id } = useParams(); // Obtener el ID del order desde la URL
@@ -75,12 +76,55 @@ const OrderUpdatePage = () => {
     }));
   };
 
+  useEffect(() => {
+    setOrderData((prev) => ({
+      ...prev,
+      itinerary: `${prev.origin} - ${prev.destination}`,
+    }));
+  }, [orderData.origin, orderData.destination]); // Dependencias: se ejecuta cuando cambian origin o destination
+
+  useEffect(() => {
+    setOrderData((prev) => ({
+      ...prev,
+      netValue: prev.value * prev.approvalQuantity, // Calculamos netValue
+    }));
+  }, [orderData.value, orderData.approvalQuantity]);
+
+  useEffect(() => {
+    setOrderData((prev) => ({
+      ...prev,
+      netValue: prev.value * prev.quantity, // Calculamos netValue
+    }));
+  }, [orderData.value, orderData.quantity]);
+
+  // expirationDate
+  useEffect(() => {
+    if (orderData.creationDate) {
+      const creation = new Date(orderData.creationDate);
+      creation.setDate(creation.getDate() + 48); // Sumar 48 días
+      const formattedExpirationDate = creation.toISOString().split("T")[0]; // Convertir a 'YYYY-MM-DD'
+
+      setOrderData((prev) => ({
+        ...prev,
+        expirationDate: formattedExpirationDate,
+      }));
+    }
+  }, [orderData.creationDate]);
+
   // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await orderService.update(id, orderData);
+      const { backticketHistory, operator, ...rest } = orderData;
+
+      let data;
+      if (typeof operator === "string") {
+        data = { ...rest };
+      } else {
+        data = { ...rest, operator };
+      }
+      const response = await orderService.update(id, data);
       Swal.fire("Éxito", "Order actualizado exitosamente", "success");
       console.log("Order actualizado:", response);
     } catch (error) {
@@ -95,6 +139,13 @@ const OrderUpdatePage = () => {
     setOrderData((prev) => ({
       ...prev,
       operator: { id: operator.id },
+    }));
+  };
+
+  const handleCitySelect = (field, city) => {
+    setOrderData((prev) => ({
+      ...prev,
+      [field]: city,
     }));
   };
 
@@ -156,20 +207,20 @@ const OrderUpdatePage = () => {
             <input type="date" id="creationDate" name="creationDate" value={orderData.creationDate} onChange={handleChange} />
           </div>
           <div>
-            <label htmlFor="travelDate">{namesOrderFields.travelDate}</label>
-            <input type="date" id="travelDate" name="travelDate" value={orderData.travelDate} onChange={handleChange} />
-          </div>
-          <div>
             <label htmlFor="expirationDate">{namesOrderFields.expirationDate}</label>
             <input type="date" id="expirationDate" name="expirationDate" value={orderData.expirationDate} onChange={handleChange} disabled />
           </div>
           <div>
-            <label htmlFor="approvalDate">{namesOrderFields.approvalDate[0]}</label>
-            <input type="date" id="approvalDate" name="approvalDate" value={orderData.approvalDate} onChange={handleChange} />
+            <label htmlFor="travelDate">{namesOrderFields.travelDate}</label>
+            <input type="date" id="travelDate" name="travelDate" value={orderData.travelDate} onChange={handleChange} />
           </div>
           <div>
             <label htmlFor="approvalTravelDate">{namesOrderFields.approvalTravelDate[0]}</label>
             <input type="date" id="approvalTravelDate" name="approvalTravelDate" value={orderData.approvalTravelDate} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="approvalDate">{namesOrderFields.approvalDate[0]}</label>
+            <input type="date" id="approvalDate" name="approvalDate" value={orderData.approvalDate} onChange={handleChange} />
           </div>
         </aside>
         <aside>
@@ -180,27 +231,43 @@ const OrderUpdatePage = () => {
           <br />
           <div>
             <label htmlFor="status">{namesOrderFields.status}</label>
-            <select id="status" name="status" value={orderData.status} onChange={handleChange}>
-              <option value="pendiente">Pendiente</option>
-              <option value="aprobado">Aprobado</option>
-              <option value="cancelado">Cancelado</option>
-              <option value="expirado">Expirado</option>
+            <select className="OrderStatusTable" id="status" name="status" value={orderData.status} onChange={handleChange}>
+              <option className="pendiente" value="pendiente">
+                {statusOrderNames.pendiente}
+              </option>
+              <option className="aprobado" value="aprobado">
+                {statusOrderNames.aprobado}
+              </option>
+              <option className="cancelado" value="cancelado">
+                {statusOrderNames.cancelado}
+              </option>
+              <option className="expirado" value="expirado">
+                {statusOrderNames.expirado}
+              </option>
             </select>
           </div>
           <div>
-            <label htmlFor="operator">{namesOrderFields.operator}</label>
-            <input type="text" id="operator" name="operator" value={orderData.operator} onChange={handleChange} />
+            <FindOperatorComponent
+              onOperatorSelect={handleOperatorSelect}
+              placeholderString={orderData.operator}
+              //
+            />
           </div>
           <div>
-            <FindOperatorComponent onOperatorSelect={handleOperatorSelect} />
+            <label>{namesOrderFields.origin}</label>
+            <FindMunicipalityComponent
+              onCitySelect={(city) => handleCitySelect("origin", city)}
+              placeholderString={orderData.origin}
+              //
+            />
           </div>
           <div>
-            <label htmlFor="origin">{namesOrderFields.origin}</label>
-            <input type="text" id="origin" name="origin" value={orderData.origin} onChange={handleChange} />
-          </div>
-          <div>
-            <label htmlFor="destination">{namesOrderFields.destination}</label>
-            <input type="text" id="destination" name="destination" value={orderData.destination} onChange={handleChange} />
+            <label>{namesOrderFields.destination}</label>
+            <FindMunicipalityComponent
+              onCitySelect={(city) => handleCitySelect("destination", city)}
+              placeholderString={orderData.destination}
+              //
+            />
           </div>
           <div>
             <label htmlFor="itinerary">{namesOrderFields.itinerary}</label>
@@ -234,7 +301,7 @@ const OrderUpdatePage = () => {
           </div>
         </aside>
       </form>
-      <pre>{JSON.stringify(orderData, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(orderData, null, 2)}</pre> */}
     </div>
   );
 };

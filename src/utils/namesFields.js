@@ -32,8 +32,8 @@ export const namesOrderFields = {
 };
 
 export const statusOrderNames = {
-  pendiente: "Pendiente",
-  aprobado: "Cumplido",
-  cancelado: "Cancelado",
-  expirado: "Expirado",
+  pendiente: "pendiente",
+  aprobado: "cumplido",
+  cancelado: "cancelado",
+  expirado: "expirado",
 };

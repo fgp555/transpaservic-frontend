@@ -10,16 +10,20 @@ function agregarPrefijo(numero) {
 
 // Implementación del servicio
 export const orderService = {
-  async saveArrayData(arrayData) {
+  async saveArrayData({ data, sendToWhatsApp }) {
     try {
       // Transformar los números de teléfono y verificar si es necesario agregar el prefijo 57
-      const dataConPrefijos = arrayData.map((item) => {
-        item.userPhone = agregarPrefijo(item.userPhone.toString()); // Asegurarse de que el número es una cadena
-        return item;
+      const dataConPrefijos = data.map((item) => ({
+        ...item,
+        userPhone: agregarPrefijo(item.userPhone.toString()), // Asegurar que es string y agregar prefijo si es necesario
+      }));
+
+      // Enviar la solicitud POST al backend con la opción de WhatsApp
+      const response = await axiosCreate.post("/api/order/save-array-data", {
+        data: dataConPrefijos,
+        sendToWhatsApp, // Incluir la opción en el payload
       });
 
-      // Enviar la solicitud POST al backend
-      const response = await axiosCreate.post("/api/order/save-array-data", { data: dataConPrefijos });
       return response.data; // Retornar la respuesta del backend
     } catch (error) {
       console.error("Error al guardar los datos:", error);

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
 import "./OrderSubmitComponent.css";
 import { orderService } from "../../../../../services/apiOrder";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
 const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
@@ -8,6 +8,7 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
   const [duplicates, setDuplicates] = useState({});
   const [dataToSendWithoutId, setDataToSendWithoutId] = useState([]);
   const [isLoading, setIsLoading] = useState(false); // Estado de carga
+  const [sendToWhatsApp, setSendToWhatsApp] = useState(true); // Estado del checkbox
 
   useEffect(() => {
     const updatedData = filteredDataWithoutDuplicates.map(({ id, ...rest }) => rest);
@@ -23,7 +24,12 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
     setIsLoading(true); // Activar loading
 
     try {
-      const response = await orderService.saveArrayData(dataToSendWithoutId);
+      const payload = {
+        data: dataToSendWithoutId,
+        sendToWhatsApp, // Incluir opción de envío a WhatsApp
+      };
+
+      const response = await orderService.saveArrayData(payload);
 
       if (response.error) {
         throw new Error(response.error); // Forzar el catch si hay error
@@ -31,14 +37,12 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
 
       console.log("Datos enviados correctamente:", response);
 
-      // Mostrar SweetAlert2 solo cuando el envío sea exitoso
       Swal.fire({
         icon: "success",
         title: "¡Datos enviados correctamente!",
         text: "Los datos han sido procesados y guardados con éxito.",
       });
 
-      // Limpiar mensajes de error de duplicados si la solicitud es exitosa
       setDuplicateMessage("");
       setDuplicates({});
     } catch (error) {
@@ -57,12 +61,7 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
 
   return (
     <div className="OrderSubmitComponent">
-      <button
-        onClick={handleSubmit}
-        className={`btn btn-primary LoadingButton ${isLoading ? "loadingProgress" : ""}`}
-        disabled={isLoading}
-        //
-      >
+      <button onClick={handleSubmit} className={`btn btn-primary LoadingButton ${isLoading ? "loadingProgress" : ""}`} disabled={isLoading}>
         {isLoading ? (
           <>
             <span className="spinnerLoop"></span>Enviando...
@@ -71,22 +70,21 @@ const OrderSubmitComponent = ({ filteredDataWithoutDuplicates }) => {
           "Enviar a la base de datos"
         )}
       </button>
-
+      <label className="checkbox-container">
+        <input type="checkbox" checked={sendToWhatsApp} onChange={(e) => setSendToWhatsApp(e.target.checked)} />
+        {sendToWhatsApp ? "Habilitado" : "Deshabilitado"} para envíos a WhatsApp
+      </label>
       {duplicateMessage && (
         <div className="error-message">
           <p>{duplicateMessage}</p>
           {duplicates.operatorContract && (
             <p>
-              <strong>Contrato de operador Duplicados:</strong> {duplicates.operatorContract.join(", ")}
-            </p>
-          )}
-          {duplicates.orderNumber && (
-            <p>
-              <strong>Numero Orden Duplicados:</strong> {duplicates.orderNumber.join(", ")}
+              <strong>Contrato de operador...</strong>
             </p>
           )}
         </div>
       )}
+      {/* <pre>{JSON.stringify(dataToSendWithoutId,null,2)}</pre> */}
     </div>
   );
 };

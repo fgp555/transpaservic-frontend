@@ -3,7 +3,7 @@ import { namesOrderFields } from "../../../../../utils/namesFields";
 import { operatorService } from "../../../../../services/apiOperator";
 import React, { useState, useRef, useEffect } from "react";
 
-const FindOperatorComponent = ({ onOperatorSelect }) => {
+const FindOperatorComponent = ({ onOperatorSelect, placeholderString }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [operators, setOperators] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
@@ -93,7 +93,7 @@ const FindOperatorComponent = ({ onOperatorSelect }) => {
         onChange={handleSearch}
         onClick={handleInputClick}
         ref={inputRef}
-        placeholder="Buscar proveedor"
+        placeholder={placeholderString}
         //
       />
 

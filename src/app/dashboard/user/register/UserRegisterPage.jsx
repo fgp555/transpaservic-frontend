@@ -1,11 +1,9 @@
-// src\_home\user\register\UserRegisterPage.jsx
-
-import React, { useEffect, useState } from "react";
-import { authService } from "../../../../services/apiAuth";
 import "./UserRegisterPage.css";
+import { authService } from "../../../../services/apiAuth";
 import { operatorService } from "../../../../services/apiOperator";
-import Swal from "sweetalert2"; // Para mostrar alertas
 import { validateUserForm } from "./userValitation";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2"; // Para mostrar alertas
 
 const UserRegisterPage = () => {
   const [formData, setFormData] = useState({});

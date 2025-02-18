@@ -25,7 +25,8 @@ const OrderBackTicket = () => {
   const [orderNumberState, setOrderNumberState] = useState(orderNumber);
   const [orderData, setOrderData] = useState(null);
   const isPending = orderData?.status === "pendiente";
-  const [formData, setFormData] = useState(dataDev);
+  // const [formData, setFormData] = useState(dataDev);
+  const [formData, setFormData] = useState({});
   // const [selectedOperator, setSelectedOperator] = useState(null);
   const [errors, setErrors] = useState({ origin: false, destination: false });
 
@@ -144,8 +145,8 @@ const OrderBackTicket = () => {
           <OrderTableByIdComp
             orderData={orderData}
             isPending={isPending}
-            setOrderId={setOrderNumberState}
-            orderId={orderNumberState}
+            setOrderNumberState={setOrderNumberState}
+            orderNumberState={orderNumberState}
             //
           />
         </aside>
@@ -153,20 +154,22 @@ const OrderBackTicket = () => {
           <h4>Actualizar y Crear Back-Ticket</h4>
           <br />
           <form className="dashboard" action="">
-            <div>
-              <FindOperatorComponent onOperatorSelect={handleOperatorSelect} />
-            </div>
-            <div>
-              <label htmlFor="">Numero de Ticket:</label>
-              <input type="text" name="ticketNumber" value={formData.ticketNumber} onChange={handleChange} />
-            </div>
-            <div>
-              <label htmlFor="">Nueva Fecha de viaje:</label>
-              <input type="date" name="travelDate" value={formData.travelDate} onChange={handleChange} />
-            </div>
-            <button className="btn btn-primary" onClick={handleSubmit}>
-              Actualizar y Crear Back-Ticket
-            </button>
+            <aside>
+              <div>
+                <FindOperatorComponent onOperatorSelect={handleOperatorSelect} />
+              </div>
+              <div>
+                <label htmlFor="">Numero de Ticket:</label>
+                <input type="text" name="ticketNumber" value={formData.ticketNumber} onChange={handleChange} />
+              </div>
+              <div>
+                <label htmlFor="">Nueva Fecha de viaje:</label>
+                <input type="date" name="travelDate" value={formData.travelDate} onChange={handleChange} />
+              </div>
+              <button className="btn btn-primary" onClick={handleSubmit}>
+                Actualizar y Crear Back-Ticket
+              </button>
+            </aside>
           </form>
           {orderData.backticketHistory && orderData.backticketHistory.length > 0 && (
             <section>

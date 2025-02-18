@@ -189,40 +189,41 @@ const FileUploadTicket = ({ orderNumberState, fetchOrder, orderData }) => {
       <h2>Cumplir ticket</h2>
       <br />
       <form className="dashboard" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="approvalDate">Fecha de cumplimiento</label>
-          <input type="datetime-local" id="approvalDate" name="approvalDate" value={formState.approvalDate} disabled />
-        </div>
+        <aside>
+          <div>
+            <label htmlFor="approvalDate">Fecha de cumplimiento</label>
+            <input type="datetime-local" id="approvalDate" name="approvalDate" value={formState.approvalDate} disabled />
+          </div>
 
-        <div>
-          <label htmlFor="approvalTravelDate">Fecha real de viaje</label>
-          <input type="date" id="approvalTravelDate" name="approvalTravelDate" value={formState.approvalTravelDate} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="ticketNumber">Numero de ticket</label>
-          <input type="text" id="ticketNumber" name="ticketNumber" value={formState.ticketNumber} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="approvalQuantity">Cantidad Usada</label>
-          <input type="number" id="approvalQuantity" name="approvalQuantity" max={orderData.quantity} min="1" value={formState.approvalQuantity} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="value">Valor</label>
-          <input type="number" id="value" name="value" value={formState.value} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="netValue">Valor total</label>
-          <input type="number" id="netValue" name="netValue" value={formState.netValue} disabled />
-        </div>
-
-        <div className="mb-1">
-          <UploadImageButton setCompressedFile={setCompressedFile} />
-        </div>
-        <div>
-          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
-            Enviar y Cumplir
-          </button>
-        </div>
+          <div>
+            <label htmlFor="approvalTravelDate">Fecha real de viaje</label>
+            <input type="date" id="approvalTravelDate" name="approvalTravelDate" value={formState.approvalTravelDate} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="ticketNumber">Numero de ticket</label>
+            <input type="text" id="ticketNumber" name="ticketNumber" value={formState.ticketNumber} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="approvalQuantity">Cantidad Usada</label>
+            <input type="number" id="approvalQuantity" name="approvalQuantity" max={orderData.quantity} min="1" value={formState.approvalQuantity} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="value">Valor</label>
+            <input type="number" id="value" name="value" value={formState.value} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="netValue">Valor total</label>
+            <input type="number" id="netValue" name="netValue" value={formState.netValue} disabled />
+          </div>
+          <div className="mb-1">
+            <UploadImageButton setCompressedFile={setCompressedFile} />
+          </div>
+          <div>
+            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+              Enviar y Cumplir
+            </button>
+          </div>
+        </aside>
       </form>
     </aside>
   );

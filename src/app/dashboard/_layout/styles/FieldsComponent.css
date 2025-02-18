@@ -13,17 +13,17 @@ form.dashboard {
     flex-direction: column;
     position: relative;
     margin-top: 0.5rem;
-  }
 
-  label {
-    position: absolute;
-    background-color: var(--base-color);
-    padding: 0 0.8rem;
-    z-index: 1;
-    left: 10px;
-    top: -10px;
-    font-size: 0.8rem;
-    border-radius: 1em;
+    > label {
+      position: absolute;
+      background-color: var(--base-color);
+      padding: 0 0.8rem;
+      z-index: 1;
+      left: 10px;
+      top: -10px;
+      font-size: 0.8rem;
+      border-radius: 1em;
+    }
   }
 
   /* select */

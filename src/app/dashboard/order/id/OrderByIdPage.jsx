@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
-import { orderService } from "../../../../services/apiOrder";
-import Swal from "sweetalert2";
-import BackButtonComponent from "../../_components/Buttons/BackButtonComponent";
-import { BreadcrumbsComponent } from "../../_components/BreadcrumbsComponent/BreadcrumbsComponent";
-import OrderTableByIdComp from "./components/OrderTableByIdComp";
 import "./OrderByIdPage.css";
+import { BreadcrumbsComponent } from "../../_components/BreadcrumbsComponent/BreadcrumbsComponent";
+import { orderService } from "../../../../services/apiOrder";
+import { useParams, useSearchParams } from "react-router";
+import BackButtonComponent from "../../_components/Buttons/BackButtonComponent";
 import FilePreview from "./components/FilePreview";
 import FileUploadTicket from "./components/FileUploadTicket";
+import OrderTableByIdComp from "./components/OrderTableByIdComp";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const OrderByIdPage = () => {
   const { orderNumber } = useParams();

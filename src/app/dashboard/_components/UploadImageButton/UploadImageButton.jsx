@@ -9,7 +9,7 @@ const UploadImageButton = ({ setCompressedFile }) => {
   };
 
   return (
-    <div className="UploadImageButton  ">
+    <span className="UploadImageButton">
       <label htmlFor="profileImage" className="btn btn-primary mb-1">
         Seleccionar imagen
       </label>
@@ -25,7 +25,7 @@ const UploadImageButton = ({ setCompressedFile }) => {
 
       {/* Contenedor de vista previa de la imagen */}
       <div id="preview"></div>
-    </div>
+    </span>
   );
 };
 
