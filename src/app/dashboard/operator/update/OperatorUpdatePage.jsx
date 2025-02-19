@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { operatorService } from "../../../../services/apiOperator";
 import "./OperatorUpdatePage.css";
-import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
+import { operatorService } from "../../../../services/apiOperator";
+import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 const OperatorUpdatePage = () => {
   const { id } = useParams(); // Obtener el ID desde la URL
@@ -68,31 +67,34 @@ const OperatorUpdatePage = () => {
 
   return (
     <div className="OperatorUpdatePage">
-      <h2>Actualizar Operador</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Nombre:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="whatsapp">WhatsApp:</label>
-          <input type="text" id="whatsapp" name="whatsapp" value={formData.whatsapp} onChange={handleChange} />
-        </div>
-        <div>
-          <label htmlFor="email">Correo Electrónico:</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-        </div>
-        <div>
-          <label htmlFor="website">Sitio Web:</label>
-          <input type="url" id="website" name="website" value={formData.website} onChange={handleChange} />
-        </div>
-        <br />
-        <div>
-          <button type="submit" disabled={loading}>
-            {loading ? "Actualizando..." : "Actualizar"}
-          </button>
+      <h2 className="title">Actualizar Operador</h2>
+      <br />
+      <form onSubmit={handleSubmit} className="dashboard">
+        <aside>
+          <div>
+            <label htmlFor="name">Nombre:</label>
+            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+          </div>
+          <div>
+            <label htmlFor="whatsapp">WhatsApp:</label>
+            <input type="text" id="whatsapp" name="whatsapp" value={formData.whatsapp} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+          </div>
+          <div>
+            <label htmlFor="website">Sitio Web:</label>
+            <input type="url" id="website" name="website" value={formData.website} onChange={handleChange} />
+          </div>
           <br />
-        </div>
+          <div>
+            <button type="submit" disabled={loading} className="btn btn-primary">
+              {loading ? "Actualizando..." : "Actualizar"}
+            </button>
+            <br />
+          </div>
+        </aside>
       </form>
     </div>
   );

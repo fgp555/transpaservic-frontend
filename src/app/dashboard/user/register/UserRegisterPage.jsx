@@ -112,70 +112,71 @@ const UserRegisterPage = () => {
 
   return (
     <div className="UserRegisterPage">
-      <form onSubmit={handleSubmit}>
-        <h2>Registro de Usuario</h2>
+      <h1 className="title">Registro de Usuario</h1>
+      <br />
+      <form onSubmit={handleSubmit} className="dashboard">
+        <aside>
+          <div>
+            <label htmlFor="firstName">Nombre</label>
+            <input type="text" name="firstName" id="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
+            {errors.firstName && <span className="error">{errors.firstName}</span>}
+          </div>
+          <div>
+            <label htmlFor="lastName">Apellido</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="whatsapp">WhatsApp</label>
+            <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </div>
 
-        <label htmlFor="firstName">Nombre</label>
-        <input type="text" name="firstName" id="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
-        {errors.firstName && <span className="error">{errors.firstName}</span>}
+          <div className="password-fields">
+            <label htmlFor="password">Contraseña</label>
+            <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
+            <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
+              {showPassword ? (
+                <i className="icon-eye"></i> // Ícono para mostrar la contraseña
+              ) : (
+                <i className="icon-eye-off"></i> // Ícono para ocultar la contraseña
+              )}
+            </span>
+            <span type="button" onClick={handleGeneratePassword} className="generate-password" title="Generar contraseña">
+              <i class="fa-solid fa-key"></i>
+            </span>
+            {errors.password && <span className="error">{errors.password}</span>}
+          </div>
+          <div>
+            {/* Select para role */}
+            <label>Tipo de rol</label>
+            <select name="role" value={formData.role} onChange={handleChange} className="select-role">
+              <option value="user">Usuario</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div>
 
-        <label htmlFor="lastName">Apellido</label>
-        <input type="text" name="lastName" id="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
-
-        <label htmlFor="whatsapp">WhatsApp</label>
-        <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
-
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-        {errors.email && <span className="error">{errors.email}</span>}
-
-        <div className="password-fields">
-          <label htmlFor="password">Contraseña</label>
-          <input type={showPassword ? "text" : "password"} name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
-          <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
-            {showPassword ? (
-              <i className="icon-eye"></i> // Ícono para mostrar la contraseña
-            ) : (
-              <i className="icon-eye-off"></i> // Ícono para ocultar la contraseña
-            )}
-          </span>
-          <br />
-          {/* Botón para generar contraseña */}
-          <button type="button" onClick={handleGeneratePassword} className="btn btn-primary">
-            Generar Contraseña
-          </button>
-          <br />
-          {errors.password && <span className="error">{errors.password}</span>}
-
-          <br />
-        </div>
-
-        {/* Select para role */}
-        <label>
-          Tipo de rol
-          <br />
-          <select name="role" value={formData.role} onChange={handleChange} className="select-role">
-            <option value="user">Usuario</option>
-            <option value="admin">Administrador</option>
-          </select>
-        </label>
-
-        {/* Select para operador */}
-        <label>
-          Operador
-          <br />
-          <select name="operator" onChange={handleChange} value={formData.operator?.id || ""}>
-            <option value="">Sin Operador</option>
-            {operatorData.map((operator) => (
-              <option key={operator.id} value={operator.id}>
-                {operator.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button type="submit" className="btn btn-primary">
-          Registrar
-        </button>
+          {/* Select para operador */}
+          <div>
+            <label>Operador</label>
+            <select name="operator" onChange={handleChange} value={formData.operator?.id || ""}>
+              <option value="">Sin Operador</option>
+              {operatorData.map((operator) => (
+                <option key={operator.id} value={operator.id}>
+                  {operator.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <button type="submit" className="btn btn-primary">
+              Registrar
+            </button>
+          </div>
+        </aside>
       </form>
     </div>
   );

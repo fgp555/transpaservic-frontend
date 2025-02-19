@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import "./UserUpdatePage.css";
+import { apiUserService } from "../../../../services/apiUser";
 import { authService } from "../../../../services/apiAuth";
 import { operatorService } from "../../../../services/apiOperator";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2"; // Para mostrar alertas
-import { apiUserService } from "../../../../services/apiUser";
-import "./UserUpdatePage.css";
 
 const UserUpdatePage = () => {
   const { id } = useParams(); // Obtener el id del usuario de la URL
@@ -110,73 +110,66 @@ const UserUpdatePage = () => {
 
   return (
     <div className="UserUpdatePage">
-      <form onSubmit={handleSubmit}>
-        <h2>Actualizar Usuario</h2>
-
-        <label htmlFor="firstName">Nombre</label>
-        <input type="text" name="firstName" id="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
-
-        <label htmlFor="lastName">Apellido</label>
-        <input type="text" name="lastName" id="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
-
-        <label htmlFor="whatsapp">WhatsApp</label>
-        <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
-
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} autoComplete="email" />
-
-        <label htmlFor="password">Contraseña</label>
-        <span className="password-fields">
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Contraseña"
-            value={formData.password || ""}
-            onChange={handleChange}
-            autoComplete="password"
-          />
-          <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
-            {showPassword ? <i className="icon-eye"></i> : <i className="icon-eye-off"></i>}
-          </span>
-          <br />
-          <button type="button" onClick={handleGeneratePassword} className="btn btn-primary ">
-            Generar Contraseña
-          </button>
-          <br />
-        </span>
-
-        {/* Select para rol */}
-        <label>
-          Seleccionar Rol
-          <br />
-          <select name="role" value={formData.role} onChange={handleChange} className="select-role">
-            <option value="user">Operador</option>
-            <option value="admin">Administrador</option>
-          </select>
-        </label>
-
-        {/* Select para operador */}
-        <label>
-          Seleccionar Operador
-          <br />
-          <select name="operator" value={formData.operator?.id} onChange={(e) => setFormData({ ...formData, operator: { id: e.target.value } })} className="select-operator">
-            {operatorData?.results?.map((operator) => (
-              <option key={operator?.id} value={operator?.id}>
-                {operator.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        {/* 
-        <div>
-          <p>imagen de perfil</p>
-          <FileUploadComp />
-        </div>*/}
-        <br />
-
-        <button type="submit" className="btn btn-primary">
-          Actualizar
-        </button>
+      <h2 className="title">Actualizar Usuario</h2>
+      <br />
+      <form onSubmit={handleSubmit} className="dashboard">
+        <aside>
+          <div>
+            <label htmlFor="firstName">Nombre</label>
+            <input type="text" name="firstName" id="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="lastName">Apellido</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="whatsapp">WhatsApp</label>
+            <input type="text" name="whatsapp" id="whatsapp" placeholder="WhatsApp" value={formData.whatsapp} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email" value={formData.email} onChange={handleChange} autoComplete="email" />
+          </div>
+          <div className="password-fields">
+            <label htmlFor="password">Contraseña</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Contraseña"
+              value={formData.password || ""}
+              onChange={handleChange}
+              autoComplete="password"
+            />
+            <span type="button" onClick={() => setShowPassword(!showPassword)} className="toggle-password">
+              {showPassword ? <i className="icon-eye"></i> : <i className="icon-eye-off"></i>}
+            </span>
+            <span type="button" onClick={handleGeneratePassword} className="generate-password" title="Generar contraseña">
+              <i class="fa-solid fa-key"></i>
+            </span>
+          </div>
+          <div>
+            <label>Seleccionar Rol</label>
+            <select name="role" value={formData.role} onChange={handleChange} className="select-role">
+              <option value="user">Operador</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div>
+          <div>
+            <label>Seleccionar Operador</label>
+            <select name="operator" value={formData.operator?.id} onChange={(e) => setFormData({ ...formData, operator: { id: e.target.value } })} className="select-operator">
+              {operatorData?.results?.map((operator) => (
+                <option key={operator?.id} value={operator?.id}>
+                  {operator.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <button type="submit" className="btn btn-primary">
+              Actualizar
+            </button>
+          </div>
+        </aside>
       </form>
     </div>
   );

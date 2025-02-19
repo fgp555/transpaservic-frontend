@@ -40,7 +40,7 @@ const OperatorListPage = () => {
     setFilters((prevFilters) => ({
       ...prevFilters,
       [name]: value,
-      page: name === 'search' ? 1 : prevFilters.page, // Restablece la página a 1 si el campo de búsqueda cambia
+      page: name === "search" ? 1 : prevFilters.page, // Restablece la página a 1 si el campo de búsqueda cambia
     }));
   };
 
@@ -94,21 +94,21 @@ const OperatorListPage = () => {
     <div className="OperatorListPage">
       <h1>Lista de Operadores</h1>
       <br />
-      <form>
+      <form className="dashboard">
         {/* Mostrar el total de elementos encontrados */}
         <section className="filters">
           {/* Buscador */}
-          <input type="text" name="search" placeholder="Buscar..." value={filters.search} onChange={handleFilterChange} className="border p-2" />
+          <input type="text" name="search" placeholder="Buscar..." value={filters.search} onChange={handleFilterChange} />
 
           {/* Input para cambiar el límite */}
-          <input type="number" id="limit" name="limit" value={filters.limit} onChange={handleLimitChange} className="border p-2 w-20" min="1" />
+          <input type="number" id="limit" name="limit" value={filters.limit} onChange={handleLimitChange} min="1" />
           {/* Botón Limpiar Búsqueda */}
-          <button onClick={handleClearSearch} className="ml-2 p-2 border bg-gray-200">
+          <button onClick={handleClearSearch} className="btn btn-primary">
             Limpiar Búsqueda
           </button>
         </section>
-        <p>{operatorData.total} Operadores encontrados</p>
       </form>
+      <p>{operatorData.total} Operadores encontrados</p>
       {/* <pre>{JSON.stringify(operatorData, null, 2)}</pre> */}
       <OperatorTableRespoComp data={operatorData} fetchOperators={getAllOperator} />
       {renderPagination()}

@@ -1,13 +1,10 @@
-// src\_home\operator\create\OperatorCreatePage.jsx
-
+import "./OperatorCreatePage.css";
+import { isDevelopment } from "../../../../utils/apiBaseURL";
+import { operatorService } from "../../../../services/apiOperator";
+import { useNavigate } from "react-router-dom";
+import { validateOperatorForm } from "./utils/validateOperatorForm";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import { operatorService } from "../../../../services/apiOperator";
-import "./OperatorCreatePage.css";
-import FileUploadComp from "../../_components/FileUploadComp/FileUploadComp";
-import { isDevelopment } from "../../../../utils/apiBaseURL";
-import { validateOperatorForm } from "./utils/validateOperatorForm";
 
 let dataDev;
 if (isDevelopment) {
@@ -61,40 +58,43 @@ const OperatorCreatePage = () => {
 
   return (
     <div className="OperatorCreatePage">
-      <h2>Crear Operador</h2>
-      <form /* onSubmit={handleSubmit} */>
-        <div>
-          <label>Nombre</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Ingrese el nombre del Operador" />
-          {errors.name && <p className="error">{errors.name}</p>}
-        </div>
-        <div>
-          <label>WhatsApp</label>
-          <input type="text" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required placeholder="Ingrese el número de WhatsApp" />
-          {errors.whatsapp && <p className="error">{errors.whatsapp}</p>}
-        </div>
-        <div>
-          <label>Email</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="Ingrese el correo electrónico" />
-          {errors.email && <p className="error">{errors.email}</p>}
-        </div>
-        <div>
-          <label>Sitio Web</label>
-          <input type="url" name="website" value={formData.website} onChange={handleChange} required placeholder="Ingrese el sitio web" />
-          {errors.website && <p className="error">{errors.website}</p>}
-        </div>
-        {/* <div>
+      <h1 className="title">Crear Operador</h1>
+      <br />
+      <form /* onSubmit={handleSubmit} */ className="dashboard">
+        <aside>
+          <div>
+            <label>Nombre</label>
+            <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Ingrese el nombre del Operador" />
+            {errors.name && <p className="error">{errors.name}</p>}
+          </div>
+          <div>
+            <label>WhatsApp</label>
+            <input type="text" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required placeholder="Ingrese el número de WhatsApp" />
+            {errors.whatsapp && <p className="error">{errors.whatsapp}</p>}
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="Ingrese el correo electrónico" />
+            {errors.email && <p className="error">{errors.email}</p>}
+          </div>
+          <div>
+            <label>Sitio Web</label>
+            <input type="url" name="website" value={formData.website} onChange={handleChange} required placeholder="Ingrese el sitio web" />
+            {errors.website && <p className="error">{errors.website}</p>}
+          </div>
+          {/* <div>
           <p>Logo del Operador</p>
           <FileUploadComp />
         </div> */}
-        <br />
-
-        <div>
-          <button type="button" disabled={loading} onClick={handleSubmit}>
-            {loading ? "Creando..." : "Crear Operador"}
-          </button>
           <br />
-        </div>
+
+          <div>
+            <button type="button" disabled={loading} onClick={handleSubmit} className="btn btn-primary">
+              {loading ? "Creando..." : "Crear Operador"}
+            </button>
+            <br />
+          </div>
+        </aside>
       </form>
     </div>
   );

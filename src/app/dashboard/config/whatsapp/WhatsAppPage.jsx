@@ -96,7 +96,7 @@ const WhatsAppConfigPage = () => {
           <br />
           {deviceInfo?.data.status === "connected" ? (
             <NavLink to={formData?.domain + "/device"} className="btn btn-primary" target="_blank">
-              Desconectar
+              Configuración
             </NavLink>
           ) : (
             <NavLink to={formData?.domain + "/device"} className="btn btn-primary" target="_blank">
@@ -115,12 +115,12 @@ const WhatsAppConfigPage = () => {
               <input type="text" id="apiKeyToken" name="apiKeyToken" value={formData?.apiKeyToken} onChange={handleChange} />
             </div>
             <div>
-              <label htmlFor="secretKey">API Key Token:</label>
+              <label htmlFor="secretKey">Secret Key:</label>
               <input type="text" id="secretKey" name="secretKey" value={formData?.secretKey} onChange={handleChange} />
             </div>
             <div>
               <button className="btn btn-primary" onClick={handleSubmit}>
-                Guardar
+                Guardar Cambios
               </button>
             </div>
           </aside>
