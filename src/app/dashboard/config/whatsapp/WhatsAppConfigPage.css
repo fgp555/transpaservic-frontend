@@ -1,0 +1,36 @@
+.WhatsAppConfigPage {
+  section {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    > aside,
+    > form {
+      flex: 0 1 20rem;
+    }
+  }
+  /* align-items: center; */
+  .connected {
+    color: white;
+    background-color: green;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+  }
+
+  .disconnected {
+    color: white;
+    background-color: red;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+  }
+
+  form {
+    max-width: 500px;
+  }
+  a {
+    text-decoration: none;
+  }
+}
